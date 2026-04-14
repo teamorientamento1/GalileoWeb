@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Programma SummerCamp UniPi 2026</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    :root {
+      --bg: var(--tg-theme-bg-color, #ffffff);
+      --text: var(--tg-theme-text-color, #1a1a1a);
+      --hint: var(--tg-theme-hint-color, #707070);
+      --link: var(--tg-theme-link-color, #2481cc);
+      --btn-bg: var(--tg-theme-button-color, #2481cc);
+      --btn-text: var(--tg-theme-button-text-color, #ffffff);
+      --secondary-bg: var(--tg-theme-secondary-bg-color, #f1f1f1);
+      --section-separator: var(--tg-theme-section-separator-color, #e0e0e0);
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--secondary-bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 24px;
+    }
+
+    /* Header */
+    .header {
+      background: var(--bg);
+      padding: 16px 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    .header h1 {
+      font-size: 17px;
+      font-weight: 700;
+      text-align: center;
+      padding-bottom: 12px;
+      color: var(--text);
+    }
+    .header .subtitle {
+      font-size: 12px;
+      color: var(--hint);
+      text-align: center;
+      padding-bottom: 12px;
+    }
+
+    /* Day tabs */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      padding-bottom: 0;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 10px 8px;
+      border: none;
+      background: transparent;
+      color: var(--hint);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .tab-btn.active {
+      color: var(--btn-bg);
+      border-bottom-color: var(--btn-bg);
+    }
+
+    /* Day view */
+    .day-view { display: none; }
+    .day-view.active { display: block; }
+
+    /* Dept card */
+    .dept-card {
+      background: var(--bg);
+      border-radius: var(--radius);
+      margin: 10px 12px 0;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .dept-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dept-header:active { background: var(--secondary-bg); }
+    .dept-info { flex: 1; min-width: 0; }
+    .dept-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+      word-break: break-word;
+    }
+    .dept-location {
+      font-size: 11px;
+      color: var(--hint);
+      margin-top: 2px;
+    }
+    .dept-chevron {
+      font-size: 12px;
+      color: var(--hint);
+      margin-left: 8px;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .dept-header.open .dept-chevron { transform: rotate(180deg); }
+
+    /* Events list */
+    .events-list {
+      display: none;
+      border-top: 1px solid var(--section-separator);
+    }
+    .events-list.open { display: block; }
+
+    /* Event row */
+    .event-row {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--section-separator);
+    }
+    .event-row:last-child { border-bottom: none; }
+    .event-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .event-time {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--hint);
+      white-space: nowrap;
+      padding-top: 1px;
+      min-width: 90px;
+    }
+    .event-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      flex: 1;
+      line-height: 1.35;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 8px;
+      margin-left: 6px;
+      vertical-align: middle;
+      flex-shrink: 0;
+    }
+    .badge-bookable { background: #e3f4e8; color: #1a7a3c; }
+    .badge-pausa { background: #fff3e0; color: #c47c00; }
+    .badge-pm { background: #f0f4ff; color: #3a5bcc; }
+    .event-activity {
+      margin-top: 5px;
+      margin-left: 100px;
+      font-size: 11.5px;
+      color: var(--hint);
+      line-height: 1.4;
+    }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      gap: 12px;
+      padding: 10px 12px 4px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: var(--hint);
+    }
+    .legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .dot-bookable { background: #1a7a3c; }
+    .dot-pm { background: #3a5bcc; }
+    .dot-pausa { background: #c47c00; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🎓 Programma SummerCamp UniPi</h1>
+  <p class="subtitle">11–12 Giugno 2026 · Università di Pisa</p>
+  <div class="tabs" id="tabs"></div>
+</div>
+
+<div class="legend">
+  <span class="legend-item"><span class="legend-dot dot-bookable"></span>Prenotabile</span>
+  <span class="legend-item"><span class="legend-dot dot-pm"></span>Attività pomeridiana</span>
+  <span class="legend-item"><span class="legend-dot dot-pausa"></span>Pausa pranzo</span>
+</div>
+
+<div id="days-container"></div>
+
+<script>
+const PROGRAMMA = {"programma":[{"giorno":"GIOVEDÌ 11 GIUGNO","data":"2026-06-11","dipartimenti":[{"dipartimento":"DIPARTIMENTO DI CIVILTA' E FORME DEL SAPERE","luogo":"Edificio D - aula D5","eventi":[{"event_id":1,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":2,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":3,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":4,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI FILOLOGIA, LETTERATURA E LINGUISTICA","luogo":"Edificio  D - aula D3","eventi":[{"event_id":5,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":6,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":7,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":8,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI FARMACIA","luogo":"Edificio B - Aula B (piano terra)","eventi":[{"event_id":9,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":10,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":11,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":12,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"SCUOLA DI MEDICINA","luogo":"Edificio B aula A (piano terra)","eventi":[{"event_id":13,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":14,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":15,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":16,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"SCUOLA DI INGEGNERIA","luogo":"Edificio E aula PS1","eventi":[{"event_id":17,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":18,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":19,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":20,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI ECONOMIA E MANAGEMENT","luogo":"Edificio B - Aula G (piano terra)","eventi":[{"event_id":21,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":22,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":23,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":24,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI GIURISPRUDENZA","luogo":"Edificio B - Aula F (piano terra)","eventi":[{"event_id":25,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":26,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":27,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":28,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE POLITICHE","luogo":"Edificio B - Aula N (primo terra)","eventi":[{"event_id":29,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":30,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":31,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":32,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE VETERINARIE","luogo":"Edificio D - Aula D2","eventi":[{"event_id":33,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":34,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":35,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":36,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE AGRARIE, ALIMENTARI E AGRO-AMBIENTALI","luogo":"Edificio D - Aula D4","eventi":[{"event_id":37,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":38,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":39,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":40,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI BIOLOGIA","luogo":"Edificio B - Aula E (piano terra)","eventi":[{"event_id":41,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":42,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":43,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":44,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI CHIMICA E CHIMICA INDUSTRIALE","luogo":"Edificio B - Aula C (piano terra)","eventi":[{"event_id":45,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":46,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":47,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":48,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI FISICA","luogo":"Edificio B - Aula D (piano terra)","eventi":[{"event_id":49,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":50,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":51,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":52,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI INFORMATICA","luogo":"Edificio B - Aula Lab-H (piano terra)","eventi":[{"event_id":53,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":54,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":55,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":56,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI MATEMATICA","luogo":"Edificio B - Lab M (piano terra)","eventi":[{"event_id":57,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":58,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":59,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":60,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE DELLA TERRA","luogo":"Edificio B  - Aula L (piano terra)","eventi":[{"event_id":61,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":62,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":63,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":64,"titolo_blocco":"Pomeriggio – Tour Strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]}]},{"giorno":"VENERDÌ 12 GIUGNO","data":"2026-06-12","dipartimenti":[{"dipartimento":"DIPARTIMENTO DI CIVILTA' E FORME DEL SAPERE","luogo":"Edificio D - aula D5","eventi":[{"event_id":65,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":66,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":67,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":68,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI FILOLOGIA, LETTERATURA E LINGUISTICA","luogo":"Edificio  D - aula D3","eventi":[{"event_id":69,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":70,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":71,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":72,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI FARMACIA","luogo":"Edificio B - Aula B (piano terra)","eventi":[{"event_id":73,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":74,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":75,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":76,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"SCUOLA DI MEDICINA","luogo":"Edificio B aula A (piano terra)","eventi":[{"event_id":77,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":78,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":79,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":80,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"SCUOLA DI INGEGNERIA","luogo":"Edificio E aula PS1","eventi":[{"event_id":81,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:30","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:30","relatori":[]}]},{"event_id":82,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:00","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:00","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":83,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":84,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI ECONOMIA E MANAGEMENT","luogo":"Edificio B - Aula G (piano terra)","eventi":[{"event_id":85,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":86,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":87,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":88,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI GIURISPRUDENZA","luogo":"Edificio B - Aula F (piano terra)","eventi":[{"event_id":89,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":90,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":91,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":92,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE POLITICHE","luogo":"Edificio B - Aula N (primo terra)","eventi":[{"event_id":93,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":94,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":95,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":96,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE VETERINARIE","luogo":"Edificio D - Aula D2","eventi":[{"event_id":97,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":98,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":99,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":100,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE AGRARIE, ALIMENTARI E AGRO-AMBIENTALI","luogo":"Edificio D - Aula D4","eventi":[{"event_id":101,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":102,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":103,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":104,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI BIOLOGIA","luogo":"Edificio B - Aula E (piano terra)","eventi":[{"event_id":105,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":106,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":107,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":108,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI CHIMICA E CHIMICA INDUSTRIALE","luogo":"Edificio B - Aula C (piano terra)","eventi":[{"event_id":109,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":110,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":111,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":112,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI FISICA","luogo":"Edificio B - Aula D (piano terra)","eventi":[{"event_id":113,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":114,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":115,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":116,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI INFORMATICA","luogo":"Edificio B - Aula Lab-H (piano terra)","eventi":[{"event_id":117,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":118,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":119,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":120,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI MATEMATICA","luogo":"Edificio B - Lab M (piano terra)","eventi":[{"event_id":121,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":122,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":123,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":124,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE DELLA TERRA","luogo":"Edificio B  - Aula L (piano terra)","eventi":[{"event_id":125,"titolo_blocco":"Sessione Mattutina 1","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"09:30","orario_fine_attivita":"11:00","relatori":[]}]},{"event_id":126,"titolo_blocco":"Sessione Mattutina 2","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":200,"attivita_incluse":[{"titolo_attivita":"ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial","orario_inizio_attivita":"11:30","orario_fine_attivita":"13:00","relatori":[]}]},{"event_id":127,"titolo_blocco":"Pausa Pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":128,"titolo_blocco":"Pomeriggio – Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[{"titolo_attivita":"chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\"","orario_inizio_attivita":"14:00","orario_fine_attivita":"18:00","relatori":[]}]}]}]}]};
+
+function eventBadge(ev) {
+  if (!ev.prenotabile && ev.titolo_blocco.toLowerCase().includes('pausa'))
+    return '<span class="badge badge-pausa">Pausa</span>';
+  if (!ev.prenotabile)
+    return '<span class="badge badge-pm">Pomeriggio</span>';
+  return '<span class="badge badge-bookable">Prenotabile</span>';
+}
+
+function formatOrario(start, end) {
+  return start + '–' + end;
+}
+
+function cleanTitle(title) {
+  // Beautify generic template titles
+  const map = {
+    'presentazione offerta did dip+seminario/laboratorio/testimonial': 'Presentazione offerta formativa + seminario/lab',
+    'ripetere presentazione offerta did dip+seminario/laboratorio/testimonial': 'Replica presentazione offerta formativa + seminario/lab',
+    'ripetere presentazione offerta did dip+sem/lab/testimonal': 'Replica presentazione offerta formativa + seminario/lab',
+    'chiedi ai tutor/spazio domande tour strutture con partenza da polo fibonacci': 'Q&A con tutor · Tour strutture (partenza Polo Fibonacci)',
+    'chiedi ai tutor/spazio domande + gioco "fibonacci escape room"': 'Q&A con tutor · Fibonacci Escape Room',
+  };
+  const low = title.toLowerCase().trim();
+  return map[low] || title;
+}
+
+function renderActivity(act) {
+  if (!act.titolo_attivita) return '';
+  const title = cleanTitle(act.titolo_attivita);
+  let html = '<div class="event-activity">' + escHtml(title);
+  if (act.relatori && act.relatori.length > 0) {
+    html += '<br><em>' + escHtml(act.relatori.join(', ')) + '</em>';
+  }
+  html += '</div>';
+  return html;
+}
+
+function escHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function renderEvent(ev) {
+  const acts = ev.attivita_incluse.map(renderActivity).join('');
+  return `<div class="event-row">
+    <div class="event-top">
+      <span class="event-time">${formatOrario(ev.orario_inizio, ev.orario_fine)}</span>
+      <span class="event-title">${escHtml(ev.titolo_blocco)}${eventBadge(ev)}</span>
+    </div>
+    ${acts}
+  </div>`;
+}
+
+function renderDept(dept, deptIdx) {
+  const eventsHtml = dept.eventi.map(renderEvent).join('');
+  const bookableCount = dept.eventi.filter(e => e.prenotabile).length;
+  const badgeInfo = bookableCount > 0 ? ` · ${bookableCount} prenotabili` : '';
+  return `<div class="dept-card">
+    <div class="dept-header" onclick="toggleDept(this)" data-idx="${deptIdx}">
+      <div class="dept-info">
+        <div class="dept-name">${escHtml(dept.dipartimento)}</div>
+        <div class="dept-location">📍 ${escHtml(dept.luogo)}${badgeInfo}</div>
+      </div>
+      <span class="dept-chevron">▼</span>
+    </div>
+    <div class="events-list">${eventsHtml}</div>
+  </div>`;
+}
+
+function toggleDept(header) {
+  const list = header.nextElementSibling;
+  const isOpen = list.classList.contains('open');
+  list.classList.toggle('open', !isOpen);
+  header.classList.toggle('open', !isOpen);
+  if (!isOpen && window.Telegram && window.Telegram.WebApp) {
+    window.Telegram.WebApp.HapticFeedback.impactOccurred('light');
+  }
+}
+
+function renderAll() {
+  const tabsEl = document.getElementById('tabs');
+  const containerEl = document.getElementById('days-container');
+
+  PROGRAMMA.programma.forEach((day, i) => {
+    // Tab button
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = day.giorno.replace('GIOVEDÌ', 'Giov').replace('VENERDÌ', 'Ven');
+    btn.onclick = () => switchDay(i);
+    tabsEl.appendChild(btn);
+
+    // Day view
+    const view = document.createElement('div');
+    view.className = 'day-view' + (i === 0 ? ' active' : '');
+    view.id = 'day-' + i;
+    view.innerHTML = day.dipartimenti.map((d, j) => renderDept(d, i + '-' + j)).join('');
+    containerEl.appendChild(view);
+  });
+}
+
+function switchDay(idx) {
+  document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+  document.querySelectorAll('.day-view').forEach((v, i) => v.classList.toggle('active', i === idx));
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.Telegram && window.Telegram.WebApp) {
+    window.Telegram.WebApp.ready();
+    window.Telegram.WebApp.expand();
+  }
+  renderAll();
+});
+</script>
+</body>
+</html>
