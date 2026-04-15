@@ -100,6 +100,13 @@
     .badge-pausa { background: #fff3e0; color: #c47c00; }
     .badge-pm { background: #f0f4ff; color: #3a5bcc; }
 
+    /* Capacity + book row */
+    .book-row { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+    .capienza-label {
+      font-size: 11px; color: var(--text-secondary);
+      padding: 2px 0;
+    }
+
     /* Book button */
     .btn-book {
       display: block; width: 100%; margin-top: 8px;
@@ -196,10 +203,15 @@ function renderEvent(ev, deptName, dayGiorno) {
     a.titolo_attivita ? `<div class="event-activity">${esc(cleanTitle(a.titolo_attivita))}</div>` : ''
   ).join('');
 
+  const capienzaLabel = ev.prenotabile && ev.capienza_massima > 0
+    ? `<span class="capienza-label">🪑 Max ${ev.capienza_massima} posti</span>` : '';
   const bookBtn = ev.prenotabile ? `
-    <button class="btn-book" onclick="openSheet(${ev.event_id}, '${esc(ev.orario_inizio)}–${esc(ev.orario_fine)}', '${esc(deptName)}', '${esc(dayGiorno)}')">
-      📌 Prenota questo slot
-    </button>` : '';
+    <div class="book-row">
+      ${capienzaLabel}
+      <button class="btn-book" onclick="openSheet(${ev.event_id}, '${esc(ev.orario_inizio)}–${esc(ev.orario_fine)}', '${esc(deptName)}', '${esc(dayGiorno)}')">
+        📌 Prenota questo slot
+      </button>
+    </div>` : '';
 
   return `<div class="event-row">
     <div class="event-top">
