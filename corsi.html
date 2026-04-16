@@ -15,9 +15,9 @@
   /* SCREENS */
   .screen { position: fixed; inset: 0; display: flex; flex-direction: column;
     transform: translateX(100%); transition: transform var(--transition); will-change: transform; }
-  .screen.active    { transform: translateX(0); }
+  .screen.active    { transform: translateX(0); z-index: 1; }
   .screen.exit-left { transform: translateX(-28%); }
-  #screen-home { transform: translateX(0); }
+  .screen:not(.active):not(.exit-left) { pointer-events: none; }
 
   /* HOME HEADER */
   .home-header { padding: 16px 16px 8px; flex-shrink: 0; }
@@ -314,7 +314,12 @@ function goTo(fromId, toId){
   f.classList.remove('active');
   t.classList.add('active');
   t.classList.remove('exit-left');
-  setTimeout(()=>f.classList.remove('exit-left'), 380);
+  // Dopo la transizione porta la schermata fuori schermo (destra)
+  setTimeout(()=>{
+    f.classList.remove('exit-left');
+    f.style.transform = 'translateX(100%)';
+    setTimeout(()=>{ f.style.transform = ''; }, 50);
+  }, 380);
 }
 
 function goBack(fromId, toId){
