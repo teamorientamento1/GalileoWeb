@@ -19,6 +19,26 @@
   .screen.exit-left { transform: translateX(-28%); }
   .screen:not(.active):not(.exit-left) { pointer-events: none; }
 
+  /* ── VIDEO INTRO OVERLAY ── */
+  #video-overlay {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  #video-overlay.show {
+    opacity: 1; pointer-events: all;
+  }
+  #video-overlay .vo-bg {
+    position: absolute; inset: 0;
+    transition: background 0.3s;
+  }
+  #video-overlay video {
+    position: relative; z-index: 1;
+    width: 100%; height: 100%;
+    object-fit: contain;
+  }
+
   /* HOME HEADER */
   .home-header { padding: 16px 16px 8px; flex-shrink: 0; }
   .home-header h1 { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; }
@@ -42,10 +62,7 @@
 
   .card-logo { position: relative; z-index: 1; width: 55%; max-width: 86px;
     aspect-ratio: 1; object-fit: contain;
-    filter: brightness(0) invert(1); opacity: 0.88; margin-bottom: 8px;
-    transition: opacity 0.18s; }
-  .card-logo.hidden { opacity: 0; pointer-events: none; position: absolute; }
-  video.card-logo { border-radius: 0; background: transparent; }
+    filter: brightness(0) invert(1); opacity: 0.88; margin-bottom: 8px; }
 
   .card-label { position: relative; z-index: 1; font-size: 10.5px; font-weight: 700;
     text-align: center; color: rgba(255,255,255,0.9); line-height: 1.3;
@@ -123,6 +140,12 @@
 </head>
 <body>
 
+<!-- VIDEO INTRO OVERLAY -->
+<div id="video-overlay">
+  <div class="vo-bg" id="vo-bg"></div>
+  <video id="vo-video" playsinline muted preload="auto"></video>
+</div>
+
 <!-- S1: HOME -->
 <div class="screen active" id="screen-home">
   <div class="home-header">
@@ -136,8 +159,7 @@
 <div class="screen" id="screen-detail">
   <div class="hero" id="hero">
     <div class="hero-bg" id="hero-bg"></div>
-    <img  id="hero-img" src="" alt="" style="display:none;">
-    <video id="hero-vid" playsinline muted preload="auto" style="display:none;"></video>
+    <img id="hero-img" src="" alt="">
     <div class="hero-topbar">
       <button class="btn-back" onclick="goBack('screen-detail','screen-home')">‹</button>
     </div>
@@ -191,8 +213,7 @@ function haptic(t){ if(tg) tg.HapticFeedback.impactOccurred(t||'light'); }
     card.style.setProperty('--card-color', area.colore);
     card.innerHTML =
       '<div class="card-bg"></div>' +
-      '<img  class="card-logo static-logo" src="'+esc(area.logo_statico)+'" alt="'+esc(area.nome)+'" loading="lazy">' +
-      '<video class="card-logo anim-logo hidden" src="'+esc(area.logo_video)+'" playsinline muted preload="none"></video>' +
+      '<img class="card-logo" src="'+esc(area.logo_statico)+'" alt="'+esc(area.nome)+'" loading="lazy">' +
       '<div class="card-label">'+esc(area.nome)+'</div>';
     card.addEventListener('click', () => openArea(area, card));
     grid.appendChild(card);
@@ -204,36 +225,9 @@ function openArea(area, card){
   haptic('medium');
   curArea = area;
 
-  // Swap card logo → animated video
-  const sImg = card.querySelector('.static-logo');
-  const sVid = card.querySelector('.anim-logo');
-  sImg.classList.add('hidden');
-  sVid.classList.remove('hidden');
-  sVid.currentTime = 0;
-  sVid.play().catch(()=>{});
-  sVid.onended = ()=>{ sVid.classList.add('hidden'); sImg.classList.remove('hidden'); };
-
-  // Hero
-  const heroBg  = document.getElementById('hero-bg');
-  const heroImg = document.getElementById('hero-img');
-  const heroVid = document.getElementById('hero-vid');
-  heroBg.style.background = area.colore;
-
-  heroImg.style.display = 'none';
-  heroImg.src = area.logo_statico;
-  heroVid.style.display = 'block';
-  heroVid.src = area.logo_video;
-  heroVid.currentTime = 0;
-  heroVid.play().catch(()=>{
-    heroVid.style.display = 'none';
-    heroImg.style.display = 'block';
-  });
-  heroVid.onended = ()=>{
-    heroVid.style.display = 'none';
-    heroImg.style.display = 'block';
-  };
-
-  // Info
+  // Prepara la schermata detail
+  document.getElementById('hero-bg').style.background = area.colore;
+  document.getElementById('hero-img').src = area.logo_statico;
   document.getElementById('detail-title').textContent = area.nome;
   const total = area.corsi.length;
   document.getElementById('detail-sub').textContent = total + ' corsi disponibili';
@@ -259,7 +253,35 @@ function openArea(area, card){
     container.appendChild(btn);
   });
 
-  goTo('screen-home','screen-detail');
+  // Mostra il video intro a schermo intero, poi apre la schermata
+  playIntroThen(area, () => goTo('screen-home','screen-detail'));
+}
+
+/* ── VIDEO INTRO ── */
+function playIntroThen(area, callback){
+  const overlay = document.getElementById('video-overlay');
+  const bg      = document.getElementById('vo-bg');
+  const vid     = document.getElementById('vo-video');
+
+  bg.style.background = area.colore;
+  vid.src = area.logo_video;
+  vid.currentTime = 0;
+
+  overlay.classList.add('show');
+
+  function finish(){
+    vid.pause();
+    overlay.classList.remove('show');
+    vid.src = '';
+    callback();
+  }
+
+  vid.onended = finish;
+
+  // Tap per saltare
+  overlay.onclick = finish;
+
+  vid.play().catch(finish); // se autoplay bloccato, vai direttamente
 }
 
 /* ── OPEN LEVEL ── */
