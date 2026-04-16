@@ -116,14 +116,40 @@
 
   /* COURSE LIST */
   .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
-    text-transform: uppercase; color: rgba(255,255,255,0.35); margin: 18px 0 8px; }
-  .course-item { display: flex; align-items: center; gap: 11px;
-    padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
-    cursor: pointer; -webkit-tap-highlight-color: transparent; }
-  .course-item:active { opacity: 0.55; }
-  .ci-dot   { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-  .ci-name  { flex: 1; font-size: 14px; font-weight: 500; line-height: 1.35; color: rgba(255,255,255,0.88); }
-  .ci-arrow { font-size: 14px; color: rgba(255,255,255,0.22); flex-shrink: 0; }
+    text-transform: uppercase; color: rgba(255,255,255,0.35); margin: 18px 0 10px; }
+
+  .course-card {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.12s, transform 0.1s;
+  }
+  .course-card:active { background: rgba(255,255,255,0.12); transform: scale(0.98); }
+
+  .cc-accent {
+    width: 4px; min-height: 44px; border-radius: 4px;
+    flex-shrink: 0; align-self: stretch;
+  }
+  .cc-body { flex: 1; min-width: 0; }
+  .cc-name {
+    font-size: 15px; font-weight: 700; line-height: 1.35;
+    color: #fff; margin-bottom: 6px;
+  }
+  .cc-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .cc-chip {
+    font-size: 11px; font-weight: 600;
+    padding: 2px 8px; border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.65);
+    white-space: nowrap;
+  }
+  .cc-chip.accent { color: var(--chip-color); background: var(--chip-bg); }
+  .cc-arrow { font-size: 18px; color: rgba(255,255,255,0.2); flex-shrink: 0; }
 
   /* COURSE DETAIL */
   .cd-title { font-size: 20px; font-weight: 800; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 8px; }
@@ -284,6 +310,19 @@ function playIntroThen(area, callback){
   vid.play().catch(finish); // se autoplay bloccato, vai direttamente
 }
 
+/* ── HELPERS ── */
+function parseDurata(desc){
+  const m = desc && desc.match(/(\d+)\s+anni/i);
+  return m ? m[1]+' anni' : null;
+}
+function parseAccesso(desc){
+  if (!desc) return null;
+  if (/accesso programmato nazionale/i.test(desc)) return 'prog. naz.';
+  if (/accesso programmato/i.test(desc)) return 'accesso prog.';
+  if (/accesso libero/i.test(desc)) return 'accesso libero';
+  return null;
+}
+
 /* ── OPEN LEVEL ── */
 function openLevel(tipo){
   haptic('light');
@@ -296,17 +335,35 @@ function openLevel(tipo){
     TIPO_LABEL[tipo]+' · '+area.nome.split(',')[0];
 
   const panel = document.getElementById('courses-list');
-  panel.innerHTML = '<div class="section-label">'+corsi.length+(corsi.length===1?' corso':' corsi')+'</div>';
+  // Colore accent chip
+  const chipColor = area.colore;
+  const chipBg    = area.colore + '33';
+
+  panel.innerHTML = '<div class="section-label">'+
+    corsi.length+(corsi.length===1?' corso':' corsi')+'</div>';
+
   corsi.forEach(c=>{
-    const item = document.createElement('div');
-    item.className = 'course-item';
-    item.innerHTML =
-      '<div class="ci-dot" style="background:'+area.colore+';"></div>'+
-      '<div class="ci-name">'+esc(c.nome)+'</div>'+
-      '<div class="ci-arrow">›</div>';
-    item.addEventListener('click', ()=>openCourse(c));
-    panel.appendChild(item);
+    const durata  = parseDurata(c.descrizione);
+    const accesso = parseAccesso(c.descrizione);
+
+    const chips = [
+      durata  ? `<span class="cc-chip accent" style="--chip-color:${chipColor};--chip-bg:${chipBg};">⏱ ${durata}</span>` : '',
+      accesso ? `<span class="cc-chip">${accesso}</span>` : '',
+    ].filter(Boolean).join('');
+
+    const card = document.createElement('div');
+    card.className = 'course-card';
+    card.innerHTML =
+      `<div class="cc-accent" style="background:${chipColor};"></div>`+
+      `<div class="cc-body">`+
+        `<div class="cc-name">${esc(c.nome)}</div>`+
+        (chips ? `<div class="cc-chips">${chips}</div>` : '')+
+      `</div>`+
+      `<div class="cc-arrow">›</div>`;
+    card.addEventListener('click', ()=>openCourse(c));
+    panel.appendChild(card);
   });
+
   goTo('screen-detail','screen-courses');
 }
 
