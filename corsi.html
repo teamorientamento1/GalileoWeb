@@ -19,8 +19,9 @@
   .screen { position: fixed; inset: 0; display: flex; flex-direction: column;
     transform: translateX(100%); transition: transform var(--transition); will-change: transform;
     z-index: 0; pointer-events: none; }
-  .screen.active    { transform: translateX(0); z-index: 2; pointer-events: all; }
-  .screen.exit-left { transform: translateX(-28%);  z-index: 1; pointer-events: none; }
+  .screen.active      { transform: translateX(0);    z-index: 2; pointer-events: all; }
+  .screen.exit-left   { transform: translateX(-28%); z-index: 1; pointer-events: none; }
+  .screen.going-right { transform: translateX(100%); z-index: 2; pointer-events: none; }
 
   /* ── EXPAND OVERLAY (morph dal riquadro) ── */
   #expand-overlay {
@@ -444,11 +445,12 @@ function goTo(fromId, toId){
   f.classList.remove('active');
   t.classList.add('active');
   t.classList.remove('exit-left');
-  // Dopo la transizione porta la schermata fuori schermo (destra)
+  // Dopo la transizione riporta la schermata a destra SENZA animarla
   setTimeout(()=>{
-    f.classList.remove('exit-left');
-    f.style.transform = 'translateX(100%)';
-    setTimeout(()=>{ f.style.transform = ''; }, 50);
+    f.style.transition = 'none';          // blocca transizioni
+    f.classList.remove('exit-left');      // torna allo stato di default (.screen = translateX(100%))
+    f.offsetHeight;                       // forza reflow
+    requestAnimationFrame(()=>{ f.style.transition = ''; }); // riabilita
   }, 380);
 }
 
@@ -456,15 +458,20 @@ function goBack(fromId, toId){
   haptic('light');
   const f = document.getElementById(fromId);
   const t = document.getElementById(toId);
+
+  // La schermata corrente scivola via a destra
   f.classList.remove('active');
-  f.style.transform = 'translateX(100%)';
-  t.classList.add('active');
+  f.classList.add('going-right');
+  // La schermata precedente torna al centro da sinistra
   t.classList.remove('exit-left');
-  setTimeout(()=>{ f.style.transform=''; }, 380);
-  if(fromId==='screen-detail'){
-    const v = document.getElementById('hero-vid');
-    v.pause(); v.src='';
-  }
+  t.classList.add('active');
+
+  setTimeout(()=>{
+    f.style.transition = 'none';
+    f.classList.remove('going-right');
+    f.offsetHeight;
+    requestAnimationFrame(()=>{ f.style.transition = ''; });
+  }, 380);
 }
 </script>
 </body>
