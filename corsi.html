@@ -474,8 +474,26 @@ function openCourse(corso){
 
   if(corso.url){
     panel.querySelector('.btn-link').addEventListener('click', function(){
-      if(window.Telegram?.WebApp?.openLink) Telegram.WebApp.openLink(corso.url);
-      else window.open(corso.url, '_blank');
+      const url = corso.url;
+      const doOpen = () => {
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        if(isAndroid){
+          // Intent URL: bypassa Chrome Custom Tabs, apre nel browser di sistema
+          const intentUrl = 'intent://' + url.replace(/^https?:\/\//,'') +
+            '#Intent;scheme=https;action=android.intent.action.VIEW;' +
+            'category=android.intent.category.BROWSABLE;end';
+          window.location.href = intentUrl;
+          // Fallback dopo 500ms se l'intent non parte
+          setTimeout(() => { Telegram.WebApp.openLink(url); }, 500);
+        } else {
+          Telegram.WebApp.openLink(url);
+        }
+      };
+      if(window.Telegram?.WebApp?.showConfirm){
+        Telegram.WebApp.showConfirm('Aprire il sito di UniPi nel browser?', ok => { if(ok) doOpen(); });
+      } else {
+        doOpen();
+      }
     });
     panel.querySelector('.btn-copy').addEventListener('click', function(){
       const btn = this;
