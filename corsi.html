@@ -186,11 +186,18 @@
     padding: 3px 10px; border-radius: 20px; margin-bottom: 20px;
     text-transform: uppercase; letter-spacing: 0.5px; }
   .cd-desc  { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.72); white-space: pre-line; }
-  .btn-link { display: block; width: 100%; margin-top: 26px; padding: 15px;
+  .btn-row { display: flex; gap: 10px; margin-top: 26px; }
+  .btn-link { flex: 1; padding: 15px 10px;
     border: none; border-radius: 14px; font-size: 15px; font-weight: 700;
     text-align: center; text-decoration: none; color: #fff; cursor: pointer;
     -webkit-tap-highlight-color: transparent; }
+  .btn-copy { flex: 0 0 auto; padding: 15px 16px;
+    border: none; border-radius: 14px; font-size: 15px; font-weight: 700;
+    background: rgba(255,255,255,0.1); color: #fff; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; transition: background 0.15s; }
+  .btn-copy.copied { background: #2a7a2a; }
   .btn-link:active { opacity: 0.8; }
+  .btn-copy:active { opacity: 0.7; }
 </style>
 </head>
 <body>
@@ -457,16 +464,34 @@ function openCourse(corso){
     '<div class="cd-title">'+esc(corso.nome)+'</div>'+
     '<span class="cd-badge" style="background:'+bg+'33;color:'+bg+';">'+TIPO_LABEL[corso.tipo]+'</span>'+
     '<div class="cd-desc">'+esc(corso.descrizione||'Nessuna descrizione disponibile.')+'</div>'+
-    (corso.url ? '<button class="btn-link" style="background:'+area.colore+';">Vai al sito UniPi →</button>' : '');
+    (corso.url ?
+      '<div class="btn-row">'+
+        '<button class="btn-link" style="background:'+area.colore+';">Vai al sito UniPi →</button>'+
+        '<button class="btn-copy" title="Copia link">📋</button>'+
+      '</div>' : '');
 
-  // Usa addEventListener per passare l'URL senza problemi di escaping
+  panel.scrollTop = 0;
+
   if(corso.url){
-    const btn = panel.querySelector('.btn-link');
-    btn.addEventListener('click', function(){
-      if(window.Telegram && Telegram.WebApp && Telegram.WebApp.openLink)
-        Telegram.WebApp.openLink(corso.url);
-      else
-        window.open(corso.url, '_blank');
+    panel.querySelector('.btn-link').addEventListener('click', function(){
+      if(window.Telegram?.WebApp?.openLink) Telegram.WebApp.openLink(corso.url);
+      else window.open(corso.url, '_blank');
+    });
+    panel.querySelector('.btn-copy').addEventListener('click', function(){
+      const btn = this;
+      navigator.clipboard.writeText(corso.url).then(() => {
+        btn.textContent = '✅';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '📋'; btn.classList.remove('copied'); }, 2000);
+      }).catch(() => {
+        // Fallback per browser senza clipboard API
+        const ta = document.createElement('textarea');
+        ta.value = corso.url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.textContent = '✅'; btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '📋'; btn.classList.remove('copied'); }, 2000);
+      });
     });
   }
 
