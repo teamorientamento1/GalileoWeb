@@ -6,7 +6,7 @@
       "colore": "#2d6a4f",
       "colore_testo": "#ffffff",
       "logo_statico": "assets/loghi/unipi_logo.png",
-      "logo_video": "assets/video/unipi_intro.mp4",
+      "logo_video": "assets/video/unipi_verde.mp4",
       "corsi": [
         {
           "nome": "Medicina Veterinaria (Ciclo unico)",
@@ -82,7 +82,7 @@
       "colore": "#5c3474",
       "colore_testo": "#ffffff",
       "logo_statico": "assets/loghi/unipi_logo.png",
-      "logo_video": "assets/video/unipi_intro.mp4",
+      "logo_video": "assets/video/unipi_magenta.mp4",
       "corsi": [
         {
           "nome": "Scienze della Formazione Primaria (Ciclo unico)",
@@ -224,7 +224,7 @@
       "colore": "#1a2637",
       "colore_testo": "#ffffff",
       "logo_statico": "assets/loghi/unipi_logo.png",
-      "logo_video": "assets/video/unipi_intro.mp4",
+      "logo_video": "assets/video/unipi_blu.mp4",
       "corsi": [
         {
           "nome": "Ingegneria Edile-Architettura (Ciclo unico)",
@@ -444,7 +444,7 @@
       "colore": "#9b1c1c",
       "colore_testo": "#ffffff",
       "logo_statico": "assets/loghi/unipi_logo.png",
-      "logo_video": "assets/video/unipi_intro.mp4",
+      "logo_video": "assets/video/unipi_rosso.mp4",
       "corsi": [
         {
           "nome": "Chimica e Tecnologie Farmaceutiche (Ciclo unico)",
@@ -622,7 +622,7 @@
       "colore": "#7a5900",
       "colore_testo": "#ffffff",
       "logo_statico": "assets/loghi/unipi_logo.png",
-      "logo_video": "assets/video/unipi_intro.mp4",
+      "logo_video": "assets/video/unipi_giallo.mp4",
       "corsi": [
         {
           "nome": "Giurisprudenza (Ciclo unico)",
@@ -782,7 +782,7 @@
       "colore": "#1a4a7a",
       "colore_testo": "#ffffff",
       "logo_statico": "assets/loghi/unipi_logo.png",
-      "logo_video": "assets/video/unipi_intro.mp4",
+      "logo_video": "assets/video/unipi_azzurro.mp4",
       "corsi": [
         {
           "nome": "Biologia Applicata alla Medicina",
