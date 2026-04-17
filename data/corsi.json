@@ -5,7 +5,7 @@
       "nome": "Agraria e Veterinaria",
       "colore": "#2d6a4f",
       "colore_testo": "#ffffff",
-      "logo_statico": "assets/loghi/unipi_logo.png",
+      "logo_statico": "assets/loghi/agraria.png",
       "logo_video": "assets/video/unipi_verde.mp4",
       "corsi": [
         {
@@ -81,7 +81,7 @@
       "nome": "Discipline Umanistiche",
       "colore": "#5c3474",
       "colore_testo": "#ffffff",
-      "logo_statico": "assets/loghi/unipi_logo.png",
+      "logo_statico": "assets/loghi/umanistiche.png",
       "logo_video": "assets/video/unipi_magenta.mp4",
       "corsi": [
         {
@@ -223,7 +223,7 @@
       "nome": "Ingegneria",
       "colore": "#1a2637",
       "colore_testo": "#ffffff",
-      "logo_statico": "assets/loghi/unipi_logo.png",
+      "logo_statico": "assets/loghi/ingegneria.png",
       "logo_video": "assets/video/unipi_blu.mp4",
       "corsi": [
         {
@@ -443,7 +443,7 @@
       "nome": "Medicina e Farmacia",
       "colore": "#9b1c1c",
       "colore_testo": "#ffffff",
-      "logo_statico": "assets/loghi/unipi_logo.png",
+      "logo_statico": "assets/loghi/medicina.png",
       "logo_video": "assets/video/unipi_rosso.mp4",
       "corsi": [
         {
@@ -621,7 +621,7 @@
       "nome": "Scienze Giuridiche, Economiche e Sociali",
       "colore": "#7a5900",
       "colore_testo": "#ffffff",
-      "logo_statico": "assets/loghi/unipi_logo.png",
+      "logo_statico": "assets/loghi/giuridiche.png",
       "logo_video": "assets/video/unipi_giallo.mp4",
       "corsi": [
         {
@@ -781,7 +781,7 @@
       "nome": "Scienze Matematiche, Fisiche e Naturali",
       "colore": "#1a4a7a",
       "colore_testo": "#ffffff",
-      "logo_statico": "assets/loghi/unipi_logo.png",
+      "logo_statico": "assets/loghi/scienze.png",
       "logo_video": "assets/video/unipi_azzurro.mp4",
       "corsi": [
         {
