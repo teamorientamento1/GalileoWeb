@@ -366,7 +366,11 @@ function expandAndPlay(area, card, callback){
   }, 420);
 
   function finish(){
-    // Fade out overlay → rivela la detail screen già in place
+    // 1. Prima cambia le schermate (istantaneamente, dietro l'overlay)
+    //    Così quando l'overlay fa fade-out si rivela la detail, non la home
+    callback();
+
+    // 2. Poi fa il fade-out dell'overlay per rivelare la detail
     overlay.style.transition = 'opacity 0.28s ease';
     overlay.style.opacity    = '0';
     setTimeout(() => {
@@ -374,7 +378,6 @@ function expandAndPlay(area, card, callback){
       overlay.style.cssText = '';
       vid.pause(); vid.src = '';
       vid.classList.remove('visible');
-      callback();
     }, 290);
   }
 
