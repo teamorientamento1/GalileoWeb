@@ -180,24 +180,73 @@
   .cc-chip.accent { color: var(--chip-color); background: var(--chip-bg); }
   .cc-arrow { font-size: 18px; color: rgba(255,255,255,0.2); flex-shrink: 0; }
 
-  /* COURSE DETAIL */
-  .cd-title { font-size: 20px; font-weight: 800; line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 8px; }
-  .cd-badge { display: inline-block; font-size: 11px; font-weight: 700;
-    padding: 3px 10px; border-radius: 20px; margin-bottom: 20px;
-    text-transform: uppercase; letter-spacing: 0.5px; }
-  .cd-desc  { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.72); white-space: pre-line; }
-  .btn-row { display: flex; gap: 10px; margin-top: 26px; }
-  .btn-link { flex: 1; padding: 15px 10px;
-    border: none; border-radius: 14px; font-size: 15px; font-weight: 700;
-    text-align: center; text-decoration: none; color: #fff; cursor: pointer;
+  /* ── COURSE DETAIL ── */
+  .cd-header { flex-shrink: 0; padding: 18px 16px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .cd-accent { width: 38px; height: 4px; border-radius: 3px; margin-bottom: 13px; }
+  .cd-area-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
+    text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 8px; }
+  .cd-title { font-size: 21px; font-weight: 800; line-height: 1.25;
+    letter-spacing: -0.4px; color: #fff; margin-bottom: 12px; }
+  .cd-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .cd-chip { font-size: 11px; font-weight: 600; padding: 4px 11px; border-radius: 20px;
+    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); }
+  .cd-chip.ac { color: var(--cc); background: var(--ccbg); }
+
+  .cd-body { flex: 1; overflow-y: auto; padding: 16px 16px 0;
+    -webkit-overflow-scrolling: touch; }
+  .cd-body::-webkit-scrollbar { display: none; }
+  .cd-section-lbl { font-size: 10px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 10px; }
+  .cd-desc { font-size: 15px; line-height: 1.85; color: rgba(255,255,255,0.8);
+    padding-bottom: 20px; }
+
+  /* ACTION BAR */
+  .cd-bar { flex-shrink: 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+    background: rgba(15,17,23,0.97);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    display: flex; flex-direction: column; gap: 8px; }
+  .cd-bar-row { display: flex; gap: 8px; }
+  .cd-action { flex: 1; padding: 10px 4px 8px; border: none; border-radius: 12px;
+    background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.75);
+    font-size: 11px; font-weight: 600; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    -webkit-tap-highlight-color: transparent; transition: background 0.12s, color 0.12s; }
+  .cd-action .ico { font-size: 18px; line-height: 1; }
+  .cd-action:active { background: rgba(255,255,255,0.14); }
+  .cd-action.lit { background: rgba(255,255,255,0.14); color: #fff; }
+  .cd-btn-main { width: 100%; padding: 14px; border: none; border-radius: 13px;
+    font-size: 15px; font-weight: 700; color: #fff; cursor: pointer;
     -webkit-tap-highlight-color: transparent; }
-  .btn-copy { flex: 0 0 auto; padding: 15px 16px;
-    border: none; border-radius: 14px; font-size: 15px; font-weight: 700;
-    background: rgba(255,255,255,0.1); color: #fff; cursor: pointer;
-    -webkit-tap-highlight-color: transparent; transition: background 0.15s; }
-  .btn-copy.copied { background: #2a7a2a; }
-  .btn-link:active { opacity: 0.8; }
-  .btn-copy:active { opacity: 0.7; }
+  .cd-btn-main:active { opacity: 0.8; }
+
+  /* TOPBAR EXTRAS */
+  .topbar-end { margin-left: auto; display: flex; gap: 5px; }
+  .tb-btn { background: rgba(255,255,255,0.08); border: none; border-radius: 8px;
+    min-width: 30px; height: 30px; padding: 0 6px;
+    font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.7); cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    -webkit-tap-highlight-color: transparent; }
+  .tb-btn.on { background: rgba(255,235,50,0.22); color: #ffe; }
+
+  /* HIGH CONTRAST */
+  body.hi-con .screen  { background: #000; }
+  body.hi-con .topbar  { background: #111; border-bottom: 1px solid #fff; }
+  body.hi-con .cd-header { background: #000; border-color: #555; }
+  body.hi-con .cd-area-tag { color: #aaa; }
+  body.hi-con .cd-desc { color: #fff; }
+  body.hi-con .cd-chip { background: #222; color: #ddd; }
+  body.hi-con .cd-bar  { background: #000; border-color: #555; }
+  body.hi-con .cd-action { background: #1a1a1a; color: #eee; border: 1px solid #444; }
+  body.hi-con .cd-btn-main { filter: brightness(1.25); }
+  body.hi-con .level-btn   { background: #111; border-color: #555; color: #fff; }
+  body.hi-con .course-card { background: #111; border-color: #555; }
+  body.hi-con .home-header p, body.hi-con .lv-count,
+  body.hi-con .cc-arrow, body.hi-con .area-subtitle { color: #aaa; }
+
+  /* FONT SIZE */
+  body.fsz-lg .cd-desc { font-size: 17px; line-height: 1.95; }
+  body.fsz-xl .cd-desc { font-size: 19px; line-height: 2.05; }
 </style>
 </head>
 <body>
@@ -246,8 +295,14 @@
   <div class="topbar">
     <button class="btn-back" onclick="goBack('screen-course','screen-courses')">‹</button>
     <span class="topbar-title" id="course-topbar-title"></span>
+    <div class="topbar-end">
+      <button class="tb-btn" id="btn-hc"  onclick="toggleContrast()" title="Alto contrasto">⬡</button>
+      <button class="tb-btn" id="btn-fs"  onclick="toggleFontSize()"  title="Dimensione testo">Aa</button>
+    </div>
   </div>
-  <div class="panel" id="course-panel"></div>
+  <div class="cd-header" id="cd-header"></div>
+  <div class="cd-body"   id="cd-body"></div>
+  <div class="cd-bar"    id="cd-bar"></div>
 </div>
 
 <script>
@@ -456,61 +511,130 @@ function openCourse(corso){
   const area = curArea;
   document.getElementById('course-topbar-title').textContent = TIPO_LABEL[corso.tipo];
 
-  const badgeBg = { triennale:'#1a4a7a', ciclo_unico:'#5c3474', magistrale:'#7a5900' };
-  const bg = badgeBg[corso.tipo] || area.colore;
+  // Ferma eventuale sintesi vocale precedente
+  if(window.speechSynthesis) speechSynthesis.cancel();
 
-  const panel = document.getElementById('course-panel');
-  panel.innerHTML =
-    '<div class="cd-title">'+esc(corso.nome)+'</div>'+
-    '<span class="cd-badge" style="background:'+bg+'33;color:'+bg+';">'+TIPO_LABEL[corso.tipo]+'</span>'+
-    '<div class="cd-desc">'+esc(corso.descrizione||'Nessuna descrizione disponibile.')+'</div>'+
-    (corso.url ?
-      '<div class="btn-row">'+
-        '<button class="btn-link" style="background:'+area.colore+';">Vai al sito UniPi →</button>'+
-        '<button class="btn-copy" title="Copia link">📋</button>'+
-      '</div>' : '');
+  // ── HEADER ──
+  const durata  = parseDurata(corso.descrizione);
+  const accesso = parseAccesso(corso.descrizione);
+  const chips = [
+    `<span class="cd-chip ac" style="--cc:${area.colore};--ccbg:${area.colore}28;">${TIPO_LABEL[corso.tipo]}</span>`,
+    durata  ? `<span class="cd-chip">⏱ ${durata}</span>` : '',
+    accesso ? `<span class="cd-chip">${esc(accesso)}</span>` : '',
+  ].filter(Boolean).join('');
 
-  panel.scrollTop = 0;
+  document.getElementById('cd-header').innerHTML =
+    `<div class="cd-accent" style="background:${area.colore};"></div>`+
+    `<div class="cd-area-tag">${esc(area.nome)}</div>`+
+    `<div class="cd-title">${esc(corso.nome)}</div>`+
+    `<div class="cd-chips">${chips}</div>`;
 
-  if(corso.url){
-    panel.querySelector('.btn-link').addEventListener('click', function(){
-      const url = corso.url;
-      const doOpen = () => {
-        // Crea un <a> e simulane il click: su Android viene gestito
-        // come intent e apre il browser di sistema (Brave, Chrome, ecc.)
-        const a = document.createElement('a');
-        a.href = url;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+  // ── BODY ──
+  const body = document.getElementById('cd-body');
+  body.innerHTML =
+    `<div class="cd-section-lbl">Descrizione</div>`+
+    `<div class="cd-desc">${esc(corso.descrizione||'Nessuna descrizione disponibile.')}</div>`;
+  body.scrollTop = 0;
+
+  // ── ACTION BAR ──
+  const bar = document.getElementById('cd-bar');
+  bar.innerHTML =
+    `<div class="cd-bar-row">`+
+      `<button class="cd-action" id="btn-speak"><span class="ico">🔊</span>Leggi</button>`+
+      `<button class="cd-action" id="btn-share"><span class="ico">📤</span>Condividi</button>`+
+      `<button class="cd-action" id="btn-cpy"><span class="ico">📋</span>Copia link</button>`+
+    `</div>`+
+    (corso.url ? `<button class="cd-btn-main" id="btn-site" style="background:${area.colore};">Vai al sito UniPi →</button>` : '');
+
+  // 🔊 Sintesi vocale
+  let speaking = false;
+  document.getElementById('btn-speak').addEventListener('click', function(){
+    if(!window.speechSynthesis){ haptic('medium'); return; }
+    if(speaking){
+      speechSynthesis.cancel(); speaking = false;
+      this.classList.remove('lit');
+      this.innerHTML = '<span class="ico">🔊</span>Leggi';
+    } else {
+      const testo = corso.nome + '. ' + (corso.descrizione||'');
+      const utt = new SpeechSynthesisUtterance(testo);
+      utt.lang = 'it-IT'; utt.rate = 0.88;
+      utt.onend = () => {
+        speaking = false;
+        const b = document.getElementById('btn-speak');
+        if(b){ b.classList.remove('lit'); b.innerHTML='<span class="ico">🔊</span>Leggi'; }
       };
-      if(window.Telegram?.WebApp?.showConfirm){
-        Telegram.WebApp.showConfirm('Aprire il sito di UniPi nel browser?', ok => { if(ok) doOpen(); });
-      } else {
-        doOpen();
-      }
+      speechSynthesis.speak(utt);
+      speaking = true;
+      this.classList.add('lit');
+      this.innerHTML = '<span class="ico">⏹</span>Stop';
+    }
+  });
+
+  // 📤 Condividi
+  document.getElementById('btn-share').addEventListener('click', async function(){
+    const shareData = { title: corso.nome, text: corso.descrizione||'', url: corso.url||'' };
+    if(navigator.share){
+      try { await navigator.share(shareData); } catch(e){}
+    } else {
+      // Fallback: copia URL
+      const url = corso.url || location.href;
+      try { await navigator.clipboard.writeText(url); } catch(e){}
+      this.innerHTML = '<span class="ico">✅</span>Copiato';
+      setTimeout(()=>{ this.innerHTML='<span class="ico">📤</span>Condividi'; }, 2000);
+    }
+  });
+
+  // 📋 Copia link
+  document.getElementById('btn-cpy').addEventListener('click', function(){
+    const url = corso.url || location.href;
+    const done = () => {
+      this.innerHTML = '<span class="ico">✅</span>Copiato!';
+      this.classList.add('lit');
+      setTimeout(()=>{ this.innerHTML='<span class="ico">📋</span>Copia link'; this.classList.remove('lit'); }, 2000);
+    };
+    navigator.clipboard.writeText(url).then(done).catch(()=>{
+      const ta = document.createElement('textarea');
+      ta.value = url; ta.style.cssText='position:fixed;opacity:0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      done();
     });
-    panel.querySelector('.btn-copy').addEventListener('click', function(){
-      const btn = this;
-      navigator.clipboard.writeText(corso.url).then(() => {
-        btn.textContent = '✅';
-        btn.classList.add('copied');
-        setTimeout(() => { btn.textContent = '📋'; btn.classList.remove('copied'); }, 2000);
-      }).catch(() => {
-        // Fallback per browser senza clipboard API
-        const ta = document.createElement('textarea');
-        ta.value = corso.url; ta.style.position = 'fixed'; ta.style.opacity = '0';
-        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
-        document.body.removeChild(ta);
-        btn.textContent = '✅'; btn.classList.add('copied');
-        setTimeout(() => { btn.textContent = '📋'; btn.classList.remove('copied'); }, 2000);
-      });
+  });
+
+  // 🌐 Vai al sito
+  if(corso.url){
+    document.getElementById('btn-site').addEventListener('click', function(){
+      if(window.Telegram?.WebApp?.showConfirm)
+        Telegram.WebApp.showConfirm('Aprire il sito di UniPi?', ok => { if(ok) Telegram.WebApp.openLink(corso.url); });
+      else window.open(corso.url,'_blank');
     });
   }
 
   goTo('screen-courses','screen-course');
+}
+
+/* ── ALTO CONTRASTO ── */
+(function(){
+  if(localStorage.getItem('hi-con')==='1') document.body.classList.add('hi-con');
+  const fsz = localStorage.getItem('fsz');
+  if(fsz && fsz!=='md') document.body.classList.add('fsz-'+fsz);
+})();
+
+function toggleContrast(){
+  const on = document.body.classList.toggle('hi-con');
+  localStorage.setItem('hi-con', on?'1':'0');
+  const b = document.getElementById('btn-hc'); if(b) b.classList.toggle('on', on);
+}
+
+/* ── DIMENSIONE TESTO ── */
+const _FSZ = ['md','lg','xl'];
+const _FSZ_LABEL = {md:'Aa', lg:'A+', xl:'A++'};
+function toggleFontSize(){
+  const cur = _FSZ.find(s=>document.body.classList.contains('fsz-'+s)) || 'md';
+  const next = _FSZ[(_FSZ.indexOf(cur)+1) % _FSZ.length];
+  _FSZ.forEach(s=>document.body.classList.remove('fsz-'+s));
+  if(next!=='md') document.body.classList.add('fsz-'+next);
+  localStorage.setItem('fsz', next);
+  const b = document.getElementById('btn-fs'); if(b) b.textContent = _FSZ_LABEL[next];
 }
 
 /* ── NAV ── */
