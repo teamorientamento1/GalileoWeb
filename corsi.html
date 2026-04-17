@@ -17,10 +17,10 @@
 
   /* SCREENS */
   .screen { position: fixed; inset: 0; display: flex; flex-direction: column;
-    transform: translateX(100%); transition: transform var(--transition); will-change: transform; }
-  .screen.active    { transform: translateX(0); z-index: 1; }
-  .screen.exit-left { transform: translateX(-28%); }
-  .screen:not(.active):not(.exit-left) { pointer-events: none; }
+    transform: translateX(100%); transition: transform var(--transition); will-change: transform;
+    z-index: 0; pointer-events: none; }
+  .screen.active    { transform: translateX(0); z-index: 2; pointer-events: all; }
+  .screen.exit-left { transform: translateX(-28%);  z-index: 1; pointer-events: none; }
 
   /* ── EXPAND OVERLAY (morph dal riquadro) ── */
   #expand-overlay {
