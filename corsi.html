@@ -452,21 +452,25 @@ function openCourse(corso){
   const badgeBg = { triennale:'#1a4a7a', ciclo_unico:'#5c3474', magistrale:'#7a5900' };
   const bg = badgeBg[corso.tipo] || area.colore;
 
-  document.getElementById('course-panel').innerHTML =
+  const panel = document.getElementById('course-panel');
+  panel.innerHTML =
     '<div class="cd-title">'+esc(corso.nome)+'</div>'+
     '<span class="cd-badge" style="background:'+bg+'33;color:'+bg+';">'+TIPO_LABEL[corso.tipo]+'</span>'+
     '<div class="cd-desc">'+esc(corso.descrizione||'Nessuna descrizione disponibile.')+'</div>'+
-    (corso.url ? '<button class="btn-link" onclick="openExternal(\''+esc(corso.url)+'\')" style="background:'+area.colore+';">Vai al sito UniPi →</button>' : '');
+    (corso.url ? '<button class="btn-link" style="background:'+area.colore+';">Vai al sito UniPi →</button>' : '');
+
+  // Usa addEventListener per passare l'URL senza problemi di escaping
+  if(corso.url){
+    const btn = panel.querySelector('.btn-link');
+    btn.addEventListener('click', function(){
+      if(window.Telegram && Telegram.WebApp && Telegram.WebApp.openLink)
+        Telegram.WebApp.openLink(corso.url);
+      else
+        window.open(corso.url, '_blank');
+    });
+  }
 
   goTo('screen-courses','screen-course');
-}
-
-/* ── APRI LINK ESTERNO (browser, non bottom sheet Telegram) ── */
-function openExternal(url){
-  if(window.Telegram && Telegram.WebApp && Telegram.WebApp.openLink)
-    Telegram.WebApp.openLink(url);
-  else
-    window.open(url, '_blank');
 }
 
 /* ── NAV ── */
