@@ -5,421 +5,643 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>AR Scanner – SummerCamp UniPi</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-  body {
-    background: #000;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    overflow: hidden;
-    height: 100dvh;
-    width: 100dvw;
-  }
+:root {
+  --accent:   #00d4ff;
+  --green:    #4ade80;
+  --bg-glass: rgba(10,10,20,.82);
+  --blur:     saturate(180%) blur(18px);
+}
 
-  #video { display: none; }
+body {
+  background: #000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  overflow: hidden;
+  height: 100dvh; width: 100dvw;
+  touch-action: none;
+}
 
-  #canvas {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+/* ── Video fullscreen ── */
+#video {
+  position: fixed; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-  /* ── Overlay UI ── */
-  #ui {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 10;
-  }
+/* ── Canvas sovrapposto (solo per ZXing fallback) ── */
+#canvas { display: none; }
 
-  /* Header */
-  #header {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    padding: 14px 16px 10px;
-    background: linear-gradient(to bottom, rgba(0,0,0,.7), transparent);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  #header img { height: 28px; filter: brightness(0) invert(1); }
-  #header-title {
-    color: #fff;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: .3px;
-  }
-  #header-subtitle { color: rgba(255,255,255,.7); font-size: 11px; }
+/* ── QR highlight SVG ── */
+#qr-highlight {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: visible;
+}
+#qr-rect {
+  fill: none;
+  stroke: var(--green);
+  stroke-width: 3;
+  rx: 8;
+  filter: drop-shadow(0 0 6px var(--green));
+  opacity: 0;
+  transition: opacity .2s;
+}
+#qr-rect.visible { opacity: 1; }
 
-  /* Finder frame */
-  #finder {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -60%);
-    width: min(260px, 65vw);
-    height: min(260px, 65vw);
-  }
-  #finder::before, #finder::after,
-  #finder .corner-br, #finder .corner-bl {
-    content: '';
-    position: absolute;
-    width: 28px; height: 28px;
-    border-color: rgba(255,255,255,.85);
-    border-style: solid;
-  }
-  #finder::before  { top:0;    left:0;  border-width: 3px 0 0 3px; border-radius: 4px 0 0 0; }
-  #finder::after   { top:0;    right:0; border-width: 3px 3px 0 0; border-radius: 0 4px 0 0; }
-  #finder .corner-br { bottom:0; right:0; border-width: 0 3px 3px 0; border-radius: 0 0 4px 0; }
-  #finder .corner-bl { bottom:0; left:0;  border-width: 0 0 3px 3px; border-radius: 0 0 0 4px; }
+/* ── Header ── */
+#header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+  padding: 16px 16px 24px;
+  background: linear-gradient(to bottom, rgba(0,0,0,.75) 60%, transparent);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.hdr-left { display: flex; align-items: center; gap: 10px; }
+.hdr-title { color:#fff; font-size:15px; font-weight:700; }
+.hdr-sub   { color:rgba(255,255,255,.6); font-size:11px; }
 
-  #scan-line {
-    position: absolute;
-    left: 6px; right: 6px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #00d4ff, transparent);
-    border-radius: 2px;
-    animation: scan 2.2s ease-in-out infinite;
-    box-shadow: 0 0 8px #00d4ff;
-  }
-  @keyframes scan {
-    0%   { top: 6px;  opacity: 0; }
-    10%  { opacity: 1; }
-    90%  { opacity: 1; }
-    100% { top: calc(100% - 6px); opacity: 0; }
-  }
+/* Torch button */
+#torch-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,.15);
+  border: none; color: #fff; font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .2s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+#torch-btn.active { background: rgba(255,220,0,.35); }
+#torch-btn.hidden { display: none; }
 
-  #hint {
-    position: absolute;
-    bottom: calc(50% - min(130px, 32.5vw) - 36px);
-    left: 50%; transform: translateX(-50%);
-    color: rgba(255,255,255,.75);
-    font-size: 13px;
-    white-space: nowrap;
-    text-shadow: 0 1px 4px rgba(0,0,0,.8);
-  }
+/* ── Viewfinder (solo guida visiva, non limita scan) ── */
+#finder {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -58%);
+  width: min(72vw, 280px);
+  height: min(72vw, 280px);
+  pointer-events: none; z-index: 6;
+  transition: opacity .4s;
+}
+#finder.hidden { opacity: 0; }
 
-  /* ── Info Panel (AR overlay) ── */
-  #info-panel {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 20px 16px 32px;
-    background: linear-gradient(to top, rgba(0,0,0,.92) 80%, transparent);
-    transform: translateY(100%);
-    transition: transform .35s cubic-bezier(.4,0,.2,1);
-    pointer-events: auto;
-  }
-  #info-panel.visible { transform: translateY(0); }
+.corner {
+  position: absolute; width: 26px; height: 26px;
+  border: 3px solid rgba(255,255,255,.8);
+}
+.tl { top:0;    left:0;  border-right:none; border-bottom:none; border-radius: 6px 0 0 0; }
+.tr { top:0;    right:0; border-left:none;  border-bottom:none; border-radius: 0 6px 0 0; }
+.br { bottom:0; right:0; border-left:none;  border-top:none;    border-radius: 0 0 6px 0; }
+.bl { bottom:0; left:0;  border-right:none; border-top:none;    border-radius: 0 0 0 6px; }
 
-  #panel-dept {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 6px;
-  }
-  #panel-emoji { font-size: 26px; }
-  #panel-name  { color: #fff; font-size: 17px; font-weight: 700; line-height: 1.25; }
-  #panel-aula  { color: rgba(255,255,255,.55); font-size: 12px; margin-top: 1px; }
+#scan-line {
+  position: absolute; left: 4px; right: 4px; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent) 70%, transparent);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent);
+  animation: sweep 2s ease-in-out infinite;
+}
+@keyframes sweep {
+  0%   { top:4px;   opacity:0; }
+  8%   { opacity:1; }
+  92%  { opacity:1; }
+  100% { top:calc(100% - 4px); opacity:0; }
+}
 
-  #panel-divider {
-    height: 1px;
-    background: rgba(255,255,255,.15);
-    margin: 10px 0;
-  }
+#hint {
+  position: fixed;
+  bottom: calc(50% - min(36vw,140px) - 44px);
+  left: 50%; transform: translateX(-50%);
+  color: rgba(255,255,255,.7);
+  font-size: 13px; white-space: nowrap;
+  text-shadow: 0 1px 6px rgba(0,0,0,.9);
+  z-index: 6; pointer-events: none;
+  transition: opacity .3s;
+}
+#hint.hidden { opacity: 0; }
 
-  #panel-events { display: flex; flex-direction: column; gap: 8px; }
+/* ── Info card (glassmorphism) ── */
+#card {
+  position: fixed;
+  left: 14px; right: 14px;
+  z-index: 30;
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 20px;
+  padding: 16px 18px 18px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.6);
 
-  .event-row {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .event-time {
-    color: #00d4ff;
-    font-size: 12px;
-    font-weight: 600;
-    min-width: 90px;
-    padding-top: 1px;
-  }
-  .event-title {
-    color: rgba(255,255,255,.9);
-    font-size: 13px;
-    line-height: 1.4;
-  }
-  .event-activity {
-    color: rgba(255,255,255,.55);
-    font-size: 11px;
-    margin-top: 2px;
-  }
+  opacity: 0;
+  transform: scale(.94) translateY(12px);
+  pointer-events: none;
+  transition: opacity .28s cubic-bezier(.4,0,.2,1),
+              transform .28s cubic-bezier(.4,0,.2,1),
+              top .18s ease, bottom .18s ease;
+}
+#card.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
 
-  .event-row.current .event-time  { color: #4ade80; }
-  .event-row.current .event-title { color: #fff; font-weight: 600; }
-  .event-row.current::before {
-    content: '▶';
-    color: #4ade80;
-    font-size: 8px;
-    margin-top: 3px;
-    flex-shrink: 0;
-  }
+/* Card header */
+.card-dept {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 10px;
+}
+.card-emoji { font-size: 30px; flex-shrink: 0; }
+.card-dept-name { color: #fff; font-size: 15px; font-weight: 700; line-height: 1.3; }
+.card-aula      { color: rgba(255,255,255,.5); font-size: 12px; margin-top: 2px; }
 
-  #no-events { color: rgba(255,255,255,.45); font-size: 13px; font-style: italic; }
+.card-divider { height: 1px; background: rgba(255,255,255,.1); margin: 10px 0; }
 
-  /* ── Permission / Loading screens ── */
-  #overlay {
-    position: fixed; inset: 0; z-index: 20;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 18px; padding: 32px;
-    background: #0a0a0f;
-    text-align: center;
-  }
-  #overlay h2 { color: #fff; font-size: 20px; font-weight: 700; }
-  #overlay p  { color: rgba(255,255,255,.6); font-size: 14px; line-height: 1.6; }
-  #start-btn {
-    margin-top: 8px;
-    padding: 14px 32px;
-    background: linear-gradient(135deg, #0066cc, #00a8ff);
-    color: #fff;
-    border: none; border-radius: 12px;
-    font-size: 16px; font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 20px rgba(0,166,255,.4);
-  }
-  .spinner {
-    width: 44px; height: 44px;
-    border: 3px solid rgba(255,255,255,.15);
-    border-top-color: #00d4ff;
-    border-radius: 50%;
-    animation: spin .8s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  #overlay.hidden { display: none; }
+/* Events */
+.ev { display: flex; gap: 10px; margin-bottom: 8px; }
+.ev:last-child { margin-bottom: 0; }
+.ev-time {
+  font-size: 12px; font-weight: 700; color: var(--accent);
+  min-width: 86px; padding-top: 1px; flex-shrink: 0;
+}
+.ev-body { flex: 1; }
+.ev-title { color: rgba(255,255,255,.88); font-size: 13px; line-height: 1.4; }
+.ev-sub   { color: rgba(255,255,255,.45); font-size: 11px; margin-top: 2px; line-height: 1.4; }
+.ev.now .ev-time  { color: var(--green); }
+.ev.now .ev-title { color: #fff; font-weight: 700; }
+.ev.past { opacity: .4; }
+
+.ev-live {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: rgba(74,222,128,.18); border: 1px solid rgba(74,222,128,.4);
+  color: var(--green); font-size: 10px; font-weight: 700;
+  padding: 2px 7px; border-radius: 20px;
+  margin-bottom: 6px;
+}
+.ev-live::before {
+  content: ''; width: 6px; height: 6px;
+  background: var(--green); border-radius: 50%;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:.5; transform:scale(.7); }
+}
+
+#no-ev { color: rgba(255,255,255,.4); font-size: 13px; font-style: italic; text-align: center; padding: 6px 0; }
+
+/* ── Permission screen ── */
+#perm {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 18px; padding: 36px;
+  background: #07070f; text-align: center;
+}
+#perm h2 { color: #fff; font-size: 22px; font-weight: 800; }
+#perm p  { color: rgba(255,255,255,.6); font-size: 14px; line-height: 1.65; max-width: 300px; }
+#perm-icon { font-size: 64px; }
+#start-btn {
+  padding: 15px 38px; margin-top: 6px;
+  background: linear-gradient(135deg, #0055cc, #00aaff);
+  color: #fff; border: none; border-radius: 14px;
+  font-size: 16px; font-weight: 800; cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0,150,255,.4);
+  letter-spacing: .3px;
+}
+#perm.gone { display: none; }
+
+/* ── Status badge ── */
+#status {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,.7); backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: rgba(255,255,255,.6); font-size: 12px;
+  padding: 6px 14px; border-radius: 20px;
+  z-index: 10; pointer-events: none;
+  transition: opacity .3s;
+}
+#status.hidden { opacity: 0; }
 </style>
 </head>
 <body>
 
-<!-- Camera feed (hidden) -->
 <video id="video" autoplay playsinline muted></video>
-<!-- AR canvas -->
 <canvas id="canvas"></canvas>
 
-<!-- UI layer -->
-<div id="ui">
-  <div id="header">
+<!-- QR highlight (SVG overlay) -->
+<svg id="qr-highlight" xmlns="http://www.w3.org/2000/svg">
+  <rect id="qr-rect"/>
+</svg>
+
+<!-- Header -->
+<div id="header">
+  <div class="hdr-left">
     <div>
-      <div id="header-title">📡 AR Scanner</div>
-      <div id="header-subtitle">SummerCamp@UniPi 2026</div>
+      <div class="hdr-title">📡 AR Scanner</div>
+      <div class="hdr-sub">SummerCamp@UniPi 2026</div>
     </div>
   </div>
-
-  <div id="finder">
-    <div class="corner-br"></div>
-    <div class="corner-bl"></div>
-    <div id="scan-line"></div>
-  </div>
-  <div id="hint">Inquadra il QR code dell'aula</div>
-
-  <div id="info-panel">
-    <div id="panel-dept">
-      <span id="panel-emoji">🎓</span>
-      <div>
-        <div id="panel-name">—</div>
-        <div id="panel-aula">—</div>
-      </div>
-    </div>
-    <div id="panel-divider"></div>
-    <div id="panel-events"></div>
-  </div>
+  <button id="torch-btn" title="Torcia">🔦</button>
 </div>
 
-<!-- Permission / loading overlay -->
-<div id="overlay">
-  <div style="font-size:56px">📷</div>
+<!-- Viewfinder -->
+<div id="finder">
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner br"></div>
+  <div class="corner bl"></div>
+  <div id="scan-line"></div>
+</div>
+<div id="hint">Inquadra il QR code dell'aula</div>
+
+<!-- Info card -->
+<div id="card">
+  <div class="card-dept">
+    <span class="card-emoji" id="c-emoji">🎓</span>
+    <div>
+      <div class="card-dept-name" id="c-name">—</div>
+      <div class="card-aula" id="c-aula">—</div>
+    </div>
+  </div>
+  <div class="card-divider"></div>
+  <div id="c-events"></div>
+</div>
+
+<!-- Status -->
+<div id="status">Avvio…</div>
+
+<!-- Permission screen -->
+<div id="perm">
+  <div id="perm-icon">📷</div>
   <h2>AR Scanner Aule</h2>
   <p>Punta la fotocamera verso il QR code davanti all'aula per vedere il programma in realtà aumentata.</p>
   <button id="start-btn" onclick="startCamera()">Attiva Fotocamera</button>
 </div>
 
-<!-- jsQR (QR detection) -->
-<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<!-- ZXing (fallback per iOS/Safari) -->
+<script src="https://unpkg.com/@zxing/library@0.21.3/umd/index.min.js"></script>
+
 <script>
-const VIDEO   = document.getElementById('video');
-const CANVAS  = document.getElementById('canvas');
-const CTX     = CANVAS.getContext('2d', { willReadFrequently: true });
-const OVERLAY = document.getElementById('overlay');
-const PANEL   = document.getElementById('info-panel');
+// ════════════════════════════════════════════════════════════
+//  CONFIG
+// ════════════════════════════════════════════════════════════
+const VIDEO       = document.getElementById('video');
+const CANVAS      = document.getElementById('canvas');
+const PERM        = document.getElementById('perm');
+const CARD        = document.getElementById('card');
+const QR_RECT     = document.getElementById('qr-rect');
+const FINDER      = document.getElementById('finder');
+const HINT        = document.getElementById('hint');
+const STATUS      = document.getElementById('status');
+const TORCH_BTN   = document.getElementById('torch-btn');
 
-let arData = {};
-let lastCode = null;
-let hideTimer = null;
-let scanning  = true;
+let arData        = {};
+let torchOn       = false;
+let torchTrack    = null;
+let hideCardTimer = null;
+let lastSlug      = null;
+let useNative     = false;
+let detector      = null;   // BarcodeDetector
+let zxingReader   = null;   // ZXing fallback
+let stream        = null;
 
-// ── Carica dati AR ────────────────────────────────────────────────────────────
-async function loadArData() {
+// ════════════════════════════════════════════════════════════
+//  LOAD DATA
+// ════════════════════════════════════════════════════════════
+async function loadData() {
   try {
-    const res = await fetch('ar-data.json');
-    arData = await res.json();
-    console.log('✅ AR data caricato:', Object.keys(arData).length, 'aule');
+    const r = await fetch('ar-data.json');
+    arData = await r.json();
+    setStatus(`${Object.keys(arData).length} aule caricate`, 2000);
   } catch(e) {
-    console.warn('⚠️ ar-data.json non trovato:', e);
+    setStatus('⚠️ Dati aule non disponibili');
   }
 }
 
-// ── Avvia camera ──────────────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+//  CAMERA
+// ════════════════════════════════════════════════════════════
 async function startCamera() {
-  OVERLAY.innerHTML = '<div class="spinner"></div><p style="color:rgba(255,255,255,.6);font-size:14px">Avvio fotocamera…</p>';
+  PERM.querySelector('#perm-icon').textContent = '⏳';
+  PERM.querySelector('h2').textContent = 'Avvio…';
+  PERM.querySelector('p').textContent = '';
+  PERM.querySelector('#start-btn').style.display = 'none';
 
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: { ideal: 'environment' },
+        width:  { ideal: 1920 },
+        height: { ideal: 1080 },
+        focusMode: { ideal: 'continuous' }
+      },
+      audio: false
     });
     VIDEO.srcObject = stream;
-    VIDEO.addEventListener('loadedmetadata', () => {
-      OVERLAY.classList.add('hidden');
-      resizeCanvas();
-      requestAnimationFrame(tick);
-    });
-  } catch(e) {
-    OVERLAY.innerHTML = `
-      <div style="font-size:48px">🚫</div>
-      <h2 style="color:#fff">Accesso negato</h2>
-      <p>Consenti l'accesso alla fotocamera nelle impostazioni del browser per usare l'AR Scanner.</p>`;
-  }
-}
+    await new Promise(r => VIDEO.addEventListener('loadedmetadata', r, { once: true }));
 
-// ── Ridimensiona canvas al video ───────────────────────────────────────────────
-function resizeCanvas() {
-  CANVAS.width  = window.innerWidth;
-  CANVAS.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeCanvas);
-
-// ── Loop principale ───────────────────────────────────────────────────────────
-function tick() {
-  if (!VIDEO.videoWidth) { requestAnimationFrame(tick); return; }
-
-  const vw = VIDEO.videoWidth, vh = VIDEO.videoHeight;
-  const cw = CANVAS.width,     ch = CANVAS.height;
-
-  // Scala "cover" (come background-size: cover)
-  const scale = Math.max(cw / vw, ch / vh);
-  const dw = vw * scale, dh = vh * scale;
-  const dx = (cw - dw) / 2, dy = (ch - dh) / 2;
-
-  CTX.drawImage(VIDEO, dx, dy, dw, dh);
-
-  if (scanning) {
-    const imageData = CTX.getImageData(0, 0, cw, ch);
-    const code = jsQR(imageData.data, imageData.width, imageData.height, {
-      inversionAttempts: 'dontInvert'
-    });
-
-    if (code) {
-      drawQRBox(code.location, dx, dy, scale);
-      const slug = code.data.trim().toUpperCase().replace(/^UNIPI_AR_/, '');
-      if (slug !== lastCode) {
-        lastCode = slug;
-        showPanel(slug);
-      }
-      resetHideTimer();
+    // Torcia
+    torchTrack = stream.getVideoTracks()[0];
+    const caps  = torchTrack.getCapabilities?.() ?? {};
+    if (caps.torch) {
+      TORCH_BTN.classList.remove('hidden');
+    } else {
+      TORCH_BTN.classList.add('hidden');
     }
+
+    PERM.classList.add('gone');
+    initDetector();
+    setStatus('Scanner attivo', 2000);
+  } catch(e) {
+    PERM.querySelector('#perm-icon').textContent = '🚫';
+    PERM.querySelector('h2').textContent = 'Accesso negato';
+    PERM.querySelector('p').textContent =
+      'Consenti l\'accesso alla fotocamera nelle impostazioni del browser.';
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  TORCH
+// ════════════════════════════════════════════════════════════
+TORCH_BTN.addEventListener('click', async () => {
+  if (!torchTrack) return;
+  torchOn = !torchOn;
+  try {
+    await torchTrack.applyConstraints({ advanced: [{ torch: torchOn }] });
+    TORCH_BTN.classList.toggle('active', torchOn);
+    TORCH_BTN.textContent = torchOn ? '💡' : '🔦';
+  } catch(e) { torchOn = !torchOn; }
+});
+
+// ════════════════════════════════════════════════════════════
+//  DETECTOR INIT — native BarcodeDetector > ZXing fallback
+// ════════════════════════════════════════════════════════════
+function initDetector() {
+  if ('BarcodeDetector' in window) {
+    useNative = true;
+    detector  = new BarcodeDetector({ formats: ['qr_code'] });
+    setStatus('Scanner nativo attivo', 1500);
+    nativeLoop();
+  } else {
+    useNative  = false;
+    zxingReader = new ZXing.BrowserQRCodeReader();
+    setStatus('Scanner JS attivo', 1500);
+    zxingLoop();
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  NATIVE LOOP (BarcodeDetector — Chrome/Android/Edge)
+//  Runs directly on <video> element — no canvas needed
+// ════════════════════════════════════════════════════════════
+async function nativeLoop() {
+  if (!detector) return;
+  try {
+    const codes = await detector.detect(VIDEO);
+    if (codes.length > 0) {
+      const code = codes[0];
+      onCodeFound(code.rawValue, code.boundingBox, code.cornerPoints);
+    } else {
+      tickNoCode();
+    }
+  } catch(e) { /* frame skip */ }
+  requestAnimationFrame(nativeLoop);
+}
+
+// ════════════════════════════════════════════════════════════
+//  ZXING LOOP (fallback — iOS/Safari)
+// ════════════════════════════════════════════════════════════
+let zxingRunning = false;
+async function zxingLoop() {
+  if (zxingRunning) return;
+  zxingRunning = true;
+
+  // Resize canvas to video
+  CANVAS.width  = VIDEO.videoWidth  || 640;
+  CANVAS.height = VIDEO.videoHeight || 480;
+  const ctx = CANVAS.getContext('2d', { willReadFrequently: true });
+
+  const tryDecode = async () => {
+    if (!VIDEO.videoWidth) { setTimeout(tryDecode, 100); return; }
+    CANVAS.width  = VIDEO.videoWidth;
+    CANVAS.height = VIDEO.videoHeight;
+    ctx.drawImage(VIDEO, 0, 0);
+
+    try {
+      const img    = ctx.getImageData(0, 0, CANVAS.width, CANVAS.height);
+      const lum    = ZXing.HTMLCanvasElementLuminanceSource
+                      ? new ZXing.HTMLCanvasElementLuminanceSource(CANVAS)
+                      : null;
+
+      // Use ZXing decode on canvas
+      const result = await zxingReader.decodeFromCanvas(CANVAS);
+      if (result) {
+        // ZXing doesn't give corner points easily — estimate from center
+        const bbox = {
+          x: CANVAS.width * .3, y: CANVAS.height * .3,
+          width: CANVAS.width * .4, height: CANVAS.height * .4
+        };
+        onCodeFound(result.getText(), bbox, null);
+      } else {
+        tickNoCode();
+      }
+    } catch(e) {
+      tickNoCode();
+    }
+    setTimeout(tryDecode, 120);
+  };
+  tryDecode();
+}
+
+// ════════════════════════════════════════════════════════════
+//  ON CODE FOUND
+// ════════════════════════════════════════════════════════════
+function onCodeFound(rawValue, bbox, corners) {
+  const slug = rawValue.trim().toUpperCase().replace(/^UNIPI_AR_/, '');
+
+  // Highlight QR on screen
+  drawHighlight(bbox, corners);
+
+  // Vibrate once per new detection
+  if (slug !== lastSlug) {
+    navigator.vibrate?.(60);
+    lastSlug = slug;
+    showCard(slug, bbox);
   }
 
-  requestAnimationFrame(tick);
+  // Reset hide timer
+  clearTimeout(hideCardTimer);
+  hideCardTimer = setTimeout(clearDetection, 2800);
+  FINDER.classList.add('hidden');
+  HINT.classList.add('hidden');
 }
 
-// ── Disegna box verde sul QR ──────────────────────────────────────────────────
-function drawQRBox(loc, dx, dy, scale) {
-  const pts = [loc.topLeftCorner, loc.topRightCorner, loc.bottomRightCorner, loc.bottomLeftCorner];
-  CTX.beginPath();
-  pts.forEach((p, i) => {
-    const x = p.x, y = p.y;
-    i === 0 ? CTX.moveTo(x, y) : CTX.lineTo(x, y);
-  });
-  CTX.closePath();
-  CTX.strokeStyle = '#4ade80';
-  CTX.lineWidth = 3;
-  CTX.shadowColor = '#4ade80';
-  CTX.shadowBlur = 8;
-  CTX.stroke();
-  CTX.shadowBlur = 0;
+function tickNoCode() {
+  // No QR in frame — let hide timer run naturally
 }
 
-// ── Mostra pannello info ───────────────────────────────────────────────────────
-function showPanel(slug) {
+function clearDetection() {
+  lastSlug = null;
+  hideCard();
+  QR_RECT.classList.remove('visible');
+  FINDER.classList.remove('hidden');
+  HINT.classList.remove('hidden');
+}
+
+// ════════════════════════════════════════════════════════════
+//  HIGHLIGHT QR BOX
+// ════════════════════════════════════════════════════════════
+function drawHighlight(bbox, corners) {
+  // Scale bbox from video coords to screen coords
+  const vw = VIDEO.videoWidth  || VIDEO.clientWidth;
+  const vh = VIDEO.videoHeight || VIDEO.clientHeight;
+  const sw = window.innerWidth;
+  const sh = window.innerHeight;
+
+  // cover scaling
+  const scale = Math.max(sw / vw, sh / vh);
+  const ox    = (sw - vw * scale) / 2;
+  const oy    = (sh - vh * scale) / 2;
+
+  let rx, ry, rw, rh;
+  if (corners && corners.length === 4) {
+    const xs = corners.map(p => p.x * scale + ox);
+    const ys = corners.map(p => p.y * scale + oy);
+    rx = Math.min(...xs) - 6;
+    ry = Math.min(...ys) - 6;
+    rw = Math.max(...xs) - rx + 12;
+    rh = Math.max(...ys) - ry + 12;
+  } else if (bbox) {
+    rx = bbox.x * scale + ox - 6;
+    ry = bbox.y * scale + oy - 6;
+    rw = bbox.width  * scale + 12;
+    rh = bbox.height * scale + 12;
+  } else return;
+
+  QR_RECT.setAttribute('x',  rx);
+  QR_RECT.setAttribute('y',  ry);
+  QR_RECT.setAttribute('width',  rw);
+  QR_RECT.setAttribute('height', rh);
+  QR_RECT.setAttribute('rx', 10);
+  QR_RECT.classList.add('visible');
+}
+
+// ════════════════════════════════════════════════════════════
+//  CARD
+// ════════════════════════════════════════════════════════════
+function showCard(slug, bbox) {
   const room = arData[slug];
+
   if (!room) {
-    // Codice QR non riconosciuto
-    document.getElementById('panel-emoji').textContent = '❓';
-    document.getElementById('panel-name').textContent  = 'QR non riconosciuto';
-    document.getElementById('panel-aula').textContent  = slug;
-    document.getElementById('panel-events').innerHTML  =
-      '<div id="no-events">Questo QR code non è associato a nessuna aula del programma.</div>';
-    PANEL.classList.add('visible');
+    document.getElementById('c-emoji').textContent = '❓';
+    document.getElementById('c-name').textContent  = 'QR non riconosciuto';
+    document.getElementById('c-aula').textContent  = slug;
+    document.getElementById('c-events').innerHTML  =
+      '<div id="no-ev">Questo QR non è associato a nessuna aula del programma.</div>';
+    positionCard(bbox);
+    CARD.classList.add('visible');
     return;
   }
 
-  document.getElementById('panel-emoji').textContent = room.emoji;
-  document.getElementById('panel-name').textContent  = room.dipartimento;
-  document.getElementById('panel-aula').textContent  = room.aula;
+  document.getElementById('c-emoji').textContent = room.emoji;
+  document.getElementById('c-name').textContent  = room.dipartimento;
+  document.getElementById('c-aula').textContent  = room.aula;
 
-  const eventsEl = document.getElementById('panel-events');
-  const today = getTodayISO();
-  const eventi = room.giorni[today] || [];
+  const today  = todayISO();
+  const nowHHMM = nowHHMM_();
+  const eventi = room.giorni?.[today] ?? [];
 
-  if (eventi.length === 0) {
-    eventsEl.innerHTML = '<div id="no-events">Nessun evento in programma oggi per questa aula.</div>';
+  const evDiv = document.getElementById('c-events');
+  if (!eventi.length) {
+    evDiv.innerHTML = '<div id="no-ev">Nessun evento in programma oggi.</div>';
   } else {
-    const now = getNowHHMM();
-    eventsEl.innerHTML = eventi.map(ev => {
-      const isCurrent = now >= ev.inizio && now < ev.fine;
-      const isPast    = now >= ev.fine;
-      const cls = isCurrent ? 'event-row current' : isPast ? 'event-row past' : 'event-row';
-      const opacity = isPast ? 'opacity:.45;' : '';
-      const attivita = ev.attivita.length ? `<div class="event-activity">${ev.attivita[0]}</div>` : '';
-      const relatori = ev.relatori.length ? `<div class="event-activity">👤 ${ev.relatori.slice(0,2).join(', ')}</div>` : '';
-      return `
-        <div class="${cls}" style="${opacity}">
-          <div class="event-time">${ev.inizio}–${ev.fine}</div>
-          <div>
-            <div class="event-title">${ev.titolo}</div>
-            ${attivita}${relatori}
-          </div>
-        </div>`;
+    const currentEv = eventi.find(e => nowHHMM >= e.inizio && nowHHMM < e.fine);
+    evDiv.innerHTML = eventi.map(ev => {
+      const isCur  = ev === currentEv;
+      const isPast = nowHHMM >= ev.fine;
+      const cls    = isCur ? 'ev now' : isPast ? 'ev past' : 'ev';
+      const live   = isCur ? '<div class="ev-live">IN CORSO</div>' : '';
+      const sub    = ev.attivita?.[0]
+        ? `<div class="ev-sub">${ev.attivita[0]}${ev.relatori?.length ? ' · ' + ev.relatori[0] : ''}</div>`
+        : '';
+      return `<div class="${cls}">
+        <div class="ev-time">${ev.inizio}–${ev.fine}</div>
+        <div class="ev-body">${live}<div class="ev-title">${ev.titolo}</div>${sub}</div>
+      </div>`;
     }).join('');
   }
 
-  PANEL.classList.add('visible');
+  positionCard(bbox);
+  CARD.classList.add('visible');
 }
 
-function hidePanel() {
-  PANEL.classList.remove('visible');
-  lastCode = null;
+function positionCard(bbox) {
+  // Place card above QR if QR is in bottom half, else below
+  const sh = window.innerHeight;
+  const margin = 14;
+  if (bbox) {
+    const vw    = VIDEO.videoWidth  || VIDEO.clientWidth;
+    const vh    = VIDEO.videoHeight || VIDEO.clientHeight;
+    const scale = Math.max(window.innerWidth / vw, sh / vh);
+    const oy    = (sh - vh * scale) / 2;
+    const qrMidY = bbox.y * scale + oy + (bbox.height ?? 0) * scale / 2;
+
+    if (qrMidY > sh * .5) {
+      // QR in bottom → card at top
+      CARD.style.bottom = '';
+      CARD.style.top    = margin + 72 + 'px'; // below header
+    } else {
+      // QR in top → card at bottom
+      CARD.style.top    = '';
+      CARD.style.bottom = margin + 'px';
+    }
+  } else {
+    CARD.style.top    = '';
+    CARD.style.bottom = margin + 'px';
+  }
 }
 
-function resetHideTimer() {
-  clearTimeout(hideTimer);
-  hideTimer = setTimeout(hidePanel, 2500);
+function hideCard() {
+  CARD.classList.remove('visible');
 }
 
-// ── Utility time/date ─────────────────────────────────────────────────────────
-function getTodayISO() {
+// ════════════════════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════════════════════
+function todayISO() {
   const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 }
-function getNowHHMM() {
+function nowHHMM_() {
   const d = new Date();
-  return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+  return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+function pad(n) { return String(n).padStart(2,'0'); }
+
+let statusTimer;
+function setStatus(msg, autohideMs) {
+  STATUS.textContent = msg;
+  STATUS.classList.remove('hidden');
+  clearTimeout(statusTimer);
+  if (autohideMs) statusTimer = setTimeout(() => STATUS.classList.add('hidden'), autohideMs);
 }
 
-// ── Telegram WebApp init ──────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+//  TELEGRAM WEBAPP
+// ════════════════════════════════════════════════════════════
 if (window.Telegram?.WebApp) {
   window.Telegram.WebApp.ready();
   window.Telegram.WebApp.expand();
 }
 
-// ── Init ─────────────────────────────────────────────────────────────────────
-loadArData();
+// ════════════════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════════════════
+loadData();
 </script>
 </body>
 </html>
