@@ -1,0 +1,1522 @@
+{
+  "D5": {
+    "aula": "Edificio D - aula D5",
+    "dipartimento": "Dipartimento Di Civilta' E Forme Del Sapere",
+    "emoji": "🎭",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 1,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 2,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 3,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 4,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 65,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 66,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 67,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 68,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "D3": {
+    "aula": "Edificio  D - aula D3",
+    "dipartimento": "Dipartimento Di Filologia, Letteratura E Linguistica",
+    "emoji": "📚",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 5,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 6,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 7,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 8,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 69,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 70,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 71,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 72,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "B_B": {
+    "aula": "Edificio B - Aula B (piano terra)",
+    "dipartimento": "Dipartimento Di Farmacia",
+    "emoji": "🏥",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 9,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 10,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 11,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 12,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 73,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 74,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 75,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 76,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "B_A": {
+    "aula": "Edificio B aula A (piano terra)",
+    "dipartimento": "Scuola Di Medicina",
+    "emoji": "🏥",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 13,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 14,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 15,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 16,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 77,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 78,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 79,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 80,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "E_PS1": {
+    "aula": "Edificio E aula PS1",
+    "dipartimento": "Scuola Di Ingegneria",
+    "emoji": "⚙️",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 17,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 18,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 19,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 20,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 81,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:30",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 82,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:00",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 83,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 84,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "B_G": {
+    "aula": "Edificio B - Aula G (piano terra)",
+    "dipartimento": "Dipartimento Di Economia E Management",
+    "emoji": "📊",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 21,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 22,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 23,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 24,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 85,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 86,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 87,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 88,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "B_F": {
+    "aula": "Edificio B - Aula F (piano terra)",
+    "dipartimento": "Dipartimento Di Giurisprudenza",
+    "emoji": "⚖️",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 25,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 26,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 27,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 28,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 89,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 90,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 91,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 92,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "B_N": {
+    "aula": "Edificio B - Aula N (primo terra)",
+    "dipartimento": "Dipartimento Di Scienze Politiche",
+    "emoji": "🏛️",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 29,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 30,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 31,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 32,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 93,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 94,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 95,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 96,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "D2": {
+    "aula": "Edificio D - Aula D2",
+    "dipartimento": "Dipartimento Di Scienze Veterinarie",
+    "emoji": "🌾",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 33,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 34,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 35,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 36,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 97,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 98,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 99,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 100,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "D4": {
+    "aula": "Edificio D - Aula D4",
+    "dipartimento": "Dipartimento Di Scienze Agrarie, Alimentari E Agro-Ambientali",
+    "emoji": "🌾",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 37,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 38,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 39,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 40,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 101,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 102,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 103,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 104,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "B_E": {
+    "aula": "Edificio B - Aula E (piano terra)",
+    "dipartimento": "Dipartimento Di Biologia",
+    "emoji": "🧬",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 41,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 42,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 43,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 44,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 105,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 106,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 107,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 108,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "B_C": {
+    "aula": "Edificio B - Aula C (piano terra)",
+    "dipartimento": "Dipartimento Di Chimica E Chimica Industriale",
+    "emoji": "🧪",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 45,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 46,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 47,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 48,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 109,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 110,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 111,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 112,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "B_D": {
+    "aula": "Edificio B - Aula D (piano terra)",
+    "dipartimento": "Dipartimento Di Fisica",
+    "emoji": "⚛️",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 49,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 50,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 51,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 52,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 113,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 114,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 115,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 116,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "B_H": {
+    "aula": "Edificio B - Aula Lab-H (piano terra)",
+    "dipartimento": "Dipartimento Di Informatica",
+    "emoji": "💻",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 53,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 54,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 55,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 56,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 117,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 118,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 119,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 120,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "B_M": {
+    "aula": "Edificio B - Lab M (piano terra)",
+    "dipartimento": "Dipartimento Di Matematica",
+    "emoji": "📐",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 57,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 58,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 59,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 60,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 121,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 122,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 123,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 124,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  },
+  "B_L": {
+    "aula": "Edificio B  - Aula L (piano terra)",
+    "dipartimento": "Dipartimento Di Scienze Della Terra",
+    "emoji": "🌍",
+    "giorni": {
+      "2026-06-11": [
+        {
+          "id": 61,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 62,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 63,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 64,
+          "titolo": "Pomeriggio – Tour Strutture",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande TOUR STRUTTURE con partenza da Polo Fibonacci"
+          ],
+          "relatori": []
+        }
+      ],
+      "2026-06-12": [
+        {
+          "id": 125,
+          "titolo": "Sessione Mattutina 1",
+          "inizio": "09:30",
+          "fine": "11:00",
+          "prenotabile": true,
+          "attivita": [
+            "presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 126,
+          "titolo": "Sessione Mattutina 2",
+          "inizio": "11:30",
+          "fine": "13:00",
+          "prenotabile": true,
+          "attivita": [
+            "ripetere presentazione offerta did DIP+seminario/laboratorio/testimonial"
+          ],
+          "relatori": []
+        },
+        {
+          "id": 127,
+          "titolo": "Pausa Pranzo",
+          "inizio": "13:00",
+          "fine": "14:00",
+          "prenotabile": false,
+          "attivita": [],
+          "relatori": []
+        },
+        {
+          "id": 128,
+          "titolo": "Pomeriggio – Fibonacci Escape Room",
+          "inizio": "14:00",
+          "fine": "18:00",
+          "prenotabile": false,
+          "attivita": [
+            "chiedi ai tutor/spazio domande + GIOCO \"FIBONACCI ESCAPE ROOM\""
+          ],
+          "relatori": []
+        }
+      ]
+    }
+  }
+}

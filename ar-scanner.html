@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>AR Scanner – SummerCamp UniPi</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #000;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow: hidden;
+    height: 100dvh;
+    width: 100dvw;
+  }
+
+  #video { display: none; }
+
+  #canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* ── Overlay UI ── */
+  #ui {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Header */
+  #header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 14px 16px 10px;
+    background: linear-gradient(to bottom, rgba(0,0,0,.7), transparent);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  #header img { height: 28px; filter: brightness(0) invert(1); }
+  #header-title {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .3px;
+  }
+  #header-subtitle { color: rgba(255,255,255,.7); font-size: 11px; }
+
+  /* Finder frame */
+  #finder {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    width: min(260px, 65vw);
+    height: min(260px, 65vw);
+  }
+  #finder::before, #finder::after,
+  #finder .corner-br, #finder .corner-bl {
+    content: '';
+    position: absolute;
+    width: 28px; height: 28px;
+    border-color: rgba(255,255,255,.85);
+    border-style: solid;
+  }
+  #finder::before  { top:0;    left:0;  border-width: 3px 0 0 3px; border-radius: 4px 0 0 0; }
+  #finder::after   { top:0;    right:0; border-width: 3px 3px 0 0; border-radius: 0 4px 0 0; }
+  #finder .corner-br { bottom:0; right:0; border-width: 0 3px 3px 0; border-radius: 0 0 4px 0; }
+  #finder .corner-bl { bottom:0; left:0;  border-width: 0 0 3px 3px; border-radius: 0 0 0 4px; }
+
+  #scan-line {
+    position: absolute;
+    left: 6px; right: 6px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+    border-radius: 2px;
+    animation: scan 2.2s ease-in-out infinite;
+    box-shadow: 0 0 8px #00d4ff;
+  }
+  @keyframes scan {
+    0%   { top: 6px;  opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { top: calc(100% - 6px); opacity: 0; }
+  }
+
+  #hint {
+    position: absolute;
+    bottom: calc(50% - min(130px, 32.5vw) - 36px);
+    left: 50%; transform: translateX(-50%);
+    color: rgba(255,255,255,.75);
+    font-size: 13px;
+    white-space: nowrap;
+    text-shadow: 0 1px 4px rgba(0,0,0,.8);
+  }
+
+  /* ── Info Panel (AR overlay) ── */
+  #info-panel {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 20px 16px 32px;
+    background: linear-gradient(to top, rgba(0,0,0,.92) 80%, transparent);
+    transform: translateY(100%);
+    transition: transform .35s cubic-bezier(.4,0,.2,1);
+    pointer-events: auto;
+  }
+  #info-panel.visible { transform: translateY(0); }
+
+  #panel-dept {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  #panel-emoji { font-size: 26px; }
+  #panel-name  { color: #fff; font-size: 17px; font-weight: 700; line-height: 1.25; }
+  #panel-aula  { color: rgba(255,255,255,.55); font-size: 12px; margin-top: 1px; }
+
+  #panel-divider {
+    height: 1px;
+    background: rgba(255,255,255,.15);
+    margin: 10px 0;
+  }
+
+  #panel-events { display: flex; flex-direction: column; gap: 8px; }
+
+  .event-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .event-time {
+    color: #00d4ff;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 90px;
+    padding-top: 1px;
+  }
+  .event-title {
+    color: rgba(255,255,255,.9);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .event-activity {
+    color: rgba(255,255,255,.55);
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  .event-row.current .event-time  { color: #4ade80; }
+  .event-row.current .event-title { color: #fff; font-weight: 600; }
+  .event-row.current::before {
+    content: '▶';
+    color: #4ade80;
+    font-size: 8px;
+    margin-top: 3px;
+    flex-shrink: 0;
+  }
+
+  #no-events { color: rgba(255,255,255,.45); font-size: 13px; font-style: italic; }
+
+  /* ── Permission / Loading screens ── */
+  #overlay {
+    position: fixed; inset: 0; z-index: 20;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 18px; padding: 32px;
+    background: #0a0a0f;
+    text-align: center;
+  }
+  #overlay h2 { color: #fff; font-size: 20px; font-weight: 700; }
+  #overlay p  { color: rgba(255,255,255,.6); font-size: 14px; line-height: 1.6; }
+  #start-btn {
+    margin-top: 8px;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #0066cc, #00a8ff);
+    color: #fff;
+    border: none; border-radius: 12px;
+    font-size: 16px; font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,166,255,.4);
+  }
+  .spinner {
+    width: 44px; height: 44px;
+    border: 3px solid rgba(255,255,255,.15);
+    border-top-color: #00d4ff;
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #overlay.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<!-- Camera feed (hidden) -->
+<video id="video" autoplay playsinline muted></video>
+<!-- AR canvas -->
+<canvas id="canvas"></canvas>
+
+<!-- UI layer -->
+<div id="ui">
+  <div id="header">
+    <div>
+      <div id="header-title">📡 AR Scanner</div>
+      <div id="header-subtitle">SummerCamp@UniPi 2026</div>
+    </div>
+  </div>
+
+  <div id="finder">
+    <div class="corner-br"></div>
+    <div class="corner-bl"></div>
+    <div id="scan-line"></div>
+  </div>
+  <div id="hint">Inquadra il QR code dell'aula</div>
+
+  <div id="info-panel">
+    <div id="panel-dept">
+      <span id="panel-emoji">🎓</span>
+      <div>
+        <div id="panel-name">—</div>
+        <div id="panel-aula">—</div>
+      </div>
+    </div>
+    <div id="panel-divider"></div>
+    <div id="panel-events"></div>
+  </div>
+</div>
+
+<!-- Permission / loading overlay -->
+<div id="overlay">
+  <div style="font-size:56px">📷</div>
+  <h2>AR Scanner Aule</h2>
+  <p>Punta la fotocamera verso il QR code davanti all'aula per vedere il programma in realtà aumentata.</p>
+  <button id="start-btn" onclick="startCamera()">Attiva Fotocamera</button>
+</div>
+
+<!-- jsQR (QR detection) -->
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script>
+const VIDEO   = document.getElementById('video');
+const CANVAS  = document.getElementById('canvas');
+const CTX     = CANVAS.getContext('2d', { willReadFrequently: true });
+const OVERLAY = document.getElementById('overlay');
+const PANEL   = document.getElementById('info-panel');
+
+let arData = {};
+let lastCode = null;
+let hideTimer = null;
+let scanning  = true;
+
+// ── Carica dati AR ────────────────────────────────────────────────────────────
+async function loadArData() {
+  try {
+    const res = await fetch('ar-data.json');
+    arData = await res.json();
+    console.log('✅ AR data caricato:', Object.keys(arData).length, 'aule');
+  } catch(e) {
+    console.warn('⚠️ ar-data.json non trovato:', e);
+  }
+}
+
+// ── Avvia camera ──────────────────────────────────────────────────────────────
+async function startCamera() {
+  OVERLAY.innerHTML = '<div class="spinner"></div><p style="color:rgba(255,255,255,.6);font-size:14px">Avvio fotocamera…</p>';
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+    });
+    VIDEO.srcObject = stream;
+    VIDEO.addEventListener('loadedmetadata', () => {
+      OVERLAY.classList.add('hidden');
+      resizeCanvas();
+      requestAnimationFrame(tick);
+    });
+  } catch(e) {
+    OVERLAY.innerHTML = `
+      <div style="font-size:48px">🚫</div>
+      <h2 style="color:#fff">Accesso negato</h2>
+      <p>Consenti l'accesso alla fotocamera nelle impostazioni del browser per usare l'AR Scanner.</p>`;
+  }
+}
+
+// ── Ridimensiona canvas al video ───────────────────────────────────────────────
+function resizeCanvas() {
+  CANVAS.width  = window.innerWidth;
+  CANVAS.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+
+// ── Loop principale ───────────────────────────────────────────────────────────
+function tick() {
+  if (!VIDEO.videoWidth) { requestAnimationFrame(tick); return; }
+
+  const vw = VIDEO.videoWidth, vh = VIDEO.videoHeight;
+  const cw = CANVAS.width,     ch = CANVAS.height;
+
+  // Scala "cover" (come background-size: cover)
+  const scale = Math.max(cw / vw, ch / vh);
+  const dw = vw * scale, dh = vh * scale;
+  const dx = (cw - dw) / 2, dy = (ch - dh) / 2;
+
+  CTX.drawImage(VIDEO, dx, dy, dw, dh);
+
+  if (scanning) {
+    const imageData = CTX.getImageData(0, 0, cw, ch);
+    const code = jsQR(imageData.data, imageData.width, imageData.height, {
+      inversionAttempts: 'dontInvert'
+    });
+
+    if (code) {
+      drawQRBox(code.location, dx, dy, scale);
+      const slug = code.data.trim().toUpperCase().replace(/^UNIPI_AR_/, '');
+      if (slug !== lastCode) {
+        lastCode = slug;
+        showPanel(slug);
+      }
+      resetHideTimer();
+    }
+  }
+
+  requestAnimationFrame(tick);
+}
+
+// ── Disegna box verde sul QR ──────────────────────────────────────────────────
+function drawQRBox(loc, dx, dy, scale) {
+  const pts = [loc.topLeftCorner, loc.topRightCorner, loc.bottomRightCorner, loc.bottomLeftCorner];
+  CTX.beginPath();
+  pts.forEach((p, i) => {
+    const x = p.x, y = p.y;
+    i === 0 ? CTX.moveTo(x, y) : CTX.lineTo(x, y);
+  });
+  CTX.closePath();
+  CTX.strokeStyle = '#4ade80';
+  CTX.lineWidth = 3;
+  CTX.shadowColor = '#4ade80';
+  CTX.shadowBlur = 8;
+  CTX.stroke();
+  CTX.shadowBlur = 0;
+}
+
+// ── Mostra pannello info ───────────────────────────────────────────────────────
+function showPanel(slug) {
+  const room = arData[slug];
+  if (!room) {
+    // Codice QR non riconosciuto
+    document.getElementById('panel-emoji').textContent = '❓';
+    document.getElementById('panel-name').textContent  = 'QR non riconosciuto';
+    document.getElementById('panel-aula').textContent  = slug;
+    document.getElementById('panel-events').innerHTML  =
+      '<div id="no-events">Questo QR code non è associato a nessuna aula del programma.</div>';
+    PANEL.classList.add('visible');
+    return;
+  }
+
+  document.getElementById('panel-emoji').textContent = room.emoji;
+  document.getElementById('panel-name').textContent  = room.dipartimento;
+  document.getElementById('panel-aula').textContent  = room.aula;
+
+  const eventsEl = document.getElementById('panel-events');
+  const today = getTodayISO();
+  const eventi = room.giorni[today] || [];
+
+  if (eventi.length === 0) {
+    eventsEl.innerHTML = '<div id="no-events">Nessun evento in programma oggi per questa aula.</div>';
+  } else {
+    const now = getNowHHMM();
+    eventsEl.innerHTML = eventi.map(ev => {
+      const isCurrent = now >= ev.inizio && now < ev.fine;
+      const isPast    = now >= ev.fine;
+      const cls = isCurrent ? 'event-row current' : isPast ? 'event-row past' : 'event-row';
+      const opacity = isPast ? 'opacity:.45;' : '';
+      const attivita = ev.attivita.length ? `<div class="event-activity">${ev.attivita[0]}</div>` : '';
+      const relatori = ev.relatori.length ? `<div class="event-activity">👤 ${ev.relatori.slice(0,2).join(', ')}</div>` : '';
+      return `
+        <div class="${cls}" style="${opacity}">
+          <div class="event-time">${ev.inizio}–${ev.fine}</div>
+          <div>
+            <div class="event-title">${ev.titolo}</div>
+            ${attivita}${relatori}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  PANEL.classList.add('visible');
+}
+
+function hidePanel() {
+  PANEL.classList.remove('visible');
+  lastCode = null;
+}
+
+function resetHideTimer() {
+  clearTimeout(hideTimer);
+  hideTimer = setTimeout(hidePanel, 2500);
+}
+
+// ── Utility time/date ─────────────────────────────────────────────────────────
+function getTodayISO() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+function getNowHHMM() {
+  const d = new Date();
+  return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
+
+// ── Telegram WebApp init ──────────────────────────────────────────────────────
+if (window.Telegram?.WebApp) {
+  window.Telegram.WebApp.ready();
+  window.Telegram.WebApp.expand();
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+loadArData();
+</script>
+</body>
+</html>
