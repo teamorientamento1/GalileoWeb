@@ -549,28 +549,32 @@ function showCard(slug, bbox) {
 
   document.getElementById('c-emoji').textContent = room.emoji;
   document.getElementById('c-name').textContent  = room.dipartimento;
-  document.getElementById('c-aula').textContent  = room.aula;
+  // mostra "Edificio X · Aula Y" oppure solo aula se edificio mancante
+  const aulaLabel = room.edificio
+    ? `${room.edificio} · ${room.aula}${room.piano ? ' (' + room.piano + ')' : ''}`
+    : room.aula;
+  document.getElementById('c-aula').textContent  = aulaLabel;
 
-  const today  = todayISO();
-  const nowHHMM = nowHHMM_();
-  const eventi = room.giorni?.[today] ?? [];
+  const today   = todayISO();
+  const nowMin  = timeToMinutes(nowHHMM_());
+  const eventi  = room.giorni?.[today] ?? [];
 
   const evDiv = document.getElementById('c-events');
   if (!eventi.length) {
     evDiv.innerHTML = '<div id="no-ev">Nessun evento in programma oggi.</div>';
   } else {
-    const currentEv = eventi.find(e => nowHHMM >= e.inizio && nowHHMM < e.fine);
     evDiv.innerHTML = eventi.map(ev => {
-      const isCur  = ev === currentEv;
-      const isPast = nowHHMM >= ev.fine;
+      // ora può essere "9:30–11:00" oppure oggetto con inizio/fine
+      const [iniStr, finStr] = parseOra(ev.ora ?? `${ev.inizio}–${ev.fine}`);
+      const iniMin = timeToMinutes(iniStr);
+      const finMin = timeToMinutes(finStr);
+      const isCur  = nowMin >= iniMin && nowMin < finMin;
+      const isPast = nowMin >= finMin;
       const cls    = isCur ? 'ev now' : isPast ? 'ev past' : 'ev';
       const live   = isCur ? '<div class="ev-live">IN CORSO</div>' : '';
-      const sub    = ev.attivita?.[0]
-        ? `<div class="ev-sub">${ev.attivita[0]}${ev.relatori?.length ? ' · ' + ev.relatori[0] : ''}</div>`
-        : '';
       return `<div class="${cls}">
-        <div class="ev-time">${ev.inizio}–${ev.fine}</div>
-        <div class="ev-body">${live}<div class="ev-title">${ev.titolo}</div>${sub}</div>
+        <div class="ev-time">${iniStr}–${finStr}</div>
+        <div class="ev-body">${live}<div class="ev-title">${ev.titolo}</div></div>
       </div>`;
     }).join('');
   }
@@ -612,6 +616,16 @@ function hideCard() {
 // ════════════════════════════════════════════════════════════
 //  HELPERS
 // ════════════════════════════════════════════════════════════
+// Splitta "9:30–11:00" (con trattino em o normale) in ["9:30","11:00"]
+function parseOra(ora) {
+  return ora.split(/[–\-]/).map(s => s.trim());
+}
+// Converte "9:30" → 570 (minuti dalla mezzanotte)
+function timeToMinutes(hhmm) {
+  const [h, m] = hhmm.split(':').map(Number);
+  return h * 60 + (m || 0);
+}
+
 function todayISO() {
   const d = new Date();
   return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
