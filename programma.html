@@ -153,19 +153,17 @@
       display: flex; justify-content: center; align-items: flex-start;
       background: #fff;
     }
-    .campus-inner { position: relative; width: 100%; max-width: 440px; line-height: 0; }
-    .campus-svg   { width: 100%; height: auto; display: block; }
+    .campus-inner { display: flex; justify-content: center; align-items: center;
+                    width: 100%; line-height: 0; }
+    .campus-svg   { height: 74vh; max-height: 100%; width: auto; max-width: 100%; display: block; }
     .cz { cursor: pointer; -webkit-tap-highlight-color: transparent; }
     .cz-bld {
-      stroke-width: 2; transition: filter .15s, opacity .15s;
-      filter: drop-shadow(0 2px 3px rgba(0,0,0,.18));
+      fill-opacity: .16; stroke-width: 4; vector-effect: non-scaling-stroke;
+      transition: fill-opacity .15s;
     }
-    .cz:active .cz-bld { opacity: .82; }
-    .cz-label   { font-family: -apple-system, sans-serif; font-weight: 800; fill: #fff;
-                  pointer-events: none; }
-    .ctx-bld    { stroke: #cbd5e1; stroke-width: 1.5; }
-    .ctx-label  { font-family: -apple-system, sans-serif; font-weight: 700;
-                  fill: #94a3b8; pointer-events: none; }
+    .cz:active .cz-bld { fill-opacity: .40; }
+    .cz-label { font-family: -apple-system, sans-serif; font-weight: 800; fill: #fff;
+                pointer-events: none; }
 
     /* CTA "Consulta la cartina" nel programma */
     .map-cta {
@@ -327,8 +325,11 @@
       </div>
       <div class="campus-wrap">
         <div class="campus-inner">
-          <svg class="campus-svg" id="campusSvg" viewBox="0 0 560 760"
-               xmlns="http://www.w3.org/2000/svg"></svg>
+          <svg class="campus-svg" id="campusSvg" viewBox="0 0 600 1447"
+               xmlns="http://www.w3.org/2000/svg">
+            <image href="assets/campus_map.png" x="0" y="0" width="600" height="1447"/>
+            <g id="czLayer"></g>
+          </svg>
         </div>
       </div>
     </div>
@@ -629,59 +630,37 @@ function renderInfoPanel(bld, selectedRoom) {
 // ── Stato mappa ──────────────────────────────────────────────────────────────
 let _mapCtx = null, _mapOrigin = null, _mapTimer = null, _mapView = 'overview';
 
-// ── VISTA PANORAMICA: mappa vettoriale del Polo (viewBox 560×760) ─────────────
-// Edifici di contesto (non cliccabili) e zone cliccabili B/D/E, fedeli al layout
-const CAMPUS_CTX = [
-  { pts:'100,150 252,156 252,188 100,182', lx:0,   ly:0,   label:'' },   // struttura 1
-  { pts:'238,256 410,260 410,702 252,702 238,690', lx:325, ly:486, label:'C' },
-  { pts:'62,708 174,708 174,750 62,750', lx:118, ly:729, label:'A' },
-];
+// ── VISTA PANORAMICA: cartina completa del Polo (immagine + zone cliccabili) ──
+// Coordinate nello spazio dell'immagine campus_map.png (viewBox 600×1447)
 const CAMPUS_ZONES = {
-  E: { pts:'238,40 360,38 360,78 406,84 406,124 360,150 238,144', lx:312, ly:96 },
-  B: { pts:'40,100 210,112 210,694 150,706 92,704 40,694',        lx:122, ly:420 },
-  D: { pts:'433,266 500,284 547,474 540,638 502,722 432,706',     lx:487, ly:486 },
+  E: { pts:'310,516 452,520 452,610 310,606',                          lx:381, ly:562 },
+  B: { pts:'98,593 270,600 270,1180 150,1192 98,1186',                 lx:184, ly:892 },
+  D: { pts:'490,752 528,760 582,880 575,1020 540,1130 488,1192',       lx:531, ly:975 },
 };
 
 function renderOverview() {
-  const svg = document.getElementById('campusSvg');
-  if (!svg) return;
-
-  const defs = `<defs>
-    <pattern id="hatch" width="9" height="9" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
-      <rect width="9" height="9" fill="#eef2f6"/>
-      <line x1="0" y1="0" x2="0" y2="9" stroke="#cbd5e1" stroke-width="1.4"/>
-    </pattern>
-  </defs>`;
-
-  // perimetro del Polo (decorativo)
-  const boundary = `<polygon points="34,92 252,46 556,150 540,455 492,726 176,754 46,720 34,300"
-       fill="#f7f9fb" stroke="#e5e9ee" stroke-width="2"/>`;
-
-  // edifici di contesto (tratteggiati)
-  const ctx = CAMPUS_CTX.map(c =>
-    `<polygon class="ctx-bld" points="${c.pts}" fill="url(#hatch)"/>` +
-    (c.label ? `<text x="${c.lx}" y="${c.ly}" text-anchor="middle" dominant-baseline="middle" class="ctx-label" font-size="22">${c.label}</text>` : '')
-  ).join('');
-
-  // edifici cliccabili B / D / E
-  const zones = Object.keys(CAMPUS_ZONES).map(b => {
+  const layer = document.getElementById('czLayer');
+  if (!layer) return;
+  layer.innerHTML = Object.keys(CAMPUS_ZONES).map(b => {
     const z       = CAMPUS_ZONES[b];
     const meta    = BUILDING_META[b];
     const nActive = Object.values(getLiveStatus(b)).filter(v => v.status === 'active').length;
+    const cs = 50;
     let badge = '';
     if (nActive) {
-      const bx = z.lx + 27, by = z.ly - 21;
-      badge = `<circle cx="${bx}" cy="${by}" r="13.5" fill="#16a34a" stroke="#fff" stroke-width="2.5"/>
-               <text x="${bx}" y="${by+1}" text-anchor="middle" dominant-baseline="middle" class="cz-label" font-size="14">${nActive}</text>`;
+      const bx = z.lx + cs/2, by = z.ly - cs/2;
+      badge = `<circle cx="${bx}" cy="${by}" r="16" fill="#16a34a" stroke="#fff" stroke-width="3"/>
+               <text x="${bx}" y="${by+1}" text-anchor="middle" dominant-baseline="middle" class="cz-label" font-size="18">${nActive}</text>`;
     }
     return `<g class="cz" onclick="showDetail('${b}')">
-      <polygon class="cz-bld" points="${z.pts}" fill="${meta.color}" stroke="#fff"/>
-      <text x="${z.lx}" y="${z.ly}" text-anchor="middle" dominant-baseline="middle" class="cz-label" font-size="30">${b}</text>
+      <polygon class="cz-bld" points="${z.pts}" style="fill:${meta.color};stroke:${meta.color}"/>
+      <rect x="${z.lx-cs/2}" y="${z.ly-cs/2}" width="${cs}" height="${cs}" rx="14"
+            fill="${meta.color}" stroke="#fff" stroke-width="3"/>
+      <text x="${z.lx}" y="${z.ly+1}" text-anchor="middle" dominant-baseline="middle"
+            class="cz-label" font-size="32">${b}</text>
       ${badge}
     </g>`;
   }).join('');
-
-  svg.innerHTML = defs + boundary + ctx + zones;
 }
 
 // ── VISTA DETTAGLIO: piantina di un edificio ─────────────────────────────────
