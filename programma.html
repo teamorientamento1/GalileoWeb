@@ -108,13 +108,13 @@
     /* Mappa bottom sheet */
     .map-overlay {
       display: none; position: fixed; inset: 0; z-index: 300;
-      background: rgba(0,0,0,.5);
+      background: rgba(0,0,0,.55);
       align-items: flex-end; justify-content: center;
     }
     .map-overlay.show { display: flex; }
     .map-sheet {
       background: var(--bg); border-radius: 16px 16px 0 0;
-      width: 100%; max-width: 600px;
+      width: 100%; max-width: 640px;
       display: flex; flex-direction: column;
       max-height: 90dvh;
       padding-bottom: env(safe-area-inset-bottom, 0px);
@@ -133,25 +133,44 @@
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; margin-left: 10px;
     }
-    /* SVG mappa */
-    .map-svg-wrap {
-      flex: 1; overflow: auto; padding: 8px;
-      display: flex; align-items: center; justify-content: center;
-      background: #e8ecef;
+    /* Floor plan image + SVG overlay */
+    .map-floor-wrap {
+      flex: 1; overflow: auto; position: relative;
+      background: #f8fafc;
     }
-    .map-svg-wrap svg { max-width: 100%; height: auto; border-radius: 8px; }
-    /* Highlight edificio selezionato */
-    .map-svg-wrap polygon.highlight {
-      animation: pulse-bld 1.5s ease-in-out infinite alternate;
+    .map-floor-inner {
+      position: relative; display: inline-block;
+      width: 100%; line-height: 0;
     }
-    @keyframes pulse-bld { from { opacity: 1; } to { opacity: .7; } }
-    /* Legenda sotto */
-    .map-rooms-list {
+    .map-floor-img {
+      width: 100%; height: auto; display: block;
+    }
+    .map-floor-svg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    /* Stanza evidenziata */
+    .room-highlight {
+      fill: rgba(255,220,0,0.45);
+      stroke: #f59e0b;
+      stroke-width: 3;
+      animation: room-pulse 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes room-pulse {
+      from { fill: rgba(255,220,0,.45); stroke-width: 3; }
+      to   { fill: rgba(255,165,0,.65); stroke-width: 5; }
+    }
+    /* Info stanza sotto */
+    .map-room-info {
       padding: 10px 16px 14px; flex-shrink: 0;
       border-top: 1px solid var(--sep);
-      font-size: 11px; color: var(--hint); line-height: 1.6;
+      font-size: 12px; line-height: 1.5;
     }
-    .map-rooms-list strong { color: var(--text); font-size: 12px; }
+    .map-room-info .room-code {
+      font-size: 15px; font-weight: 800; color: var(--text);
+    }
+    .map-room-info .room-dept { color: var(--hint); margin-top: 2px; }
   </style>
 </head>
 <body>
@@ -169,20 +188,27 @@
 
 <div id="days-container"></div>
 
-<!-- Mappa Polo Fibonacci – bottom sheet -->
+<!-- Planimetria – bottom sheet -->
 <div class="map-overlay" id="mapOverlay" onclick="closeMap()">
   <div class="map-sheet" onclick="event.stopPropagation()">
     <div class="map-sheet-bar">
       <div>
-        <div class="map-sheet-title" id="mapTitle">Polo Fibonacci</div>
-        <div class="map-sheet-sub" id="mapSub">Largo Bruno Pontecorvo, Pisa</div>
+        <div class="map-sheet-title" id="mapTitle">Planimetria</div>
+        <div class="map-sheet-sub" id="mapSub">Polo Fibonacci · Largo Bruno Pontecorvo, Pisa</div>
       </div>
       <button class="map-close-btn" onclick="closeMap()">✕</button>
     </div>
-    <div class="map-svg-wrap" id="mapSvgWrap">
-      <!-- SVG caricato via JS -->
+    <div class="map-floor-wrap">
+      <div class="map-floor-inner" id="mapFloorInner">
+        <img class="map-floor-img" id="mapFloorImg" src="" alt="Planimetria" />
+        <svg class="map-floor-svg" id="mapFloorSvg"
+             viewBox="0 0 2000 1125" xmlns="http://www.w3.org/2000/svg">
+          <rect id="mapRoomRect" class="room-highlight"
+                x="0" y="0" width="0" height="0" rx="6"/>
+        </svg>
+      </div>
     </div>
-    <div class="map-rooms-list" id="mapRoomsList"></div>
+    <div class="map-room-info" id="mapRoomInfo"></div>
   </div>
 </div>
 
@@ -190,77 +216,90 @@
 const PROGRAMMA = {"programma":[{"giorno":"GIOVEDÌ 11 GIUGNO","data":"2026-06-11","dipartimenti":[{"dipartimento":"DIPARTIMENTO DI BIOLOGIA","emoji":"🧬","luogo":"Edificio B – Aula E – (Piano Terra)","eventi":[{"event_id":19,"titolo_blocco":"\"Etologia e Antropocene: il comportamento animale in un mondo che cambia\" + presentazione corsi","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":20,"titolo_blocco":"\"La ricerca dalla prospettiva One Health\" + presentazione corsi","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":22,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":21,"titolo_blocco":"Spazio domande e tour (Orto Botanico e Poli didattici)","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI CHIMICA E CHIMICA INDUSTRIALE","emoji":"⚗️","luogo":"Edificio B – Aula C – (Piano Terra)","eventi":[{"event_id":9,"titolo_blocco":"Studiare Chimica a Pisa: presentazione offerta didattica + incontro con i tutor","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":10,"titolo_blocco":"Studiare Chimica a Pisa: presentazione offerta didattica + incontro con i tutor","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":12,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":11,"titolo_blocco":"Incontro al desk tutor + visita guidata collezione strumenti storici scientifici","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI CIVILTÀ E FORME DEL SAPERE","emoji":"🏺","luogo":"Edificio D – Aula D5","eventi":[{"event_id":66,"titolo_blocco":"Seminario di Filosofia Morale + intervento di Storia della Filosofia","orario_inizio":"09:30","orario_fine":"10:15","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":67,"titolo_blocco":"Presentazione corsi: Filosofia e Scienze della Formazione Primaria","orario_inizio":"10:15","orario_fine":"10:45","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":68,"titolo_blocco":"Seminario di Museologia e Critica Artistica e del Restauro","orario_inizio":"11:30","orario_fine":"12:15","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":69,"titolo_blocco":"Presentazione corsi: Discipline dello Spettacolo e della Comunicazione, Scienze dei Beni Culturali","orario_inizio":"12:15","orario_fine":"12:45","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":71,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":70,"titolo_blocco":"Spazio domande e tour delle strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI ECONOMIA E MANAGEMENT","emoji":"📊","luogo":"Edificio B – Aula G – (Piano Terra)","eventi":[{"event_id":27,"titolo_blocco":"\"Scegliere Economia e Management: capire persone, organizzazioni, mercati e istituzioni\"","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":28,"titolo_blocco":"\"Scegliere Economia e Management: capire persone, organizzazioni, mercati e istituzioni\"","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":30,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":29,"titolo_blocco":"\"Un pomeriggio al DEM: Esplora, Conosci, Scegli\" – spazio domande e tour","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI FARMACIA","emoji":"💊","luogo":"Edificio B – Aula B – (Piano Terra)","eventi":[{"event_id":5,"titolo_blocco":"Presentazione offerta formativa + seminario \"La microincapsulazione\"","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":6,"titolo_blocco":"Presentazione offerta formativa + laboratori e giochi","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":8,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":7,"titolo_blocco":"Spazio domande e tour delle strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI FILOLOGIA, LETTERATURA E LINGUISTICA","emoji":"📖","luogo":"Edificio D – Aula D3","eventi":[{"event_id":53,"titolo_blocco":"\"Pisa è il posto giusto\" + \"La poesia ci salverà dall'estinzione (leggere poetesse spagnole)\"","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":54,"titolo_blocco":"\"Pisa è il posto giusto\" + \"Dialogare con i classici nei manoscritti: voci degli antichi, altre voci\"","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":56,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":55,"titolo_blocco":"Spazio domande e tour delle strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI FISICA","emoji":"⚛️","luogo":"Edificio B – Aula D – (Piano Terra)","eventi":[{"event_id":13,"titolo_blocco":"\"Salviamo il gatto di Schrodinger\"","orario_inizio":"09:30","orario_fine":"10:15","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":14,"titolo_blocco":"Presentazione del Corso di Studi","orario_inizio":"10:15","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":15,"titolo_blocco":"\"Intelligenza Artificiale in Fisica Medica\"","orario_inizio":"11:30","orario_fine":"12:15","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":16,"titolo_blocco":"\"Dal qubit al teletrasporto\"","orario_inizio":"12:15","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":18,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":17,"titolo_blocco":"Spazio domande e tour delle strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI GIURISPRUDENZA","emoji":"⚖️","luogo":"Edificio B – Aula F – (Piano Terra)","eventi":[{"event_id":23,"titolo_blocco":"Studiare giurisprudenza a Pisa + \"Diritto, libertà, potere tra passato, presente e futuro\"","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":24,"titolo_blocco":"Studiare giurisprudenza a Pisa + \"Diritto penale, criminologia e neuroscienze\"","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":26,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":25,"titolo_blocco":"Spazio domande e tour delle strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI INFORMATICA","emoji":"💻","luogo":"Edificio B – Aula Lab-H – (Piano Terra)","eventi":[{"event_id":35,"titolo_blocco":"Presentazione offerta didattica + \"Problemi da Informatici\"","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":36,"titolo_blocco":"Presentazione offerta didattica + \"Come funziona lo streaming video?\"","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":38,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":37,"titolo_blocco":"Incontro con i tutor + Escape Room \"CTRL+ESCAPE: il Labirinto dell'Artefatto\"","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI MATEMATICA","emoji":"📐","luogo":"Edificio B – Lab M – (Piano Terra)","eventi":[{"event_id":39,"titolo_blocco":"Presentazione offerta didattica","orario_inizio":"09:30","orario_fine":"10:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":40,"titolo_blocco":"\"Misura dello spazio e insiemi frattali\"","orario_inizio":"10:00","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":41,"titolo_blocco":"Presentazione offerta didattica","orario_inizio":"11:30","orario_fine":"12:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":42,"titolo_blocco":"\"Problemi sfidanti in matematica\"","orario_inizio":"12:00","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":44,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":43,"titolo_blocco":"Spazio domande e tour delle strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE AGRARIE, ALIMENTARI E AGRO-AMBIENTALI","emoji":"🌾","luogo":"Edificio D – Aula D4","eventi":[{"event_id":57,"titolo_blocco":"Presentazione Corso di Laurea in Scienze degli Alimenti","orario_inizio":"09:30","orario_fine":"10:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":58,"titolo_blocco":"\"Ascoltare le piante: come gli strumenti di precisione svelano la fame d'azoto in tempo reale\"","orario_inizio":"10:00","orario_fine":"10:30","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":59,"titolo_blocco":"\"Il buono, il bello e il cattivo: tra insetti utili, dannosi e dal duplice ruolo\"","orario_inizio":"10:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":60,"titolo_blocco":"\"Ogni persona conta: inclusione ed accoglienza nei percorsi universitari\"","orario_inizio":"11:00","orario_fine":"11:30","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":61,"titolo_blocco":"Presentazione Corso di Laurea in Scienze Agrarie","orario_inizio":"11:30","orario_fine":"12:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":62,"titolo_blocco":"\"Genotipizzazione della salicornia per un'agricoltura sostenibile (SAGA)\"","orario_inizio":"12:00","orario_fine":"12:30","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":63,"titolo_blocco":"\"Robot in agricoltura: siamo già nel futuro?\"","orario_inizio":"12:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":65,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":64,"titolo_blocco":"Spazio domande e tour (lab chimico agrario, respirazione del suolo, collezione entomologica)","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE DELLA TERRA","emoji":"🌍","luogo":"Edificio B – Aula L – (Piano Terra)","eventi":[{"event_id":31,"titolo_blocco":"Presentazione Scienze Geologiche + \"GeoQuiz: sfatate dei miti geologici giocando!\"","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":32,"titolo_blocco":"Presentazione Scienze Geologiche + \"GeoQuiz: sfatate dei miti geologici giocando!\"","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":34,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":33,"titolo_blocco":"Spazio domande e tour (attività laboratoriali su discipline geologiche e ambientali)","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE POLITICHE","emoji":"🏛️","luogo":"Edificio B – Aula N – (Piano Terra)","eventi":[{"event_id":45,"titolo_blocco":"Scienze politiche, Servizio sociale e Turismo: presentazione corsi + question time","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":46,"titolo_blocco":"Scienze politiche, Servizio sociale e Turismo: presentazione corsi + question time","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":48,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":47,"titolo_blocco":"Spazio domande e tour delle strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI VETERINARIA","emoji":"🐾","luogo":"Edificio D – Aula D2","eventi":[{"event_id":49,"titolo_blocco":"Presentazione offerta didattica + seminario sul cavallo","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":50,"titolo_blocco":"Presentazione offerta didattica + seminario tematico","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":52,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":51,"titolo_blocco":"Spazio domande e tour (Museo Anatomico e laboratorio sulle zecche)","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"SCUOLA DI INGEGNERIA","emoji":"⚙️","luogo":"Edificio E – Aula PS1","eventi":[{"event_id":72,"titolo_blocco":"Presentazione offerta didattica dei Dipartimenti della Scuola di Ingegneria + seminario tematico","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":73,"titolo_blocco":"Presentazione offerta didattica dei Dipartimenti della Scuola di Ingegneria + seminario tematico","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":75,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":74,"titolo_blocco":"Spazio domande e tour (visita ai laboratori della Scuola di Ingegneria)","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"SCUOLA DI MEDICINA","emoji":"🏥","luogo":"Edificio B – Aula A – (Piano Terra)","eventi":[{"event_id":1,"titolo_blocco":"Presentazione offerta didattica dei Dipartimenti della Scuola di Medicina + seminario tematico","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":2,"titolo_blocco":"Presentazione offerta didattica dei Dipartimenti della Scuola di Medicina + seminario tematico","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":4,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":3,"titolo_blocco":"Spazio domande e tour delle strutture","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]}]},{"giorno":"VENERDÌ 12 GIUGNO","data":"2026-06-12","dipartimenti":[{"dipartimento":"DIPARTIMENTO DI BIOLOGIA","emoji":"🧬","luogo":"Edificio B – Aula E – (Piano Terra)","eventi":[{"event_id":94,"titolo_blocco":"\"Etologia e Antropocene: il comportamento animale in un mondo che cambia\" + presentazione corsi","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":95,"titolo_blocco":"\"Voci dallo Scheletro: Storie di Vita, Cibo e Viaggi del Passato\" + presentazione corsi","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":97,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":96,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI CHIMICA E CHIMICA INDUSTRIALE","emoji":"⚗️","luogo":"Edificio B – Aula C – (Piano Terra)","eventi":[{"event_id":84,"titolo_blocco":"Studiare Chimica a Pisa: presentazione offerta didattica + incontro con i tutor","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":85,"titolo_blocco":"Studiare Chimica a Pisa: presentazione offerta didattica + incontro con i tutor","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":87,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":86,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI CIVILTÀ E FORME DEL SAPERE","emoji":"🏺","luogo":"Edificio D – Aula D5","eventi":[{"event_id":139,"titolo_blocco":"Seminario di Storia dei Paesi Islamici","orario_inizio":"09:30","orario_fine":"10:15","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":140,"titolo_blocco":"Presentazione corsi: Storia e Scienze per la Pace","orario_inizio":"10:15","orario_fine":"10:45","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":141,"titolo_blocco":"Seminario di Assiriologia","orario_inizio":"11:30","orario_fine":"12:15","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":142,"titolo_blocco":"Presentazione corsi: Scienze dei Beni Culturali (curriculum Archeologico e Egitto/Vicino Oriente Antico)","orario_inizio":"12:15","orario_fine":"12:45","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":144,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":143,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI ECONOMIA E MANAGEMENT","emoji":"📊","luogo":"Edificio B – Aula G – (Piano Terra)","eventi":[{"event_id":102,"titolo_blocco":"\"Scegliere Economia e Management: capire persone, organizzazioni, mercati e istituzioni\"","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":103,"titolo_blocco":"\"Scegliere Economia e Management: capire persone, organizzazioni, mercati e istituzioni\"","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":105,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":104,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI FARMACIA","emoji":"💊","luogo":"Edificio B – Aula B – (Piano Terra)","eventi":[{"event_id":80,"titolo_blocco":"Presentazione offerta formativa + \"Il laboratorio chimico delle piante\"","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":81,"titolo_blocco":"Presentazione offerta formativa + \"DNA senza più segreti: la mappa del genoma umano verso la medicina del futuro\"","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":83,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":82,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI FILOLOGIA, LETTERATURA E LINGUISTICA","emoji":"📖","luogo":"Edificio D – Aula D3","eventi":[{"event_id":128,"titolo_blocco":"\"Pisa è il posto giusto\" + \"Samba, tamburi e orixás: il Brasile che suona l'Africa\"","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":129,"titolo_blocco":"\"Pisa è il posto giusto\" + \"App, video e test di orientamento. Le sfide di Fileli: quiz a premi\"","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":131,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":130,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI FISICA","emoji":"⚛️","luogo":"Edificio B – Aula D – (Piano Terra)","eventi":[{"event_id":88,"titolo_blocco":"\"Luce dal cosmo – esplorando l'Universo oltre il visibile\"","orario_inizio":"09:30","orario_fine":"10:15","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":89,"titolo_blocco":"Presentazione del Corso di Studi","orario_inizio":"10:15","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":90,"titolo_blocco":"\"Oltre e altrove nel mondo delle particelle\"","orario_inizio":"11:30","orario_fine":"12:15","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":91,"titolo_blocco":"\"La fusione nucleare, motore energetico delle stelle, sorgente futura di energia pulita\"","orario_inizio":"12:15","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":93,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":92,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI GIURISPRUDENZA","emoji":"⚖️","luogo":"Edificio B – Aula F – (Piano Terra)","eventi":[{"event_id":98,"titolo_blocco":"Studiare giurisprudenza a Pisa + \"Il diritto internazionale oggi\"","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":99,"titolo_blocco":"Studiare giurisprudenza a Pisa + \"Il diritto del lavoro e le nuove tecnologie\"","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":101,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":100,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI INFORMATICA","emoji":"💻","luogo":"Edificio B – Aula Lab-H – (Piano Terra)","eventi":[{"event_id":110,"titolo_blocco":"Presentazione offerta didattica + \"Problemi da Informatici\"","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":111,"titolo_blocco":"Presentazione offerta didattica + \"Etica dell'Intelligenza Artificiale\"","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":113,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":112,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI MATEMATICA","emoji":"📐","luogo":"Edificio B – Lab M – (Piano Terra)","eventi":[{"event_id":114,"titolo_blocco":"Presentazione offerta didattica","orario_inizio":"09:30","orario_fine":"10:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":115,"titolo_blocco":"\"Il motivo nascosto per cui una tazza da tè non è un pallone da calcio\"","orario_inizio":"10:00","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":116,"titolo_blocco":"Presentazione offerta didattica","orario_inizio":"11:30","orario_fine":"12:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":117,"titolo_blocco":"\"Da effetti a cause: la matematica dei problemi inversi\"","orario_inizio":"12:00","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":119,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":118,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE AGRARIE, ALIMENTARI E AGRO-AMBIENTALI","emoji":"🌾","luogo":"Edificio D – Aula D4","eventi":[{"event_id":132,"titolo_blocco":"Presentazione Corso di Laurea in Viticultura ed Enologia","orario_inizio":"09:30","orario_fine":"10:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":133,"titolo_blocco":"\"Viticoltura di precisione: il futuro del vigneto è in HD\"","orario_inizio":"10:00","orario_fine":"10:30","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":134,"titolo_blocco":"\"Viaggio sensoriale nelle spezie: tra scienza e curiosità\"","orario_inizio":"10:45","orario_fine":"11:30","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":135,"titolo_blocco":"Presentazione offerta didattica del Dipartimento","orario_inizio":"11:30","orario_fine":"12:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":136,"titolo_blocco":"Food Hack Challenge","orario_inizio":"12:00","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":138,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":137,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE DELLA TERRA","emoji":"🌍","luogo":"Edificio B – Aula L – (Piano Terra)","eventi":[{"event_id":106,"titolo_blocco":"Presentazione Scienze Geologiche + \"GeoQuiz: sfatate dei miti geologici giocando!\"","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":107,"titolo_blocco":"Presentazione Scienze Geologiche + \"GeoQuiz: sfatate dei miti geologici giocando!\"","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":109,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":108,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI SCIENZE POLITICHE","emoji":"🏛️","luogo":"Edificio B – Aula N – (Piano Terra)","eventi":[{"event_id":120,"titolo_blocco":"Scienze politiche, Servizio sociale e Turismo: presentazione corsi + question time","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":121,"titolo_blocco":"Scienze politiche, Servizio sociale e Turismo: presentazione corsi + question time","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":123,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":122,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"DIPARTIMENTO DI VETERINARIA","emoji":"🐾","luogo":"Edificio D – Aula D2","eventi":[{"event_id":124,"titolo_blocco":"Presentazione offerta didattica + seminario tematico","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":125,"titolo_blocco":"Presentazione offerta didattica + \"Partorire non è sempre facile\"","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":127,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":126,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"SCUOLA DI INGEGNERIA","emoji":"⚙️","luogo":"Edificio E – Aula PS1","eventi":[{"event_id":145,"titolo_blocco":"Presentazione offerta didattica dei Dipartimenti della Scuola di Ingegneria + seminario tematico","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":146,"titolo_blocco":"Presentazione offerta didattica dei Dipartimenti della Scuola di Ingegneria + seminario tematico","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":148,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":147,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]},{"dipartimento":"SCUOLA DI MEDICINA","emoji":"🏥","luogo":"Edificio B – Aula A – (Piano Terra)","eventi":[{"event_id":76,"titolo_blocco":"Presentazione offerta didattica dei Dipartimenti della Scuola di Medicina + seminario tematico","orario_inizio":"09:30","orario_fine":"11:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":77,"titolo_blocco":"Presentazione offerta didattica dei Dipartimenti della Scuola di Medicina + seminario tematico","orario_inizio":"11:30","orario_fine":"13:00","prenotabile":true,"capienza_massima":30,"attivita_incluse":[]},{"event_id":79,"titolo_blocco":"Pausa pranzo","orario_inizio":"13:00","orario_fine":"14:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]},{"event_id":78,"titolo_blocco":"Spazio domande e Fibonacci Escape Room","orario_inizio":"14:00","orario_fine":"18:00","prenotabile":false,"capienza_massima":0,"attivita_incluse":[]}]}]}]};
 const tg = window.Telegram && window.Telegram.WebApp;
 
-// ── Mappa Polo Fibonacci ─────────────────────────────────────────────────────
-// Mapping edificio → id poligono SVG e aule
-const EDIFICIO_INFO = {
-  'B': {
-    svgId: 'bld-987805652',
-    color: '#2563eb',
-    rooms: ['Aula A → Scuola di Medicina','Aula B → Farmacia','Aula C → Chimica Industriale',
-            'Aula D → Fisica','Aula E → Biologia','Aula F → Giurisprudenza',
-            'Aula G → Economia e Management','Aula L → Scienze della Terra',
-            'Aula N → Scienze Politiche','Lab-H → Informatica','Lab M → Matematica'],
+// ── Planimetria Polo Fibonacci ────────────────────────────────────────────────
+// Coordinate stanze nella planimetria (immagine 2000×1125 px)
+// Formato: { img, rooms: { codice: {x,y,w,h, label, dept} } }
+const FLOOR_PLANS = {
+  B: {
+    img: 'assets/floor_B.png',
+    title: 'Edificio B – Piano Terra',
+    rooms: {
+      A:    { x:1052, y:396, w:100, h:163, label:'Aula A',   dept:'Scuola di Medicina' },
+      B:    { x: 920, y:396, w: 88, h:163, label:'Aula B',   dept:'Farmacia' },
+      C:    { x: 780, y:396, w: 88, h:163, label:'Aula C',   dept:'Chimica e Chimica Industriale' },
+      D:    { x: 648, y:396, w: 87, h:163, label:'Aula D',   dept:'Fisica' },
+      E:    { x: 554, y:396, w: 88, h:163, label:'Aula E',   dept:'Biologia' },
+      F:    { x: 328, y:435, w: 90, h:124, label:'Aula F',   dept:'Giurisprudenza' },
+      G:    { x: 210, y:396, w:110, h:163, label:'Aula G',   dept:'Economia e Management' },
+      L:    { x: 785, y:165, w: 85, h:128, label:'Aula L',   dept:'Scienze della Terra' },
+      N:    { x: 365, y:165, w: 88, h:128, label:'Aula N',   dept:'Scienze Politiche' },
+      LABH: { x:1052, y:165, w:113, h:128, label:'Lab-H',   dept:'Informatica' },
+      LABM: { x: 655, y:165, w: 84, h:128, label:'Lab-M',   dept:'Matematica' },
+    }
   },
-  'D': {
-    svgId: 'bld-313277850',
-    color: '#16a34a',
-    rooms: ['Aula D2 → Veterinaria','Aula D3 → Filologia, Lett. e Ling.',
-            'Aula D4 → Scienze Agrarie','Aula D5 → Civiltà e Forme del Sapere'],
+  D: {
+    img: 'assets/floor_D.png',
+    title: 'Edificio D',
+    rooms: {
+      D2: { x: 779, y:214, w:225, h:312, label:'Aula D2', dept:'Veterinaria' },
+      D3: { x: 305, y:214, w:228, h:312, label:'Aula D3', dept:'Filologia, Letteratura e Linguistica' },
+      D4: { x:1006, y:214, w:228, h:312, label:'Aula D4', dept:'Scienze Agrarie, Alimentari e Agro-Ambientali' },
+      D5: { x: 535, y:214, w:238, h:312, label:'Aula D5', dept:'Civiltà e Forme del Sapere' },
+    }
   },
-  'E': {
-    svgId: 'bld-106644867',
-    color: '#d97706',
-    rooms: ['Aula PS1 → Scuola di Ingegneria'],
+  E: {
+    img: 'assets/floor_E.png',
+    title: 'Edificio E – Piano Terra',
+    rooms: {
+      PS1: { x:511, y:193, w:322, h:425, label:'Aula PS1', dept:'Scuola di Ingegneria' },
+    }
   },
 };
 
-let _svgLoaded = false;
-let _svgContent = '';
-
-async function openMap(aulaLabel) {
-  // Estrai la lettera edificio dal label (es. "Edificio B – Aula D")
-  const m = aulaLabel.match(/Edificio\s+([A-Z])\b/);
-  const edKey = m ? m[1] : null;
-  const info  = edKey ? EDIFICIO_INFO[edKey] : null;
-
-  document.getElementById('mapTitle').textContent = aulaLabel;
-  document.getElementById('mapSub').textContent   = 'Polo Fibonacci · Largo Bruno Pontecorvo, Pisa';
-
-  // Carica SVG la prima volta
-  if (!_svgLoaded) {
-    try {
-      const res = await fetch('polo_map.svg');
-      _svgContent = await res.text();
-      _svgLoaded = true;
-    } catch(e) {
-      document.getElementById('mapSvgWrap').innerHTML =
-        '<p style="padding:20px;color:#666">Mappa non disponibile</p>';
-    }
+// Estrae edificio e codice aula dal campo "luogo"
+function parseLuogo(luogo) {
+  const bm = luogo.match(/Edificio\s+([A-Z])\b/);
+  const bld = bm ? bm[1] : null;
+  let room = null;
+  if (/Lab.?H/i.test(luogo))       room = 'LABH';
+  else if (/Lab.?M/i.test(luogo))  room = 'LABM';
+  else if (/PS1/i.test(luogo))     room = 'PS1';
+  else {
+    const rm = luogo.match(/Aula\s+([A-Z][0-9]*)\b/);
+    if (rm) room = rm[1];
   }
+  return { bld, room };
+}
 
-  if (_svgLoaded) {
-    document.getElementById('mapSvgWrap').innerHTML = _svgContent;
-    // Evidenzia edificio selezionato
-    if (info) {
-      const poly = document.getElementById(info.svgId);
-      if (poly) {
-        poly.classList.add('highlight');
-        poly.style.stroke = info.color;
-        poly.style.strokeWidth = '4';
-        poly.style.fill = info.color;
-        poly.style.fillOpacity = '0.35';
-      }
-    }
-  }
+function openMap(aulaLabel) {
+  const { bld, room } = parseLuogo(aulaLabel);
+  const plan = bld ? FLOOR_PLANS[bld] : null;
+  const roomData = plan && room ? plan.rooms[room] : null;
 
-  // Lista aule
-  const rList = document.getElementById('mapRoomsList');
-  if (info && info.rooms.length) {
-    rList.innerHTML = `<strong>${aulaLabel}</strong><br>` +
-      info.rooms.map(r => `• ${r}`).join('<br>');
-    rList.style.display = '';
+  document.getElementById('mapTitle').textContent = plan ? plan.title : 'Planimetria';
+  document.getElementById('mapFloorImg').src = plan ? plan.img : '';
+
+  // Posiziona il rettangolo highlight
+  const rect = document.getElementById('mapRoomRect');
+  if (roomData) {
+    rect.setAttribute('x',      roomData.x);
+    rect.setAttribute('y',      roomData.y);
+    rect.setAttribute('width',  roomData.w);
+    rect.setAttribute('height', roomData.h);
   } else {
-    rList.style.display = 'none';
+    rect.setAttribute('width', 0);
+    rect.setAttribute('height', 0);
+  }
+
+  // Info stanza
+  const info = document.getElementById('mapRoomInfo');
+  if (roomData) {
+    info.innerHTML =
+      `<div class="room-code">${roomData.label}</div>` +
+      `<div class="room-dept">${roomData.dept}</div>`;
+    info.style.display = '';
+  } else {
+    info.style.display = 'none';
   }
 
   document.getElementById('mapOverlay').classList.add('show');
