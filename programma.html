@@ -143,30 +143,60 @@
     .map-grab { width: 38px; height: 4px; border-radius: 99px;
                 background: var(--sep); margin: 9px auto 1px; flex-shrink: 0; }
 
-    /* Selettore edifici */
-    .map-tabs {
-      display: flex; gap: 8px; padding: 10px 14px 11px; flex-shrink: 0;
-      border-bottom: 1px solid var(--sep);
-    }
-    .map-tab {
-      flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 1px;
-      align-items: flex-start; padding: 7px 10px; border-radius: 12px;
-      border: 1.5px solid var(--sep); background: var(--bg); cursor: pointer;
-      position: relative; transition: border-color .15s, background .15s, transform .1s;
+    /* Viste mappa (panoramica / dettaglio) */
+    #mapOverview { display: flex; flex-direction: column; min-height: 0; }
+    #mapDetail   { flex-direction: column; min-height: 0; flex: 1; }
+
+    /* CTA "Consulta la cartina" nel programma */
+    .map-cta {
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+      width: 100%; margin: 2px 0 12px; padding: 13px;
+      border: none; border-radius: 13px; cursor: pointer;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #fff; font-size: 14.5px; font-weight: 800;
+      box-shadow: 0 5px 16px rgba(79,70,229,.32);
       -webkit-tap-highlight-color: transparent;
     }
-    .map-tab:active { transform: scale(.97); }
-    .map-tab .mt-name { font-size: 12.5px; font-weight: 800; color: var(--text);
-                        white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
-    .map-tab .mt-sub  { font-size: 9.5px; color: var(--hint); white-space: nowrap; }
-    .map-tab.active .mt-name, .map-tab.active .mt-sub { color: #fff; }
-    .map-tab .mt-live {
-      position: absolute; top: -7px; right: -7px; min-width: 18px; height: 18px;
-      padding: 0 4px; border-radius: 99px; background: #16a34a; color: #fff;
-      font-size: 10px; font-weight: 800; display: flex; align-items: center;
-      justify-content: center; box-shadow: 0 0 0 2px var(--bg);
-      animation: dot-pulse 1.5s ease-in-out infinite;
+    .map-cta small { font-weight: 600; opacity: .9; font-size: 11.5px; }
+    .map-cta:active { transform: scale(.99); }
+
+    /* Pulsante back (vista dettaglio) */
+    .map-back-btn {
+      background: var(--secondary-bg); border: none; border-radius: 50%;
+      width: 30px; height: 30px; font-size: 19px; line-height: 1; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-right: 10px; color: var(--text);
     }
+
+    /* Panoramica edifici (griglia di card) */
+    .bld-grid { padding: 14px; display: flex; flex-direction: column; gap: 11px;
+                overflow-y: auto; }
+    .bld-card {
+      display: flex; align-items: center; gap: 13px; padding: 13px 14px;
+      border-radius: 16px; border: 1.5px solid var(--sep); background: var(--bg);
+      cursor: pointer; transition: transform .1s, box-shadow .15s, border-color .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .bld-card:active { transform: scale(.985); }
+    .bld-badge {
+      width: 50px; height: 50px; border-radius: 13px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 24px; font-weight: 800;
+      box-shadow: 0 3px 9px rgba(0,0,0,.18);
+    }
+    .bld-body { flex: 1; min-width: 0; }
+    .bld-name { font-size: 15.5px; font-weight: 800; }
+    .bld-meta { font-size: 12px; color: var(--hint); margin-top: 1px;
+                white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bld-live { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px;
+                font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 99px; }
+    .bld-live.on  { background: #dcfce7; color: #15803d; }
+    .bld-live.off { background: var(--secondary-bg); color: var(--hint); }
+    .bld-live .pulse {
+      width: 8px; height: 8px; border-radius: 50%; background: currentColor;
+      animation: dot-pulse 1.2s ease-in-out infinite;
+    }
+    .bld-arrow { color: var(--hint); font-size: 22px; flex-shrink: 0; font-weight: 600; }
 
     /* Floor plan image + SVG overlay */
     .map-floor-wrap {
@@ -248,6 +278,9 @@
 <div class="header">
   <h1>🎓 Programma SummerCamp UniPi</h1>
   <p class="subtitle">11–12 Giugno 2026 · Università di Pisa</p>
+  <button class="map-cta" onclick="openMapOverview()">
+    🗺️ Consulta la cartina <small>· aule ed eventi live</small>
+  </button>
   <div class="tabs" id="tabs"></div>
 </div>
 
@@ -262,30 +295,46 @@
 <div class="map-overlay" id="mapOverlay" onclick="closeMap()">
   <div class="map-sheet" onclick="event.stopPropagation()">
     <div class="map-grab"></div>
-    <div class="map-sheet-bar">
-      <div>
-        <div class="map-sheet-title" id="mapTitle">Planimetria</div>
-        <div class="map-sheet-sub">Polo Fibonacci · Largo B. Pontecorvo, Pisa</div>
+
+    <!-- VISTA PANORAMICA: i 3 edifici -->
+    <div id="mapOverview">
+      <div class="map-sheet-bar">
+        <div>
+          <div class="map-sheet-title">Mappa del Polo Fibonacci</div>
+          <div class="map-sheet-sub">Tocca un edificio per vederne le aule</div>
+        </div>
+        <button class="map-close-btn" onclick="closeMap()">✕</button>
       </div>
-      <button class="map-close-btn" onclick="closeMap()">✕</button>
+      <div class="bld-grid" id="bldGrid"></div>
     </div>
-    <div class="map-tabs" id="mapTabs"></div>
-    <div class="map-legend">
-      <span><span class="leg-dot" style="background:#16a34a"></span>In corso</span>
-      <span><span class="leg-dot" style="background:#eab308"></span>Tra poco</span>
-      <span><span class="leg-dot" style="background:#f97316"></span>La tua aula</span>
-      <span style="margin-left:auto;color:var(--hint);font-size:10px">👆 tocca un'aula</span>
-    </div>
-    <div class="map-floor-wrap">
-      <div class="map-floor-inner" id="mapFloorInner">
-        <img class="map-floor-img" id="mapFloorImg" src="" alt="Planimetria" />
-        <svg class="map-floor-svg" id="mapFloorSvg"
-             viewBox="0 0 2000 1125" xmlns="http://www.w3.org/2000/svg">
-          <!-- overlay generato via JS -->
-        </svg>
+
+    <!-- VISTA DETTAGLIO: piantina di un edificio -->
+    <div id="mapDetail" style="display:none;">
+      <div class="map-sheet-bar">
+        <button class="map-back-btn" onclick="showOverview()">‹</button>
+        <div style="flex:1; min-width:0;">
+          <div class="map-sheet-title" id="mapTitle">Edificio</div>
+          <div class="map-sheet-sub">Polo Fibonacci · Largo B. Pontecorvo, Pisa</div>
+        </div>
+        <button class="map-close-btn" onclick="closeMap()">✕</button>
       </div>
+      <div class="map-legend">
+        <span><span class="leg-dot" style="background:#16a34a"></span>In corso</span>
+        <span><span class="leg-dot" style="background:#eab308"></span>Tra poco</span>
+        <span><span class="leg-dot" style="background:#f97316"></span>La tua aula</span>
+        <span style="margin-left:auto;color:var(--hint);font-size:10px">👆 tocca un'aula</span>
+      </div>
+      <div class="map-floor-wrap">
+        <div class="map-floor-inner" id="mapFloorInner">
+          <img class="map-floor-img" id="mapFloorImg" src="" alt="Planimetria" />
+          <svg class="map-floor-svg" id="mapFloorSvg"
+               viewBox="0 0 2000 1125" xmlns="http://www.w3.org/2000/svg">
+            <!-- overlay generato via JS -->
+          </svg>
+        </div>
+      </div>
+      <div class="map-room-info" id="mapRoomInfo"></div>
     </div>
-    <div class="map-room-info" id="mapRoomInfo"></div>
   </div>
 </div>
 
@@ -552,69 +601,99 @@ function renderInfoPanel(bld, selectedRoom) {
   info.style.display = '';
 }
 
-// ── Selettore edifici (tab con badge "in corso") ─────────────────────────────
-function renderTabs() {
-  const wrap = document.getElementById('mapTabs');
-  wrap.innerHTML = Object.keys(FLOOR_PLANS).map(b => {
-    const meta    = BUILDING_META[b];
-    const nRooms  = Object.keys(FLOOR_PLANS[b].rooms).length;
-    const nActive = Object.values(getLiveStatus(b)).filter(v => v.status === 'active').length;
-    const isOn    = _mapCtx && b === _mapCtx.bld;
-    const style   = isOn ? `style="background:${meta.color};border-color:${meta.color}"` : '';
-    const badge   = nActive ? `<span class="mt-live">${nActive}</span>` : '';
-    return `<button class="map-tab${isOn ? ' active' : ''}" ${style} onclick="switchBuilding('${b}')">
-      ${badge}
-      <span class="mt-name">${meta.name}</span>
-      <span class="mt-sub">${nRooms} aul${nRooms > 1 ? 'e' : 'a'}</span>
-    </button>`;
+// ── Stato mappa ──────────────────────────────────────────────────────────────
+let _mapCtx = null, _mapOrigin = null, _mapTimer = null, _mapView = 'overview';
+
+// ── VISTA PANORAMICA: card dei 3 edifici ─────────────────────────────────────
+function renderOverview() {
+  const grid = document.getElementById('bldGrid');
+  grid.innerHTML = Object.keys(FLOOR_PLANS).map(b => {
+    const meta   = BUILDING_META[b];
+    const plan   = FLOOR_PLANS[b];
+    const nRooms = Object.keys(plan.rooms).length;
+    const live   = getLiveStatus(b);
+    const nActive = Object.values(live).filter(v => v.status === 'active').length;
+    const nSoon   = Object.values(live).filter(v => v.status === 'soon').length;
+    const floor   = (plan.title.split('–')[1] || '').trim();
+
+    let liveHtml;
+    if (nActive)    liveHtml = `<span class="bld-live on"><span class="pulse"></span>${nActive} lezion${nActive>1?'i':'e'} in corso</span>`;
+    else if (nSoon) liveHtml = `<span class="bld-live off">${nSoon} a breve</span>`;
+    else            liveHtml = `<span class="bld-live off">Nessuna lezione ora</span>`;
+
+    return `<div class="bld-card" onclick="showDetail('${b}')">
+      <div class="bld-badge" style="background:${meta.color}">${b}</div>
+      <div class="bld-body">
+        <div class="bld-name">${meta.name}</div>
+        <div class="bld-meta">${nRooms} aul${nRooms>1?'e':'a'}${floor ? ' · ' + floor : ''}</div>
+        ${liveHtml}
+      </div>
+      <div class="bld-arrow">›</div>
+    </div>`;
   }).join('');
 }
 
-// ── Apertura / chiusura / auto-refresh ───────────────────────────────────────
-let _mapCtx = null, _mapOrigin = null, _mapTimer = null;
-
-function paintMap() {
+// ── VISTA DETTAGLIO: piantina di un edificio ─────────────────────────────────
+function paintDetail() {
   if (!_mapCtx) return;
   renderLiveOverlay(_mapCtx.bld, _mapCtx.room);
   renderInfoPanel(_mapCtx.bld, _mapCtx.room);
-  renderTabs();
 }
 
-// Cambia edificio mostrato (mantiene la selezione solo se appartiene a questo edificio)
-function switchBuilding(b) {
-  if (!FLOOR_PLANS[b] || !_mapCtx) return;
-  _mapCtx.bld  = b;
-  _mapCtx.room = (_mapOrigin && b === _mapOrigin.bld) ? _mapOrigin.room : null;
-  document.getElementById('mapFloorImg').src   = FLOOR_PLANS[b].img;
-  document.getElementById('mapTitle').textContent = FLOOR_PLANS[b].title;
-  paintMap();
-  if (tg) tg.HapticFeedback.selectionChanged ? tg.HapticFeedback.selectionChanged() : tg.HapticFeedback.impactOccurred('light');
+function showOverview() {
+  _mapView = 'overview';
+  document.getElementById('mapDetail').style.display   = 'none';
+  document.getElementById('mapOverview').style.display = 'flex';
+  renderOverview();
+  if (tg && tg.HapticFeedback.selectionChanged) tg.HapticFeedback.selectionChanged();
 }
 
-// Seleziona un'aula toccandola sulla piantina
+function showDetail(b, room = null) {
+  if (!FLOOR_PLANS[b]) return;
+  _mapView = 'detail';
+  _mapCtx  = { bld: b, room };
+  document.getElementById('mapOverview').style.display = 'none';
+  document.getElementById('mapDetail').style.display   = 'flex';
+  document.getElementById('mapTitle').textContent      = FLOOR_PLANS[b].title;
+  document.getElementById('mapFloorImg').src           = FLOOR_PLANS[b].img;
+  paintDetail();
+  if (tg) tg.HapticFeedback.impactOccurred('light');
+}
+
+// Tocca un'aula sulla piantina per selezionarla
 function selectRoom(code) {
   if (!_mapCtx || !FLOOR_PLANS[_mapCtx.bld].rooms[code]) return;
   _mapCtx.room = code;
-  paintMap();
+  paintDetail();
   if (tg) tg.HapticFeedback.impactOccurred('light');
 }
 
+// ── Apertura / chiusura / auto-refresh ───────────────────────────────────────
+function mapTick() {
+  if (_mapView === 'overview') renderOverview();
+  else paintDetail();
+}
+function openSheet() {
+  document.getElementById('mapOverlay').classList.add('show');
+  clearInterval(_mapTimer);
+  _mapTimer = setInterval(mapTick, 30000);
+}
+
+// Entry 1: pulsante "Consulta la cartina" → panoramica
+function openMapOverview() {
+  _mapOrigin = null;
+  showOverview();
+  openSheet();
+  if (tg) tg.HapticFeedback.impactOccurred('light');
+}
+
+// Entry 2: click sulla posizione di un evento → dettaglio aula
 function openMap(aulaLabel) {
   const { bld, room } = parseLuogo(aulaLabel);
-  const plan = bld ? FLOOR_PLANS[bld] : null;
-  if (!plan) return;
-
-  document.getElementById('mapTitle').textContent = plan.title;
-  document.getElementById('mapFloorImg').src = plan.img;
-
+  if (!bld || !FLOOR_PLANS[bld]) { openMapOverview(); return; }
   _mapOrigin = { bld, room };
-  _mapCtx    = { bld, room };
-  paintMap();
-  clearInterval(_mapTimer);
-  _mapTimer = setInterval(paintMap, 30000);   // aggiorna stato live ogni 30s
-
-  document.getElementById('mapOverlay').classList.add('show');
-  if (tg) tg.HapticFeedback.impactOccurred('light');
+  showDetail(bld, room);
+  openSheet();
 }
 
 function closeMap() {
