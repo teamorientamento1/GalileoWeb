@@ -150,48 +150,61 @@
       width: 100%; height: 100%;
       pointer-events: none;
     }
-    /* Stato stanze – overlay SVG */
-    .r-active   { fill: rgba(34,197,94,.40); stroke:#16a34a; stroke-width:3; }
-    .r-soon     { fill: rgba(251,191,36,.35); stroke:#d97706; stroke-width:2; }
-    .r-selected { fill: rgba(255,220,0,.0);  stroke:#f59e0b; stroke-width:5;
-                  animation: sel-pulse 1s ease-in-out infinite alternate; }
-    .r-active.r-selected { fill: rgba(34,197,94,.55); stroke:#15803d; stroke-width:5; }
-    @keyframes sel-pulse {
-      from { stroke-width:5; stroke-opacity:1; }
-      to   { stroke-width:7; stroke-opacity:.7; }
-    }
-    /* Label IN CORSO */
-    .live-label {
-      font-family: -apple-system, sans-serif;
-      font-size: 28px; font-weight: 900;
-      fill: #15803d; dominant-baseline: middle; text-anchor: middle;
-      pointer-events: none;
-    }
+    /* Spotlight scrim + stati stanze (overlay SVG) */
+    .map-scrim     { fill: rgba(15,23,42,.62); }
+    .r-active-ring { fill:none; stroke:#16a34a; stroke-width:5;
+                     vector-effect:non-scaling-stroke;
+                     animation: ring-pulse 1.5s ease-in-out infinite; }
+    .r-soon-ring   { fill:none; stroke:#eab308; stroke-width:4; stroke-dasharray:9 6;
+                     vector-effect:non-scaling-stroke; }
+    .r-sel-ring    { fill:none; stroke:#f97316; stroke-width:6;
+                     vector-effect:non-scaling-stroke;
+                     animation: ring-pulse 1.1s ease-in-out infinite; }
+    @keyframes ring-pulse { 0%,100%{stroke-opacity:1;} 50%{stroke-opacity:.4;} }
+    .tag-text { font-family:-apple-system,sans-serif; font-weight:800;
+                fill:#fff; dominant-baseline:central; }
+
     /* Info stanza sotto */
     .map-room-info {
-      padding: 10px 16px 14px; flex-shrink: 0;
+      padding: 12px 16px 14px; flex-shrink: 0;
       border-top: 1px solid var(--sep);
       font-size: 12px; line-height: 1.5;
     }
-    .map-room-info .room-code {
-      font-size: 15px; font-weight: 800; color: var(--text);
+    .mri-code  { font-size: 16px; font-weight: 800; color: var(--text); }
+    .mri-dept  { color: var(--hint); margin-top: 1px; }
+    .mri-status {
+      margin-top: 8px; display: inline-flex; align-items: center; gap: 6px;
+      font-weight: 700; font-size: 12px; padding: 4px 10px; border-radius: 99px;
     }
-    .map-room-info .room-dept { color: var(--hint); margin-top: 2px; }
-    /* Live status list */
-    .live-list { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
-    .live-chip {
-      font-size: 10px; font-weight: 700; padding: 2px 7px;
-      border-radius: 99px; white-space: nowrap;
+    .mri-status.is-live { background:#dcfce7; color:#15803d; }
+    .mri-status.is-soon { background:#fef9c3; color:#854d0e; }
+    .mri-status.is-idle { background:var(--secondary-bg); color:var(--hint); }
+    .mri-status .pulse {
+      width:8px; height:8px; border-radius:50%; background:currentColor;
+      animation: dot-pulse 1.2s ease-in-out infinite;
     }
+    @keyframes dot-pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(.7);} }
+    .mri-event  { font-size:11px; color:#374151; margin-top:5px; }
+    .mri-next   { font-size:11px; color:var(--hint); margin-top:6px; }
+    .mri-next b { color:var(--text); }
+
+    .mri-divider { height:1px; background:var(--sep); margin:11px 0 9px; }
+    .mri-section-label { font-size:10px; font-weight:700; color:var(--hint);
+                         text-transform:uppercase; letter-spacing:.04em; }
+    .live-list { margin-top:6px; display:flex; flex-wrap:wrap; gap:5px; }
+    .live-chip { font-size:11px; font-weight:700; padding:3px 9px;
+                 border-radius:99px; white-space:nowrap; }
     .live-chip-active { background:#dcfce7; color:#15803d; }
     .live-chip-soon   { background:#fef9c3; color:#854d0e; }
+    .mri-foot { font-size:10px; color:var(--hint); margin-top:10px; opacity:.85; }
+
     /* Legenda */
     .map-legend {
-      padding: 4px 16px 2px; display: flex; gap: 12px; flex-shrink: 0;
+      padding: 6px 16px; display: flex; gap: 14px; flex-shrink: 0;
       font-size: 10px; color: var(--hint); border-bottom: 1px solid var(--sep);
     }
-    .map-legend span { display:flex; align-items:center; gap:4px; }
-    .leg-dot { width:10px; height:10px; border-radius:3px; }
+    .map-legend span { display:flex; align-items:center; gap:5px; }
+    .leg-dot { width:11px; height:11px; border-radius:50%; flex-shrink:0; }
   </style>
 </head>
 <body>
@@ -220,9 +233,9 @@
       <button class="map-close-btn" onclick="closeMap()">✕</button>
     </div>
     <div class="map-legend">
-      <span><span class="leg-dot" style="background:#22c55e"></span>In corso</span>
-      <span><span class="leg-dot" style="background:#fbbf24"></span>Tra poco (&lt;30 min)</span>
-      <span><span class="leg-dot" style="background:#f59e0b;outline:2px solid #f59e0b"></span>Aula selezionata</span>
+      <span><span class="leg-dot" style="background:#16a34a"></span>In corso</span>
+      <span><span class="leg-dot" style="background:#eab308"></span>Tra poco</span>
+      <span><span class="leg-dot" style="background:#f97316"></span>La tua aula</span>
     </div>
     <div class="map-floor-wrap">
       <div class="map-floor-inner" id="mapFloorInner">
@@ -249,34 +262,36 @@ const FLOOR_PLANS = {
     img: 'assets/floor_B.png',
     title: 'Edificio B – Piano Terra',
     rooms: {
-      A:    { x:1052, y:396, w:100, h:163, label:'Aula A',   dept:'Scuola di Medicina' },
-      B:    { x: 920, y:396, w: 88, h:163, label:'Aula B',   dept:'Farmacia' },
-      C:    { x: 780, y:396, w: 88, h:163, label:'Aula C',   dept:'Chimica e Chimica Industriale' },
-      D:    { x: 648, y:396, w: 87, h:163, label:'Aula D',   dept:'Fisica' },
-      E:    { x: 554, y:396, w: 88, h:163, label:'Aula E',   dept:'Biologia' },
-      F:    { x: 328, y:435, w: 90, h:124, label:'Aula F',   dept:'Giurisprudenza' },
-      G:    { x: 210, y:396, w:110, h:163, label:'Aula G',   dept:'Economia e Management' },
-      L:    { x: 785, y:165, w: 85, h:128, label:'Aula L',   dept:'Scienze della Terra' },
-      N:    { x: 365, y:165, w: 88, h:128, label:'Aula N',   dept:'Scienze Politiche' },
-      LABH: { x:1052, y:165, w:113, h:128, label:'Lab-H',   dept:'Informatica' },
-      LABM: { x: 655, y:165, w: 84, h:128, label:'Lab-M',   dept:'Matematica' },
+      // fila superiore
+      N:    { x:540,  y:284, w:148, h:152, label:'Aula N',  dept:'Scienze Politiche' },
+      LABM: { x:986,  y:284, w:144, h:234, label:'Lab-M',   dept:'Matematica' },
+      L:    { x:1130, y:284, w:150, h:152, label:'Aula L',  dept:'Scienze della Terra' },
+      LABH: { x:1426, y:284, w:158, h:234, label:'Lab-H',   dept:'Informatica' },
+      // fila inferiore
+      G:    { x:388,  y:606, w:148, h:326, label:'Aula G',  dept:'Economia e Management' },
+      F:    { x:540,  y:606, w:148, h:326, label:'Aula F',  dept:'Giurisprudenza' },
+      E:    { x:836,  y:606, w:148, h:326, label:'Aula E',  dept:'Biologia' },
+      D:    { x:988,  y:606, w:140, h:326, label:'Aula D',  dept:'Fisica' },
+      C:    { x:1132, y:606, w:140, h:326, label:'Aula C',  dept:'Chimica e Chimica Industriale' },
+      B:    { x:1284, y:606, w:142, h:326, label:'Aula B',  dept:'Farmacia' },
+      A:    { x:1428, y:606, w:148, h:326, label:'Aula A',  dept:'Scuola di Medicina' },
     }
   },
   D: {
     img: 'assets/floor_D.png',
     title: 'Edificio D',
     rooms: {
-      D2: { x: 779, y:214, w:225, h:312, label:'Aula D2', dept:'Veterinaria' },
-      D3: { x: 305, y:214, w:228, h:312, label:'Aula D3', dept:'Filologia, Letteratura e Linguistica' },
-      D4: { x:1006, y:214, w:228, h:312, label:'Aula D4', dept:'Scienze Agrarie, Alimentari e Agro-Ambientali' },
-      D5: { x: 535, y:214, w:238, h:312, label:'Aula D5', dept:'Civiltà e Forme del Sapere' },
+      D3: { x:472,  y:330, w:336, h:462, label:'Aula D3', dept:'Filologia, Letteratura e Linguistica' },
+      D5: { x:832,  y:330, w:336, h:462, label:'Aula D5', dept:'Civiltà e Forme del Sapere' },
+      D2: { x:1184, y:330, w:336, h:462, label:'Aula D2', dept:'Veterinaria' },
+      D4: { x:1536, y:330, w:280, h:462, label:'Aula D4', dept:'Scienze Agrarie, Alimentari e Agro-Ambientali' },
     }
   },
   E: {
     img: 'assets/floor_E.png',
     title: 'Edificio E – Piano Terra',
     rooms: {
-      PS1: { x:511, y:193, w:322, h:425, label:'Aula PS1', dept:'Scuola di Ingegneria' },
+      PS1: { x:774, y:297, w:476, h:339, label:'Aula PS1', dept:'Scuola di Ingegneria' },
     }
   },
 };
@@ -338,46 +353,97 @@ function parseLuogo(luogo) {
   return { bld, room };
 }
 
-// ── Render overlay SVG con stato live ────────────────────────────────────────
-function renderLiveOverlay(bld, selectedRoom) {
-  const plan   = FLOOR_PLANS[bld];
-  const live   = getLiveStatus(bld);
-  const svg    = document.getElementById('mapFloorSvg');
-  const svgNS  = 'http://www.w3.org/2000/svg';
-  svg.innerHTML = '';
-
-  for (const [code, rd] of Object.entries(plan.rooms)) {
-    const st    = live[code]?.status || 'idle';
-    const isSel = code === selectedRoom;
-
-    const rect = document.createElementNS(svgNS, 'rect');
-    rect.setAttribute('x',      rd.x);
-    rect.setAttribute('y',      rd.y);
-    rect.setAttribute('width',  rd.w);
-    rect.setAttribute('height', rd.h);
-    rect.setAttribute('rx', '6');
-
-    const classes = [];
-    if (st === 'active') classes.push('r-active');
-    if (st === 'soon')   classes.push('r-soon');
-    if (isSel)           classes.push('r-selected');
-    if (classes.length)  rect.setAttribute('class', classes.join(' '));
-    else { rect.setAttribute('fill','none'); rect.setAttribute('stroke','none'); }
-    svg.appendChild(rect);
-
-    // "IN CORSO" label
-    if (st === 'active') {
-      const txt = document.createElementNS(svgNS, 'text');
-      txt.setAttribute('x', rd.x + rd.w/2);
-      txt.setAttribute('y', rd.y + rd.h/2);
-      txt.setAttribute('class', 'live-label');
-      txt.textContent = '●';
-      svg.appendChild(txt);
+// ── Prossima lezione oggi (per edificio o singola aula) ──────────────────────
+function getNextLecture(bld, roomCode) {
+  const today = todayKey(), now = nowMin();
+  let best = null;
+  for (const giorno of PROGRAMMA.programma) {
+    if (giorno.data !== today) continue;
+    for (const dept of giorno.dipartimenti) {
+      const { bld: db, room: rc } = parseLuogo(dept.luogo);
+      if (db !== bld || !rc) continue;
+      if (roomCode && rc !== roomCode) continue;
+      for (const ev of dept.eventi) {
+        if (/pausa/i.test(ev.titolo_blocco)) continue;
+        const ini = hhmm(ev.orario_inizio);
+        if (ini > now && (!best || ini < best.ini)) {
+          best = { ini, room: rc, label: FLOOR_PLANS[bld].rooms[rc]?.label || rc,
+                   evento: ev.titolo_blocco, ora: ev.orario_inizio };
+        }
+      }
     }
   }
+  return best;
 }
 
-// ── Info panel ────────────────────────────────────────────────────────────────
+// ── Badge SVG (etichetta a cavallo del bordo superiore della stanza) ─────────
+function makeTag(rd, text, bg) {
+  const fs = 26;
+  const w  = text.length * fs * 0.6 + 22;
+  const h  = fs + 14;
+  let x = rd.x + rd.w / 2 - w / 2;
+  let y = rd.y - h / 2;
+  x = Math.max(6, Math.min(2000 - w - 6, x));
+  y = Math.max(6, y);
+  return `<g>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h/2}" fill="${bg}"/>
+    <text x="${x + w/2}" y="${y + h/2 + 1}" text-anchor="middle" class="tag-text" font-size="${fs}">${text}</text>
+  </g>`;
+}
+
+// ── Render overlay "riflettore" sulla planimetria ─────────────────────────────
+function renderLiveOverlay(bld, selectedRoom) {
+  const plan = FLOOR_PLANS[bld];
+  const live = getLiveStatus(bld);
+  const svg  = document.getElementById('mapFloorSvg');
+
+  const holes = [];   // buchi nello scrim → stanze illuminate
+  const rings = [];   // contorni colorati
+  const tags  = [];   // etichette
+
+  for (const [code, rd] of Object.entries(plan.rooms)) {
+    const st    = live[code]?.status;          // 'active' | 'soon' | undefined
+    const isSel = code === selectedRoom;
+    if (!st && !isSel) continue;               // resta in ombra
+
+    holes.push(`<rect x="${rd.x}" y="${rd.y}" width="${rd.w}" height="${rd.h}" rx="10" fill="#000"/>`);
+
+    if (st === 'active')
+      rings.push(`<rect x="${rd.x}" y="${rd.y}" width="${rd.w}" height="${rd.h}" rx="10" class="r-active-ring" filter="url(#glowG)"/>`);
+    else if (st === 'soon')
+      rings.push(`<rect x="${rd.x}" y="${rd.y}" width="${rd.w}" height="${rd.h}" rx="10" class="r-soon-ring"/>`);
+
+    if (isSel)
+      rings.push(`<rect x="${rd.x-4}" y="${rd.y-4}" width="${rd.w+8}" height="${rd.h+8}" rx="13" class="r-sel-ring"/>`);
+
+    // Etichette: l'aula selezionata mostra sempre il suo nome (arancione),
+    // le altre attive/imminenti mostrano lo stato
+    if (isSel)              tags.push(makeTag(rd, rd.label, '#f97316'));
+    else if (st === 'active') tags.push(makeTag(rd, 'ORA', '#16a34a'));
+    else if (st === 'soon')   tags.push(makeTag(rd, 'tra ' + live[code].minuti + '′', '#ca8a04'));
+  }
+
+  const scrim = holes.length
+    ? `<rect class="map-scrim" x="0" y="0" width="2000" height="1125" mask="url(#spot)"/>`
+    : '';
+
+  svg.innerHTML = `
+    <defs>
+      <mask id="spot">
+        <rect x="0" y="0" width="2000" height="1125" fill="#fff"/>
+        ${holes.join('')}
+      </mask>
+      <filter id="glowG" x="-40%" y="-40%" width="180%" height="180%">
+        <feGaussianBlur stdDeviation="7" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+    </defs>
+    ${scrim}
+    ${rings.join('')}
+    ${tags.join('')}`;
+}
+
+// ── Pannello informazioni ─────────────────────────────────────────────────────
 function renderInfoPanel(bld, selectedRoom) {
   const plan     = FLOOR_PLANS[bld];
   const live     = getLiveStatus(bld);
@@ -386,39 +452,63 @@ function renderInfoPanel(bld, selectedRoom) {
   const info     = document.getElementById('mapRoomInfo');
 
   let html = '';
+
+  // Blocco aula selezionata
   if (roomData) {
-    html += `<div class="room-code">${roomData.label}</div>`;
-    html += `<div class="room-dept">${roomData.dept}</div>`;
+    html += `<div class="mri-code">${roomData.label}</div>`;
+    html += `<div class="mri-dept">${roomData.dept}</div>`;
+
     if (liveData?.status === 'active') {
-      html += `<div style="margin-top:6px;color:#15803d;font-weight:700;font-size:11px">🟢 IN CORSO</div>`;
-      html += `<div style="font-size:11px;color:#374151;margin-top:2px">${liveData.evento}</div>`;
+      html += `<div class="mri-status is-live"><span class="pulse"></span>Lezione in corso ora</div>`;
+      html += `<div class="mri-event">${liveData.evento}</div>`;
     } else if (liveData?.status === 'soon') {
-      html += `<div style="margin-top:6px;color:#854d0e;font-weight:700;font-size:11px">🟡 TRA ${liveData.minuti} MIN</div>`;
-      html += `<div style="font-size:11px;color:#374151;margin-top:2px">${liveData.evento}</div>`;
+      html += `<div class="mri-status is-soon"><span class="pulse"></span>Inizia tra ${liveData.minuti} min</div>`;
+      html += `<div class="mri-event">${liveData.evento}</div>`;
+    } else {
+      const nxt = getNextLecture(bld, selectedRoom);
+      html += `<div class="mri-status is-idle">Nessuna lezione in corso qui</div>`;
+      if (nxt) html += `<div class="mri-next">Prossima qui: <b>${nxt.ora}</b> · ${nxt.evento}</div>`;
     }
   }
 
-  // Chip live di tutte le stanze attive nell'edificio
+  // Riepilogo edificio
   const activeRooms = Object.entries(live).filter(([,v]) => v.status === 'active');
   const soonRooms   = Object.entries(live).filter(([,v]) => v.status === 'soon');
+
+  html += '<div class="mri-divider"></div>';
+  html += `<div class="mri-section-label">Adesso · ${plan.title}</div>`;
+
   if (activeRooms.length || soonRooms.length) {
     html += '<div class="live-list">';
-    for (const [code] of activeRooms) {
-      const label = plan.rooms[code]?.label || code;
-      html += `<span class="live-chip live-chip-active">🟢 ${label}</span>`;
-    }
-    for (const [code, v] of soonRooms) {
-      const label = plan.rooms[code]?.label || code;
-      html += `<span class="live-chip live-chip-soon">🟡 ${label} (${v.minuti} min)</span>`;
-    }
+    for (const [code] of activeRooms)
+      html += `<span class="live-chip live-chip-active">🟢 ${plan.rooms[code]?.label || code}</span>`;
+    for (const [code, v] of soonRooms)
+      html += `<span class="live-chip live-chip-soon">🟡 ${plan.rooms[code]?.label || code} · ${v.minuti}′</span>`;
     html += '</div>';
+  } else {
+    const nxt = getNextLecture(bld);
+    if (nxt)
+      html += `<div class="mri-next">Nessuna lezione in corso. Prossima: <b>${nxt.label}</b> alle <b>${nxt.ora}</b></div>`;
+    else
+      html += `<div class="mri-next">Nessuna lezione in programma in questo momento.</div>`;
   }
 
-  info.innerHTML  = html;
-  info.style.display = html ? '' : 'none';
+  const t = new Date();
+  html += `<div class="mri-foot">🕒 Aggiornato alle ${String(t.getHours()).padStart(2,'0')}:${String(t.getMinutes()).padStart(2,'0')}</div>`;
+
+  info.innerHTML = html;
+  info.style.display = '';
 }
 
-// ── Entry point ───────────────────────────────────────────────────────────────
+// ── Apertura / chiusura / auto-refresh ───────────────────────────────────────
+let _mapCtx = null, _mapTimer = null;
+
+function paintMap() {
+  if (!_mapCtx) return;
+  renderLiveOverlay(_mapCtx.bld, _mapCtx.room);
+  renderInfoPanel(_mapCtx.bld, _mapCtx.room);
+}
+
 function openMap(aulaLabel) {
   const { bld, room } = parseLuogo(aulaLabel);
   const plan = bld ? FLOOR_PLANS[bld] : null;
@@ -427,14 +517,19 @@ function openMap(aulaLabel) {
   document.getElementById('mapTitle').textContent = plan.title;
   document.getElementById('mapFloorImg').src = plan.img;
 
-  renderLiveOverlay(bld, room);
-  renderInfoPanel(bld, room);
+  _mapCtx = { bld, room };
+  paintMap();
+  clearInterval(_mapTimer);
+  _mapTimer = setInterval(paintMap, 30000);   // aggiorna stato live ogni 30s
 
   document.getElementById('mapOverlay').classList.add('show');
   if (tg) tg.HapticFeedback.impactOccurred('light');
 }
 
 function closeMap() {
+  clearInterval(_mapTimer);
+  _mapTimer = null;
+  _mapCtx = null;
   document.getElementById('mapOverlay').classList.remove('show');
 }
 
