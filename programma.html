@@ -150,16 +150,22 @@
       width: 100%; height: 100%;
       pointer-events: none;
     }
-    /* Stanza evidenziata */
-    .room-highlight {
-      fill: rgba(255,220,0,0.45);
-      stroke: #f59e0b;
-      stroke-width: 3;
-      animation: room-pulse 1.2s ease-in-out infinite alternate;
+    /* Stato stanze – overlay SVG */
+    .r-active   { fill: rgba(34,197,94,.40); stroke:#16a34a; stroke-width:3; }
+    .r-soon     { fill: rgba(251,191,36,.35); stroke:#d97706; stroke-width:2; }
+    .r-selected { fill: rgba(255,220,0,.0);  stroke:#f59e0b; stroke-width:5;
+                  animation: sel-pulse 1s ease-in-out infinite alternate; }
+    .r-active.r-selected { fill: rgba(34,197,94,.55); stroke:#15803d; stroke-width:5; }
+    @keyframes sel-pulse {
+      from { stroke-width:5; stroke-opacity:1; }
+      to   { stroke-width:7; stroke-opacity:.7; }
     }
-    @keyframes room-pulse {
-      from { fill: rgba(255,220,0,.45); stroke-width: 3; }
-      to   { fill: rgba(255,165,0,.65); stroke-width: 5; }
+    /* Label IN CORSO */
+    .live-label {
+      font-family: -apple-system, sans-serif;
+      font-size: 28px; font-weight: 900;
+      fill: #15803d; dominant-baseline: middle; text-anchor: middle;
+      pointer-events: none;
     }
     /* Info stanza sotto */
     .map-room-info {
@@ -171,6 +177,21 @@
       font-size: 15px; font-weight: 800; color: var(--text);
     }
     .map-room-info .room-dept { color: var(--hint); margin-top: 2px; }
+    /* Live status list */
+    .live-list { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px; }
+    .live-chip {
+      font-size: 10px; font-weight: 700; padding: 2px 7px;
+      border-radius: 99px; white-space: nowrap;
+    }
+    .live-chip-active { background:#dcfce7; color:#15803d; }
+    .live-chip-soon   { background:#fef9c3; color:#854d0e; }
+    /* Legenda */
+    .map-legend {
+      padding: 4px 16px 2px; display: flex; gap: 12px; flex-shrink: 0;
+      font-size: 10px; color: var(--hint); border-bottom: 1px solid var(--sep);
+    }
+    .map-legend span { display:flex; align-items:center; gap:4px; }
+    .leg-dot { width:10px; height:10px; border-radius:3px; }
   </style>
 </head>
 <body>
@@ -198,13 +219,17 @@
       </div>
       <button class="map-close-btn" onclick="closeMap()">✕</button>
     </div>
+    <div class="map-legend">
+      <span><span class="leg-dot" style="background:#22c55e"></span>In corso</span>
+      <span><span class="leg-dot" style="background:#fbbf24"></span>Tra poco (&lt;30 min)</span>
+      <span><span class="leg-dot" style="background:#f59e0b;outline:2px solid #f59e0b"></span>Aula selezionata</span>
+    </div>
     <div class="map-floor-wrap">
       <div class="map-floor-inner" id="mapFloorInner">
         <img class="map-floor-img" id="mapFloorImg" src="" alt="Planimetria" />
         <svg class="map-floor-svg" id="mapFloorSvg"
              viewBox="0 0 2000 1125" xmlns="http://www.w3.org/2000/svg">
-          <rect id="mapRoomRect" class="room-highlight"
-                x="0" y="0" width="0" height="0" rx="6"/>
+          <!-- overlay generato via JS -->
         </svg>
       </div>
     </div>
@@ -256,7 +281,49 @@ const FLOOR_PLANS = {
   },
 };
 
-// Estrae edificio e codice aula dal campo "luogo"
+// ── Helpers ora / data ───────────────────────────────────────────────────────
+function hhmm(str) { // "09:30" → 570 (minuti dalla mezzanotte)
+  const [h,m] = str.split(':').map(Number); return h*60+(m||0);
+}
+function nowMin() {
+  const d = new Date(); return d.getHours()*60 + d.getMinutes();
+}
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+// ── Calcola stato live delle stanze per un edificio ──────────────────────────
+// Ritorna mappa roomCode → { status:'active'|'soon'|'idle', evento, dipart }
+function getLiveStatus(bld) {
+  const today = todayKey();
+  const now   = nowMin();
+  const SOON_WINDOW = 30; // minuti
+  const result = {};
+
+  for (const giorno of PROGRAMMA.programma) {
+    if (giorno.data !== today) continue;
+    for (const dept of giorno.dipartimenti) {
+      const { bld: db, room: rc } = parseLuogo(dept.luogo);
+      if (db !== bld || !rc) continue;
+      for (const ev of dept.eventi) {
+        const ini = hhmm(ev.orario_inizio);
+        const fin = hhmm(ev.orario_fine);
+        if (/pausa/i.test(ev.titolo_blocco)) continue;
+        const prev = result[rc];
+        if (now >= ini && now < fin) {
+          // In corso — priorità massima
+          result[rc] = { status:'active', evento: ev.titolo_blocco, dipart: dept.dipartimento };
+        } else if (ini > now && ini - now <= SOON_WINDOW && prev?.status !== 'active') {
+          result[rc] = { status:'soon', evento: ev.titolo_blocco, dipart: dept.dipartimento, minuti: ini - now };
+        }
+      }
+    }
+  }
+  return result;
+}
+
+// ── Estrae edificio e codice aula dal campo "luogo" ──────────────────────────
 function parseLuogo(luogo) {
   const bm = luogo.match(/Edificio\s+([A-Z])\b/);
   const bld = bm ? bm[1] : null;
@@ -271,36 +338,97 @@ function parseLuogo(luogo) {
   return { bld, room };
 }
 
+// ── Render overlay SVG con stato live ────────────────────────────────────────
+function renderLiveOverlay(bld, selectedRoom) {
+  const plan   = FLOOR_PLANS[bld];
+  const live   = getLiveStatus(bld);
+  const svg    = document.getElementById('mapFloorSvg');
+  const svgNS  = 'http://www.w3.org/2000/svg';
+  svg.innerHTML = '';
+
+  for (const [code, rd] of Object.entries(plan.rooms)) {
+    const st    = live[code]?.status || 'idle';
+    const isSel = code === selectedRoom;
+
+    const rect = document.createElementNS(svgNS, 'rect');
+    rect.setAttribute('x',      rd.x);
+    rect.setAttribute('y',      rd.y);
+    rect.setAttribute('width',  rd.w);
+    rect.setAttribute('height', rd.h);
+    rect.setAttribute('rx', '6');
+
+    const classes = [];
+    if (st === 'active') classes.push('r-active');
+    if (st === 'soon')   classes.push('r-soon');
+    if (isSel)           classes.push('r-selected');
+    if (classes.length)  rect.setAttribute('class', classes.join(' '));
+    else { rect.setAttribute('fill','none'); rect.setAttribute('stroke','none'); }
+    svg.appendChild(rect);
+
+    // "IN CORSO" label
+    if (st === 'active') {
+      const txt = document.createElementNS(svgNS, 'text');
+      txt.setAttribute('x', rd.x + rd.w/2);
+      txt.setAttribute('y', rd.y + rd.h/2);
+      txt.setAttribute('class', 'live-label');
+      txt.textContent = '●';
+      svg.appendChild(txt);
+    }
+  }
+}
+
+// ── Info panel ────────────────────────────────────────────────────────────────
+function renderInfoPanel(bld, selectedRoom) {
+  const plan     = FLOOR_PLANS[bld];
+  const live     = getLiveStatus(bld);
+  const roomData = selectedRoom ? plan.rooms[selectedRoom] : null;
+  const liveData = selectedRoom ? live[selectedRoom] : null;
+  const info     = document.getElementById('mapRoomInfo');
+
+  let html = '';
+  if (roomData) {
+    html += `<div class="room-code">${roomData.label}</div>`;
+    html += `<div class="room-dept">${roomData.dept}</div>`;
+    if (liveData?.status === 'active') {
+      html += `<div style="margin-top:6px;color:#15803d;font-weight:700;font-size:11px">🟢 IN CORSO</div>`;
+      html += `<div style="font-size:11px;color:#374151;margin-top:2px">${liveData.evento}</div>`;
+    } else if (liveData?.status === 'soon') {
+      html += `<div style="margin-top:6px;color:#854d0e;font-weight:700;font-size:11px">🟡 TRA ${liveData.minuti} MIN</div>`;
+      html += `<div style="font-size:11px;color:#374151;margin-top:2px">${liveData.evento}</div>`;
+    }
+  }
+
+  // Chip live di tutte le stanze attive nell'edificio
+  const activeRooms = Object.entries(live).filter(([,v]) => v.status === 'active');
+  const soonRooms   = Object.entries(live).filter(([,v]) => v.status === 'soon');
+  if (activeRooms.length || soonRooms.length) {
+    html += '<div class="live-list">';
+    for (const [code] of activeRooms) {
+      const label = plan.rooms[code]?.label || code;
+      html += `<span class="live-chip live-chip-active">🟢 ${label}</span>`;
+    }
+    for (const [code, v] of soonRooms) {
+      const label = plan.rooms[code]?.label || code;
+      html += `<span class="live-chip live-chip-soon">🟡 ${label} (${v.minuti} min)</span>`;
+    }
+    html += '</div>';
+  }
+
+  info.innerHTML  = html;
+  info.style.display = html ? '' : 'none';
+}
+
+// ── Entry point ───────────────────────────────────────────────────────────────
 function openMap(aulaLabel) {
   const { bld, room } = parseLuogo(aulaLabel);
   const plan = bld ? FLOOR_PLANS[bld] : null;
-  const roomData = plan && room ? plan.rooms[room] : null;
+  if (!plan) return;
 
-  document.getElementById('mapTitle').textContent = plan ? plan.title : 'Planimetria';
-  document.getElementById('mapFloorImg').src = plan ? plan.img : '';
+  document.getElementById('mapTitle').textContent = plan.title;
+  document.getElementById('mapFloorImg').src = plan.img;
 
-  // Posiziona il rettangolo highlight
-  const rect = document.getElementById('mapRoomRect');
-  if (roomData) {
-    rect.setAttribute('x',      roomData.x);
-    rect.setAttribute('y',      roomData.y);
-    rect.setAttribute('width',  roomData.w);
-    rect.setAttribute('height', roomData.h);
-  } else {
-    rect.setAttribute('width', 0);
-    rect.setAttribute('height', 0);
-  }
-
-  // Info stanza
-  const info = document.getElementById('mapRoomInfo');
-  if (roomData) {
-    info.innerHTML =
-      `<div class="room-code">${roomData.label}</div>` +
-      `<div class="room-dept">${roomData.dept}</div>`;
-    info.style.display = '';
-  } else {
-    info.style.display = 'none';
-  }
+  renderLiveOverlay(bld, room);
+  renderInfoPanel(bld, room);
 
   document.getElementById('mapOverlay').classList.add('show');
   if (tg) tg.HapticFeedback.impactOccurred('light');
