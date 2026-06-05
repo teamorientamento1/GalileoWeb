@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="900" height="700">
+<defs>
+  <filter id="shadow"><feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.15"/></filter>
+  <style>
+    .bld-label { font-family: -apple-system, sans-serif; font-weight: 700; pointer-events: none; }
+    .room-label { font-family: -apple-system, sans-serif; font-size: 9px; fill: #374151; pointer-events: none; }
+    .bld { cursor: pointer; transition: opacity .2s; }
+    .bld:hover { opacity: .85; }
+    text { dominant-baseline: middle; text-anchor: middle; }
+  </style>
+</defs>
+<rect width="900" height="700" fill="#e8ecef"/>
+<polygon id="bld-35466738" class="bld" points="415.2,166.7 415.2,169.1 415.1,183.7 415.1,185.5 415.1,188.4 415.1,202.8 415.1,204.9 415.1,207.7 415.1,222.2 415.1,224.3 415.1,226.9 415.0,241.5 415.0,243.9 415.0,246.3 415.0,260.7 415.0,263.4 415.0,265.9 415.0,270.3 415.0,278.8 415.0,282.0 415.0,284.9 414.9,298.8 414.9,301.4 414.9,304.2 414.9,318.2 414.9,321.0 414.9,323.8 414.9,336.4 414.9,344.1 414.9,350.6 414.8,356.9 414.8,359.9 414.8,364.5 414.8,371.4 414.8,375.5 414.8,378.3 414.8,384.7 414.8,391.2 414.8,398.1 414.8,404.6 414.8,411.1 414.7,417.5 414.7,423.6 414.7,430.0 414.7,436.5 414.7,442.9 414.7,449.4 414.7,454.9 414.7,456.0 414.6,476.1 389.2,476.1 314.8,475.7 307.0,475.8 281.1,475.8 274.1,475.8 268.9,475.8 241.0,476.0 241.0,460.2 241.1,378.3 241.1,369.5 241.2,359.8 241.3,282.0 241.3,263.3 241.3,243.8 241.4,230.8 241.4,218.0 241.4,205.2 241.4,192.2 241.5,179.5 241.5,166.6 265.0,166.6 289.4,166.6 293.3,166.6 343.4,166.6 347.8,166.6 350.0,166.6 371.2,166.6 392.2,166.7 415.2,166.7" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+<polygon id="bld-35466739" class="bld" points="468.2,217.4 641.2,218.4 638.2,477.4 468.1,477.0 468.9,455.3 468.2,217.4" fill="#fafafa" stroke="#94a3b8" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="525.5" y="343.8" class="bld-label" font-size="10" fill="#94a3b8">Ed. C (INFN)</text>
+<polygon id="bld-106644868" class="bld" points="121.8,422.9 183.3,422.7 184.1,487.7 104.1,487.9 103.8,467.5 139.9,467.4 139.9,464.3 130.2,464.3 129.9,441.7 122.0,441.7 121.8,422.9" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="134.6" y="453.7" class="bld-label" font-size="10" fill="#94a3b8">Ex-DMA</text>
+<polygon id="bld-158441765" class="bld" points="269.0,487.8 269.1,496.6 269.3,513.8 235.0,513.9 235.5,552.2 235.8,586.5 255.3,586.5 255.6,619.2 515.0,618.5 514.8,600.8 514.6,584.2 333.8,584.7 332.9,502.9 315.1,503.0 315.0,496.7 314.8,475.7 307.0,475.8 281.1,475.8 274.1,475.8 268.9,475.8 269.0,487.8" fill="#f3e8ff" stroke="#7c3aed" stroke-width="1.5" filter="url(#shadow)"/>
+<text x="313.4" y="529.2" class="bld-label" font-size="10" fill="#7c3aed">Dip. Matematica</text>
+<polygon id="bld-987805652" class="bld" points="241.0,476.0 241.0,460.2 241.1,378.3 241.1,369.5 241.2,359.8 241.3,282.0 241.3,263.3 241.3,243.8 241.4,230.8 241.4,218.0 241.4,205.2 241.4,192.2 241.5,179.5 241.5,166.6 241.5,152.2 241.5,147.7 241.5,126.9 265.3,126.9 286.4,126.9 307.9,127.0 328.2,127.0 332.1,127.0 336.1,127.0 350.3,127.0 371.4,127.0 392.6,127.0 415.2,127.0 415.9,134.2 415.9,135.7 419.2,135.6 422.4,135.3 425.6,135.6 428.1,136.7 429.5,138.2 429.2,147.6 429.0,250.5 431.9,249.0 435.7,248.4 439.4,249.0 441.9,250.5 442.4,252.4 442.6,277.1 442.1,279.1 439.5,280.5 435.8,281.1 432.0,280.5 429.0,279.1 428.9,359.8 431.7,358.3 435.4,357.8 439.2,358.3 441.7,359.8 442.2,361.8 442.4,386.5 441.8,388.4 439.3,389.9 435.5,390.4 431.8,389.9 428.8,388.4 428.7,454.9 414.7,454.9 414.7,456.0 414.6,476.1 389.2,476.1 314.8,475.7 307.0,475.8 281.1,475.8 274.1,475.8 268.9,475.8 241.0,476.0" fill="#dbeafe" stroke="#2563eb" stroke-width="2" filter="url(#shadow)"/>
+<text x="358.6" y="280.9" class="bld-label" font-size="13" fill="#2563eb">Edificio B</text>
+<polygon id="bld-313277850" class="bld" points="690.0,477.8 696.0,221.2 747.3,221.5 796.2,287.3 793.7,406.5 726.1,476.9 690.0,477.8" fill="#dcfce7" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+<text x="734.2" y="367.0" class="bld-label" font-size="13" fill="#16a34a">Edificio D</text>
+<polygon id="bld-106644867" class="bld" points="474.9,80.8 624.9,81.7 624.4,102.2 644.3,102.3 643.9,122.8 665.3,122.9 664.6,148.6 492.7,147.6 493.2,126.9 473.7,126.8 474.9,80.8" fill="#fef3c7" stroke="#d97706" stroke-width="2" filter="url(#shadow)"/>
+<text x="570.6" y="113.0" class="bld-label" font-size="13" fill="#d97706">Edificio E</text>
+<rect x="660" y="10" width="240" height="266" rx="8" fill="white" fill-opacity="0.92" stroke="#e2e8f0" stroke-width="1" filter="url(#shadow)"/>
+<rect x="670" y="20" width="10" height="10" rx="2" fill="#2563eb"/>
+<text x="684" y="25" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" fill="#2563eb" text-anchor="start">Edificio B  –  Piano Terra</text>
+<text x="680" y="40" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula A (Medicina)</text>
+<text x="680" y="52" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula B (Farmacia)</text>
+<text x="680" y="64" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula C (Chimica)</text>
+<text x="680" y="76" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula D (Fisica)</text>
+<text x="680" y="88" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula E (Biologia)</text>
+<text x="680" y="100" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula F (Giurisprudenza)</text>
+<text x="680" y="112" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula G (Economia)</text>
+<text x="680" y="124" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula L (Scienze Terra)</text>
+<text x="680" y="136" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula N (Sci. Politiche)</text>
+<text x="680" y="148" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Lab-H (Informatica)</text>
+<text x="680" y="160" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Lab M (Matematica)</text>
+<rect x="670" y="174" width="10" height="10" rx="2" fill="#16a34a"/>
+<text x="684" y="179" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" fill="#16a34a" text-anchor="start">Edificio D</text>
+<text x="680" y="194" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula D2 (Veterinaria)</text>
+<text x="680" y="206" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula D3 (Filologia)</text>
+<text x="680" y="218" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula D4 (Agrarie)</text>
+<text x="680" y="230" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula D5 (Civiltà)</text>
+<rect x="670" y="244" width="10" height="10" rx="2" fill="#d97706"/>
+<text x="684" y="249" font-family="-apple-system,sans-serif" font-size="11" font-weight="700" fill="#d97706" text-anchor="start">Edificio E</text>
+<text x="680" y="264" font-family="-apple-system,sans-serif" font-size="10" fill="#374151" text-anchor="start">• Aula PS1 (Ingegneria)</text>
+<rect x="10" y="10" width="260" height="36" rx="8" fill="white" fill-opacity="0.9" stroke="#e2e8f0"/>
+<text x="20" y="28" font-family="-apple-system,sans-serif" font-size="14" font-weight="700" fill="#1e293b" text-anchor="start">🎓 Polo Fibonacci – SummerCamp 2026</text>
+</svg>

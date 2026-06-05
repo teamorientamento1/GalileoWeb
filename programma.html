@@ -114,10 +114,11 @@
     .map-overlay.show { display: flex; }
     .map-sheet {
       background: var(--bg); border-radius: 16px 16px 0 0;
-      width: 100%; max-width: 500px;
+      width: 100%; max-width: 600px;
       display: flex; flex-direction: column;
-      max-height: 88dvh;
+      max-height: 90dvh;
       padding-bottom: env(safe-area-inset-bottom, 0px);
+      overflow: hidden;
     }
     .map-sheet-bar {
       display: flex; align-items: flex-start; justify-content: space-between;
@@ -132,9 +133,25 @@
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; margin-left: 10px;
     }
-    .map-iframe {
-      flex: 1; border: none; width: 100%; min-height: 400px;
+    /* SVG mappa */
+    .map-svg-wrap {
+      flex: 1; overflow: auto; padding: 8px;
+      display: flex; align-items: center; justify-content: center;
+      background: #e8ecef;
     }
+    .map-svg-wrap svg { max-width: 100%; height: auto; border-radius: 8px; }
+    /* Highlight edificio selezionato */
+    .map-svg-wrap polygon.highlight {
+      animation: pulse-bld 1.5s ease-in-out infinite alternate;
+    }
+    @keyframes pulse-bld { from { opacity: 1; } to { opacity: .7; } }
+    /* Legenda sotto */
+    .map-rooms-list {
+      padding: 10px 16px 14px; flex-shrink: 0;
+      border-top: 1px solid var(--sep);
+      font-size: 11px; color: var(--hint); line-height: 1.6;
+    }
+    .map-rooms-list strong { color: var(--text); font-size: 12px; }
   </style>
 </head>
 <body>
@@ -157,15 +174,15 @@
   <div class="map-sheet" onclick="event.stopPropagation()">
     <div class="map-sheet-bar">
       <div>
-        <div class="map-sheet-title" id="mapTitle">Mappa Polo Fibonacci</div>
+        <div class="map-sheet-title" id="mapTitle">Polo Fibonacci</div>
         <div class="map-sheet-sub" id="mapSub">Largo Bruno Pontecorvo, Pisa</div>
       </div>
       <button class="map-close-btn" onclick="closeMap()">✕</button>
     </div>
-    <iframe class="map-iframe" id="mapFrame"
-      src="" loading="lazy"
-      sandbox="allow-scripts allow-same-origin allow-forms allow-popups">
-    </iframe>
+    <div class="map-svg-wrap" id="mapSvgWrap">
+      <!-- SVG caricato via JS -->
+    </div>
+    <div class="map-rooms-list" id="mapRoomsList"></div>
   </div>
 </div>
 
@@ -174,16 +191,84 @@ const PROGRAMMA = {"programma":[{"giorno":"GIOVEDÌ 11 GIUGNO","data":"2026-06-1
 const tg = window.Telegram && window.Telegram.WebApp;
 
 // ── Mappa Polo Fibonacci ─────────────────────────────────────────────────────
-function openMap(aulaLabel) {
+// Mapping edificio → id poligono SVG e aule
+const EDIFICIO_INFO = {
+  'B': {
+    svgId: 'bld-987805652',
+    color: '#2563eb',
+    rooms: ['Aula A → Scuola di Medicina','Aula B → Farmacia','Aula C → Chimica Industriale',
+            'Aula D → Fisica','Aula E → Biologia','Aula F → Giurisprudenza',
+            'Aula G → Economia e Management','Aula L → Scienze della Terra',
+            'Aula N → Scienze Politiche','Lab-H → Informatica','Lab M → Matematica'],
+  },
+  'D': {
+    svgId: 'bld-313277850',
+    color: '#16a34a',
+    rooms: ['Aula D2 → Veterinaria','Aula D3 → Filologia, Lett. e Ling.',
+            'Aula D4 → Scienze Agrarie','Aula D5 → Civiltà e Forme del Sapere'],
+  },
+  'E': {
+    svgId: 'bld-106644867',
+    color: '#d97706',
+    rooms: ['Aula PS1 → Scuola di Ingegneria'],
+  },
+};
+
+let _svgLoaded = false;
+let _svgContent = '';
+
+async function openMap(aulaLabel) {
+  // Estrai la lettera edificio dal label (es. "Edificio B – Aula D")
+  const m = aulaLabel.match(/Edificio\s+([A-Z])\b/);
+  const edKey = m ? m[1] : null;
+  const info  = edKey ? EDIFICIO_INFO[edKey] : null;
+
   document.getElementById('mapTitle').textContent = aulaLabel;
   document.getElementById('mapSub').textContent   = 'Polo Fibonacci · Largo Bruno Pontecorvo, Pisa';
-  document.getElementById('mapFrame').src = 'https://www.dm.unipi.it/mappa/';
+
+  // Carica SVG la prima volta
+  if (!_svgLoaded) {
+    try {
+      const res = await fetch('polo_map.svg');
+      _svgContent = await res.text();
+      _svgLoaded = true;
+    } catch(e) {
+      document.getElementById('mapSvgWrap').innerHTML =
+        '<p style="padding:20px;color:#666">Mappa non disponibile</p>';
+    }
+  }
+
+  if (_svgLoaded) {
+    document.getElementById('mapSvgWrap').innerHTML = _svgContent;
+    // Evidenzia edificio selezionato
+    if (info) {
+      const poly = document.getElementById(info.svgId);
+      if (poly) {
+        poly.classList.add('highlight');
+        poly.style.stroke = info.color;
+        poly.style.strokeWidth = '4';
+        poly.style.fill = info.color;
+        poly.style.fillOpacity = '0.35';
+      }
+    }
+  }
+
+  // Lista aule
+  const rList = document.getElementById('mapRoomsList');
+  if (info && info.rooms.length) {
+    rList.innerHTML = `<strong>${aulaLabel}</strong><br>` +
+      info.rooms.map(r => `• ${r}`).join('<br>');
+    rList.style.display = '';
+  } else {
+    rList.style.display = 'none';
+  }
+
   document.getElementById('mapOverlay').classList.add('show');
   if (tg) tg.HapticFeedback.impactOccurred('light');
 }
+
 function closeMap() {
   document.getElementById('mapOverlay').classList.remove('show');
-  setTimeout(() => { document.getElementById('mapFrame').src = ''; }, 300);
 }
 
 function esc(str) {
