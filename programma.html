@@ -144,8 +144,25 @@
                 background: var(--sep); margin: 9px auto 1px; flex-shrink: 0; }
 
     /* Viste mappa (panoramica / dettaglio) */
-    #mapOverview { display: flex; flex-direction: column; min-height: 0; }
+    #mapOverview { display: flex; flex-direction: column; min-height: 0; flex: 1; }
     #mapDetail   { flex-direction: column; min-height: 0; flex: 1; }
+
+    /* Mappa interattiva del Polo */
+    .campus-wrap {
+      flex: 1; overflow: auto; padding: 12px;
+      display: flex; justify-content: center; align-items: flex-start;
+      background: #fff;
+    }
+    .campus-inner { position: relative; width: 100%; max-width: 430px; line-height: 0; }
+    .campus-img   { width: 100%; height: auto; display: block; }
+    .campus-svg   { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .cz { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+    .cz-shape {
+      stroke-width: 3.5; vector-effect: non-scaling-stroke;
+      transition: fill-opacity .15s;
+    }
+    .cz:active .cz-shape { fill-opacity: .42 !important; }
+    .cz-label { font-family: -apple-system, sans-serif; font-weight: 800; fill: #fff; }
 
     /* CTA "Consulta la cartina" nel programma */
     .map-cta {
@@ -296,7 +313,7 @@
   <div class="map-sheet" onclick="event.stopPropagation()">
     <div class="map-grab"></div>
 
-    <!-- VISTA PANORAMICA: i 3 edifici -->
+    <!-- VISTA PANORAMICA: mappa interattiva del Polo -->
     <div id="mapOverview">
       <div class="map-sheet-bar">
         <div>
@@ -305,7 +322,13 @@
         </div>
         <button class="map-close-btn" onclick="closeMap()">✕</button>
       </div>
-      <div class="bld-grid" id="bldGrid"></div>
+      <div class="campus-wrap">
+        <div class="campus-inner">
+          <img class="campus-img" src="assets/campus_map.png" alt="Mappa Polo Fibonacci"/>
+          <svg class="campus-svg" id="campusSvg" viewBox="0 0 560 750"
+               xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+      </div>
     </div>
 
     <!-- VISTA DETTAGLIO: piantina di un edificio -->
@@ -604,32 +627,45 @@ function renderInfoPanel(bld, selectedRoom) {
 // ── Stato mappa ──────────────────────────────────────────────────────────────
 let _mapCtx = null, _mapOrigin = null, _mapTimer = null, _mapView = 'overview';
 
-// ── VISTA PANORAMICA: card dei 3 edifici ─────────────────────────────────────
+// ── VISTA PANORAMICA: mappa interattiva del Polo ─────────────────────────────
+// Zone cliccabili sulla campus_map.png (viewBox 560×750)
+const CAMPUS_ZONES = {
+  B: { shape:'poly', points:'38,96 208,108 208,688 150,702 95,700 35,688', lx:118, ly:415 },
+  E: { shape:'rect', x:238, y:30, w:168, h:116, lx:322, ly:88 },
+  D: { shape:'poly', points:'433,260 498,278 545,470 538,635 500,718 432,702', lx:487, ly:478 },
+};
+
 function renderOverview() {
-  const grid = document.getElementById('bldGrid');
-  grid.innerHTML = Object.keys(FLOOR_PLANS).map(b => {
-    const meta   = BUILDING_META[b];
-    const plan   = FLOOR_PLANS[b];
-    const nRooms = Object.keys(plan.rooms).length;
-    const live   = getLiveStatus(b);
-    const nActive = Object.values(live).filter(v => v.status === 'active').length;
-    const nSoon   = Object.values(live).filter(v => v.status === 'soon').length;
-    const floor   = (plan.title.split('–')[1] || '').trim();
+  const svg = document.getElementById('campusSvg');
+  if (!svg) return;
+  svg.innerHTML = Object.keys(CAMPUS_ZONES).map(b => {
+    const z    = CAMPUS_ZONES[b];
+    const meta = BUILDING_META[b];
+    const nActive = Object.values(getLiveStatus(b)).filter(v => v.status === 'active').length;
 
-    let liveHtml;
-    if (nActive)    liveHtml = `<span class="bld-live on"><span class="pulse"></span>${nActive} lezion${nActive>1?'i':'e'} in corso</span>`;
-    else if (nSoon) liveHtml = `<span class="bld-live off">${nSoon} a breve</span>`;
-    else            liveHtml = `<span class="bld-live off">Nessuna lezione ora</span>`;
+    const shape = z.shape === 'rect'
+      ? `<rect class="cz-shape" x="${z.x}" y="${z.y}" width="${z.w}" height="${z.h}" rx="10"
+              style="stroke:${meta.color};fill:${meta.color};fill-opacity:.20"/>`
+      : `<polygon class="cz-shape" points="${z.points}"
+              style="stroke:${meta.color};fill:${meta.color};fill-opacity:.20"/>`;
 
-    return `<div class="bld-card" onclick="showDetail('${b}')">
-      <div class="bld-badge" style="background:${meta.color}">${b}</div>
-      <div class="bld-body">
-        <div class="bld-name">${meta.name}</div>
-        <div class="bld-meta">${nRooms} aul${nRooms>1?'e':'a'}${floor ? ' · ' + floor : ''}</div>
-        ${liveHtml}
-      </div>
-      <div class="bld-arrow">›</div>
-    </div>`;
+    // pastiglia con la lettera dell'edificio
+    const cw = 60, ch = 32;
+    const chip = `<rect x="${z.lx-cw/2}" y="${z.ly-ch/2}" width="${cw}" height="${ch}" rx="${ch/2}"
+                       fill="${meta.color}"/>
+                  <text x="${z.lx}" y="${z.ly+1}" text-anchor="middle" dominant-baseline="middle"
+                       class="cz-label" font-size="19">${b}</text>`;
+
+    // badge verde "in corso"
+    let badge = '';
+    if (nActive) {
+      const bx = z.lx + cw/2 + 2, by = z.ly - ch/2 + 2;
+      badge = `<circle cx="${bx}" cy="${by}" r="13" fill="#16a34a" stroke="#fff" stroke-width="2"/>
+               <text x="${bx}" y="${by+1}" text-anchor="middle" dominant-baseline="middle"
+                     class="cz-label" font-size="14">${nActive}</text>`;
+    }
+
+    return `<g class="cz" onclick="showDetail('${b}')">${shape}${chip}${badge}</g>`;
   }).join('');
 }
 
