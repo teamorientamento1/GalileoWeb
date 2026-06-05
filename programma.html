@@ -101,9 +101,15 @@
     .badge-pm { background: #f0f4ff; color: #3a5bcc; }
 
     /* Location pill cliccabile */
-    .dept-location { cursor: pointer; }
+    .dept-location { cursor: pointer; display:flex; align-items:center; gap:5px; }
     .dept-location .loc-map-hint { color: var(--link); font-size: 10px; font-weight: 600; }
     .dept-location:active { opacity: .7; }
+    /* Chip edificio (B/D/E) */
+    .bld-chip {
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width:17px; height:17px; padding:0 4px; border-radius:5px;
+      color:#fff; font-size:10px; font-weight:800; flex-shrink:0;
+    }
 
     /* Mappa bottom sheet */
     .map-overlay {
@@ -129,10 +135,39 @@
     .map-sheet-sub   { font-size: 11px; color: var(--hint); margin-top: 2px; }
     .map-close-btn {
       background: var(--secondary-bg); border: none; border-radius: 50%;
-      width: 28px; height: 28px; font-size: 15px; cursor: pointer;
+      width: 30px; height: 30px; font-size: 15px; cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; margin-left: 10px;
     }
+    /* Maniglia di trascinamento */
+    .map-grab { width: 38px; height: 4px; border-radius: 99px;
+                background: var(--sep); margin: 9px auto 1px; flex-shrink: 0; }
+
+    /* Selettore edifici */
+    .map-tabs {
+      display: flex; gap: 8px; padding: 10px 14px 11px; flex-shrink: 0;
+      border-bottom: 1px solid var(--sep);
+    }
+    .map-tab {
+      flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 1px;
+      align-items: flex-start; padding: 7px 10px; border-radius: 12px;
+      border: 1.5px solid var(--sep); background: var(--bg); cursor: pointer;
+      position: relative; transition: border-color .15s, background .15s, transform .1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .map-tab:active { transform: scale(.97); }
+    .map-tab .mt-name { font-size: 12.5px; font-weight: 800; color: var(--text);
+                        white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+    .map-tab .mt-sub  { font-size: 9.5px; color: var(--hint); white-space: nowrap; }
+    .map-tab.active .mt-name, .map-tab.active .mt-sub { color: #fff; }
+    .map-tab .mt-live {
+      position: absolute; top: -7px; right: -7px; min-width: 18px; height: 18px;
+      padding: 0 4px; border-radius: 99px; background: #16a34a; color: #fff;
+      font-size: 10px; font-weight: 800; display: flex; align-items: center;
+      justify-content: center; box-shadow: 0 0 0 2px var(--bg);
+      animation: dot-pulse 1.5s ease-in-out infinite;
+    }
+
     /* Floor plan image + SVG overlay */
     .map-floor-wrap {
       flex: 1; overflow: auto; position: relative;
@@ -163,6 +198,7 @@
     @keyframes ring-pulse { 0%,100%{stroke-opacity:1;} 50%{stroke-opacity:.4;} }
     .tag-text { font-family:-apple-system,sans-serif; font-weight:800;
                 fill:#fff; dominant-baseline:central; }
+    .r-hit { fill:transparent; pointer-events:auto; cursor:pointer; }   /* aule cliccabili */
 
     /* Info stanza sotto */
     .map-room-info {
@@ -225,17 +261,20 @@
 <!-- Planimetria – bottom sheet -->
 <div class="map-overlay" id="mapOverlay" onclick="closeMap()">
   <div class="map-sheet" onclick="event.stopPropagation()">
+    <div class="map-grab"></div>
     <div class="map-sheet-bar">
       <div>
         <div class="map-sheet-title" id="mapTitle">Planimetria</div>
-        <div class="map-sheet-sub" id="mapSub">Polo Fibonacci · Largo Bruno Pontecorvo, Pisa</div>
+        <div class="map-sheet-sub">Polo Fibonacci · Largo B. Pontecorvo, Pisa</div>
       </div>
       <button class="map-close-btn" onclick="closeMap()">✕</button>
     </div>
+    <div class="map-tabs" id="mapTabs"></div>
     <div class="map-legend">
       <span><span class="leg-dot" style="background:#16a34a"></span>In corso</span>
       <span><span class="leg-dot" style="background:#eab308"></span>Tra poco</span>
       <span><span class="leg-dot" style="background:#f97316"></span>La tua aula</span>
+      <span style="margin-left:auto;color:var(--hint);font-size:10px">👆 tocca un'aula</span>
     </div>
     <div class="map-floor-wrap">
       <div class="map-floor-inner" id="mapFloorInner">
@@ -294,6 +333,13 @@ const FLOOR_PLANS = {
       PS1: { x:774, y:297, w:476, h:339, label:'Aula PS1', dept:'Scuola di Ingegneria' },
     }
   },
+};
+
+// Identità visiva degli edifici (colori distinti dagli stati live)
+const BUILDING_META = {
+  B: { color:'#2563eb', name:'Edificio B' },
+  D: { color:'#7c3aed', name:'Edificio D' },
+  E: { color:'#0d9488', name:'Edificio E' },
 };
 
 // ── Helpers ora / data ───────────────────────────────────────────────────────
@@ -427,6 +473,11 @@ function renderLiveOverlay(bld, selectedRoom) {
     ? `<rect class="map-scrim" x="0" y="0" width="2000" height="1125" mask="url(#spot)"/>`
     : '';
 
+  // Aree cliccabili (trasparenti, sopra a tutto): tocca un'aula per selezionarla
+  const hits = Object.entries(plan.rooms).map(([code, rd]) =>
+    `<rect class="r-hit" x="${rd.x}" y="${rd.y}" width="${rd.w}" height="${rd.h}" rx="10" onclick="selectRoom('${code}')"/>`
+  ).join('');
+
   svg.innerHTML = `
     <defs>
       <mask id="spot">
@@ -440,7 +491,8 @@ function renderLiveOverlay(bld, selectedRoom) {
     </defs>
     ${scrim}
     ${rings.join('')}
-    ${tags.join('')}`;
+    ${tags.join('')}
+    ${hits}`;
 }
 
 // ── Pannello informazioni ─────────────────────────────────────────────────────
@@ -500,13 +552,51 @@ function renderInfoPanel(bld, selectedRoom) {
   info.style.display = '';
 }
 
+// ── Selettore edifici (tab con badge "in corso") ─────────────────────────────
+function renderTabs() {
+  const wrap = document.getElementById('mapTabs');
+  wrap.innerHTML = Object.keys(FLOOR_PLANS).map(b => {
+    const meta    = BUILDING_META[b];
+    const nRooms  = Object.keys(FLOOR_PLANS[b].rooms).length;
+    const nActive = Object.values(getLiveStatus(b)).filter(v => v.status === 'active').length;
+    const isOn    = _mapCtx && b === _mapCtx.bld;
+    const style   = isOn ? `style="background:${meta.color};border-color:${meta.color}"` : '';
+    const badge   = nActive ? `<span class="mt-live">${nActive}</span>` : '';
+    return `<button class="map-tab${isOn ? ' active' : ''}" ${style} onclick="switchBuilding('${b}')">
+      ${badge}
+      <span class="mt-name">${meta.name}</span>
+      <span class="mt-sub">${nRooms} aul${nRooms > 1 ? 'e' : 'a'}</span>
+    </button>`;
+  }).join('');
+}
+
 // ── Apertura / chiusura / auto-refresh ───────────────────────────────────────
-let _mapCtx = null, _mapTimer = null;
+let _mapCtx = null, _mapOrigin = null, _mapTimer = null;
 
 function paintMap() {
   if (!_mapCtx) return;
   renderLiveOverlay(_mapCtx.bld, _mapCtx.room);
   renderInfoPanel(_mapCtx.bld, _mapCtx.room);
+  renderTabs();
+}
+
+// Cambia edificio mostrato (mantiene la selezione solo se appartiene a questo edificio)
+function switchBuilding(b) {
+  if (!FLOOR_PLANS[b] || !_mapCtx) return;
+  _mapCtx.bld  = b;
+  _mapCtx.room = (_mapOrigin && b === _mapOrigin.bld) ? _mapOrigin.room : null;
+  document.getElementById('mapFloorImg').src   = FLOOR_PLANS[b].img;
+  document.getElementById('mapTitle').textContent = FLOOR_PLANS[b].title;
+  paintMap();
+  if (tg) tg.HapticFeedback.selectionChanged ? tg.HapticFeedback.selectionChanged() : tg.HapticFeedback.impactOccurred('light');
+}
+
+// Seleziona un'aula toccandola sulla piantina
+function selectRoom(code) {
+  if (!_mapCtx || !FLOOR_PLANS[_mapCtx.bld].rooms[code]) return;
+  _mapCtx.room = code;
+  paintMap();
+  if (tg) tg.HapticFeedback.impactOccurred('light');
 }
 
 function openMap(aulaLabel) {
@@ -517,7 +607,8 @@ function openMap(aulaLabel) {
   document.getElementById('mapTitle').textContent = plan.title;
   document.getElementById('mapFloorImg').src = plan.img;
 
-  _mapCtx = { bld, room };
+  _mapOrigin = { bld, room };
+  _mapCtx    = { bld, room };
   paintMap();
   clearInterval(_mapTimer);
   _mapTimer = setInterval(paintMap, 30000);   // aggiorna stato live ogni 30s
@@ -529,7 +620,7 @@ function openMap(aulaLabel) {
 function closeMap() {
   clearInterval(_mapTimer);
   _mapTimer = null;
-  _mapCtx = null;
+  _mapCtx = _mapOrigin = null;
   document.getElementById('mapOverlay').classList.remove('show');
 }
 
@@ -557,12 +648,15 @@ function renderEvent(ev) {
 
 function renderDept(dept, dayGiorno, key) {
   const evHtml = dept.eventi.map(e => renderEvent(e)).join('');
+  const { bld } = parseLuogo(dept.luogo);
+  const bMeta = BUILDING_META[bld];
+  const bChip = bMeta ? `<span class="bld-chip" style="background:${bMeta.color}">${bld}</span>` : '';
   return `<div class="dept-card">
     <div class="dept-header" onclick="toggle(this)">
       <div class="dept-info">
         <div class="dept-name">${dept.emoji ? dept.emoji + ' ' : ''}${esc(dept.dipartimento)}</div>
         <div class="dept-location" onclick="event.stopPropagation(); openMap('${esc(dept.luogo)}')">
-          📍 ${esc(dept.luogo)} <span class="loc-map-hint">· mappa 🗺</span>
+          ${bChip}<span>📍 ${esc(dept.luogo)}</span> <span class="loc-map-hint">· mappa 🗺</span>
         </div>
       </div>
       <span class="dept-chevron">▼</span>
