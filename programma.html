@@ -928,29 +928,30 @@ const FLOOR_PLANS = {
     img: 'assets/floor_B.png',
     title: 'Edificio B – Piano Terra',
     rooms: {
-      // fila superiore
-      N:    { x:540,  y:284, w:148, h:152, label:'Aula N',  dept:'Scienze Politiche' },
-      LABM: { x:986,  y:284, w:144, h:234, label:'Lab-M',   dept:'Matematica' },
-      L:    { x:1130, y:284, w:150, h:152, label:'Aula L',  dept:'Scienze della Terra' },
-      LABH: { x:1426, y:284, w:158, h:234, label:'Lab-H',   dept:'Informatica' },
-      // fila inferiore
-      G:    { x:388,  y:606, w:148, h:326, label:'Aula G',  dept:'Economia e Management' },
-      F:    { x:540,  y:606, w:148, h:326, label:'Aula F',  dept:'Giurisprudenza' },
-      E:    { x:836,  y:606, w:148, h:326, label:'Aula E',  dept:'Biologia' },
-      D:    { x:988,  y:606, w:140, h:326, label:'Aula D',  dept:'Fisica' },
-      C:    { x:1132, y:606, w:140, h:326, label:'Aula C',  dept:'Chimica e Chimica Industriale' },
-      B:    { x:1284, y:606, w:142, h:326, label:'Aula B',  dept:'Farmacia' },
-      A:    { x:1428, y:606, w:148, h:326, label:'Aula A',  dept:'Scuola di Medicina' },
+      // fila superiore (aule secondarie + laboratori) — calibrate su planimetria v2
+      N:    { x:245,  y:90,  w:192, h:400, label:'Aula N',  dept:'Scienze Politiche' },
+      LABM: { x:629,  y:90,  w:195, h:400, label:'Lab-M',   dept:'Matematica' },
+      L:    { x:826,  y:90,  w:183, h:400, label:'Aula L',  dept:'Scienze della Terra' },
+      LABH: { x:1398, y:90,  w:194, h:400, label:'Lab-H',   dept:'Informatica' },
+      // fila inferiore (aule principali) — scale ai x=243-439 e x=1011-1205
+      G:    { x:55,   y:508, w:186, h:530, label:'Aula G',  dept:'Economia e Management' },
+      F:    { x:441,  y:508, w:179, h:530, label:'Aula F',  dept:'Giurisprudenza' },
+      E:    { x:624,  y:508, w:193, h:530, label:'Aula E',  dept:'Biologia' },
+      D:    { x:821,  y:508, w:188, h:530, label:'Aula D',  dept:'Fisica' },
+      C:    { x:1207, y:508, w:188, h:530, label:'Aula C',  dept:'Chimica e Chimica Industriale' },
+      B:    { x:1399, y:508, w:193, h:530, label:'Aula B',  dept:'Farmacia' },
+      A:    { x:1596, y:508, w:133, h:530, label:'Aula A',  dept:'Scuola di Medicina' },
     }
   },
   D: {
     img: 'assets/floor_D.png',
     title: 'Edificio D',
     rooms: {
-      D3: { x:472,  y:330, w:336, h:462, label:'Aula D3', dept:'Filologia, Letteratura e Linguistica' },
-      D5: { x:832,  y:330, w:336, h:462, label:'Aula D5', dept:'Civiltà e Forme del Sapere' },
-      D2: { x:1184, y:330, w:336, h:462, label:'Aula D2', dept:'Veterinaria' },
-      D4: { x:1536, y:330, w:280, h:462, label:'Aula D4', dept:'Scienze Agrarie, Alimentari e Agro-Ambientali' },
+      // 4 aule affiancate — calibrate su planimetria v2 (larghezze ~221/225/224/179 cm)
+      D3: { x:14,   y:100, w:508, h:780, label:'Aula D3', dept:'Filologia, Letteratura e Linguistica' },
+      D5: { x:522,  y:100, w:512, h:780, label:'Aula D5', dept:'Civiltà e Forme del Sapere' },
+      D2: { x:1034, y:100, w:513, h:780, label:'Aula D2', dept:'Veterinaria' },
+      D4: { x:1547, y:100, w:408, h:780, label:'Aula D4', dept:'Scienze Agrarie, Alimentari e Agro-Ambientali' },
     }
   },
   E: {
