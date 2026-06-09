@@ -1,1 +1,1977 @@
-{}
+{
+  "06e2345a403e0cb6549bf6078cfbf48b64c596be14c61bef249b1966dd0583b9": {
+    "nome": "Lorenzo Vannozzi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "5f4fb7baba53f542717a8a73ed36e477c6948961aa0aa34ce96906a305ca1b73": {
+    "nome": "Asia Tenucci",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "6f426e2a6dc5750a47656941193ff022ece20eadbf8c944ffecf467c2146e6f8": {
+    "nome": "Rebecca Bianchi",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "88f538f7ab8370f8782dcaf4a9df75a32d6fa7cf5b836d03c317c40ae68d3c31": {
+    "nome": "Diletta Cecchi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "a94ecb4352b1d52b8f477a332eb52977dcdb68de3fe5eba6386a52ba05132095": {
+    "nome": "Gabriele Caeto",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "fb7291acc587f175b23c7527331bdec3718899b6ec6a5c5e95346bbc46bf8afb": {
+    "nome": "Marta Vichi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "47260d71f539f11ace796f017a60821fac08ced8fd586e3ad19200aaa46cc462": {
+    "nome": "Francesco Mandola",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "e4733e1bee1a45ee09d56bf68a91ec16d4971a14df14ee0d8d31df78c8442cc1": {
+    "nome": "Bianca Lucia Vannini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "cc55e9fb90527965049ae9dd6ce6f54714d8bebcf7a792ad3159180128310ceb": {
+    "nome": "Erin Jones Taddei",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "9be9d2be4c699cd75eaf0800671554ef7f29a368317a4977b2739c5199e532cc": {
+    "nome": "Cristiano D’Agostini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "c99caf5b9ca3c9f96386509bf15e584711d91a317ec879c6956325f5baaacc17": {
+    "nome": "Niccolò Filippeschi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "81a822137e991186937b2fad25bf490145ebb8618f366592d6d3c671c371b3be": {
+    "nome": "Andrea Barone",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "a19439308825219d1a2eb6bc8a24514b6ec2c1f6c5f5e5518b717639bd9809d3": {
+    "nome": "Matilde Misurata",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "53fa6b5845fa50107c7735f1e292cb5642800bbeebad7b0cbe993b500dbbee5f": {
+    "nome": "Francesca Ferrante",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "9783c13ba33118978738ed4346f3fa729b2d42abb592400513fa000746cb7179": {
+    "nome": "Marta Benedetti",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "4faea5f8060854a290f171c1b6fab4bc4869d9e721a2f4e6ba779d2a11b6759d": {
+    "nome": "Arianna Benedetti",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "e8ee8651bfe25d58788c257f63ddc24db4ab5db093594e0f56a676f5fce5b9c3": {
+    "nome": "Isabella Scarano",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "923d37d11d7775a8423b0e07df0b0bbc27854219fd7f3fd35cf48dec2c664a7c": {
+    "nome": "Gianni Bichisecchi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "ecda3f0a677596ef5dcecc0cafa437da8d83aa48373bc5e1358e90136c2d8873": {
+    "nome": "Noemi Lleshi",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "ce9333d984c8de31e4341d203f8a6d20b2c68ec7f1d6f79521d8cbdf1971a837": {
+    "nome": "Pierpaolo Pera",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "5f665d8af1365c8f0ea69079e6d44f17c15d0380b8984a30897f17ed2e65360f": {
+    "nome": "Mattia Paoli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "bfc2a3ee9e9b4049d9a30c698638bd3ac7e25453487a81cd25880e2a6ae0d0dc": {
+    "nome": "Matteo Surlinelli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "9b8ee9a6bee37fbaa7b029337fee39a56f03c88cc6a9a8a6acb8a3b1c02732bb": {
+    "nome": "Valerio Huang",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "eab2725942bba8814b0783894089f16d409ba47f68be908255581fba5447ceb3": {
+    "nome": "Francesca Tota",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "e41b0790e4c6c5ad61078b5f893be036ebab857d0fbe4e6e0ec3a39427201734": {
+    "nome": "Andrea Pisaneschi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "09c85f4f8c21acea82ba2907b6b9f8f0cb4b9da32cd1d0f0bcdbd8817fb40a1f": {
+    "nome": "Andrea Dal Corso",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "258d5f87d3d55db52a7d44bcc310714a177140b3f3f54f5dd11ceac09e3f40d8": {
+    "nome": "Sofia Remorini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "91b1976f5d57ab068d24b8498e3bf501e6dba40718c82f194faade67f3bf2ff7": {
+    "nome": "Ilenia Fascì",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "989d555602b6c9025039594bdb0544b764bcb7da8c776743ca70211ea556c9f8": {
+    "nome": "Matilde Balotelli",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "f5ad5cd74a16d2ffd1c01496b9fd27eeb7b50996ca55d79cc383486a602c9a19": {
+    "nome": "Martina Guarna",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "97761633f77abc48c019b07d7c6e62834fd3ea283a7412cf0bb04c39a89ea12f": {
+    "nome": "Matilde Baroni",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "eb7fd48bc44f56fd9c22367dfaadaf9a73b616f7be72536bc241c1009782314b": {
+    "nome": "Lucrezia Boselli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "63659c1a9c52849943b10122d8ff2ec7ee4da61eb434177bdf92b5eefe2d34cd": {
+    "nome": "Manu Hariharan",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "336dd708e13fd9de654d3bd9e78e3b1a23add3a4416b922ad7df39f0a49f60df": {
+    "nome": "Teresa Telesca",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "7efa68933879f1b89106f0fea783e4626ea6edfb85eb085b59034b48a04e52ed": {
+    "nome": "Bianca Pedonese",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "97e9dd83dea9232ce69d50dc45cd1495e9068c49e0e56a3862a97993d8b944b6": {
+    "nome": "Alberto Lombardi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "7bf11a2cc40cea666a5c84508b48114e1392ae9073da99364e3d1160097e769d": {
+    "nome": "Diego Garofalo",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "fe735f6cafe904da1330970a4a24e8b36181d1e9a7cdc544323555546000c2ef": {
+    "nome": "Sara Elena Vasile",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "bd5bfd64cd7008ceae52025b3d7b4f45e00888a5a0153a7f1ef778eb792972fc": {
+    "nome": "Raffaella Cai",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "108e4a6d486b4251c8239489cb1d8aec87548d4252f044e58bca2b467734e9b4": {
+    "nome": "Sara Di Giulio",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "51fdfbf7c9d2ba981d00afd22aa84a3aabe1578d49931402b15c678e1b71bce3": {
+    "nome": "Alice Armosino",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "1a68f194e18f70162f247177656328862cda44c41746b2f1771b5aa400ebb52a": {
+    "nome": "Emily Julie Tobia",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "735339014ec6b6306ae6bafbec1a86270086f57f481539f18ab30222a105277c": {
+    "nome": "Paolo Carmignani",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "4c448a2c9cc0ecba9a8992949895ecfa07f22295472cca316b55b4209b56f0b6": {
+    "nome": "Dieter Lushin",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "7f6d5fb35833d09b7673f9452100fca6c4168fb0e360229223e32e8ebcf3d7ab": {
+    "nome": "Jacopo Valente",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "9d576c85c52136d5fa7b6ad34c104680e67b19fa19ce279e57675f9073030d8e": {
+    "nome": "Greta Lanzillotta",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "cd2fee13730668aaa91eb4f6a3e372693cf816a09746f7b732c10e5baea34c56": {
+    "nome": "Linda Moschi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "dc73f305b47256b25cc83372761fd583620c228feae1f7dc705340b07aa4d766": {
+    "nome": "Sabina Habasescu",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "1b0f9f59a2bd342064f93501ebbe6c8765b95dcd9a249d517287a6f3fb2ba465": {
+    "nome": "Mariam Makhlouf",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "319637b70374cffeb9a28519bd1bd59965863ea1cac1c351716fea352e7f8a04": {
+    "nome": "Giulio Bagatin",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "524045cb3d2e5d7b784b510811d861d5b9fd6a0dfda851c40216d8313a905066": {
+    "nome": "Edoardo Corso",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "99d49ef9d99d6b3ad7d8126af8fcd6513bf12da380374af7821aa909ad5da1e8": {
+    "nome": "Sara Particelli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "ed8fe72f869d26235615f62ac4cc3f32979046bbc05ed89bfb940b2f8f06c9a4": {
+    "nome": "Vittoria Pitton",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "17ee47fd674bbca50b23057ad703b64e360abfb168557ce535bea07b62a34a76": {
+    "nome": "Giacomo Bellini",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "101465ee144f7e062ec84ff8d2e4c4175f74ffc58e64cae260225a009ed75a2e": {
+    "nome": "Davide Alberati",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "f82c04cb87dcd02c36d55d8b8584f9d1cc12cf4e31fd268feeabbfbb9fda30ff": {
+    "nome": "Matilde Abronzino",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "16fdb5b0dd12b9bbd5eceefb51e4ea4b0d7d3b8a8a26356d055ac0eb37ec0c7f": {
+    "nome": "Margherita Foresta",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "d2c2bc45acceac16042eaa2a1cd02058f35c4fffe485916df83927a22102cc0b": {
+    "nome": "Sara Marchetti",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "000bc1296b98f3e172777f3bebad586218736c326973b6eb5d33fd3a2205905f": {
+    "nome": "Martina Raniolo",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "e35f41b1737dde3e952428dc25622727c5b9df6234442b3de04c4d9f80a3fd5d": {
+    "nome": "Thomas De Paola",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "d455faac6a0039bf3a32d4f65ab37c5649523331308030f9b330e456149bcb7f": {
+    "nome": "Samuele Due'",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "221d36312107d2af75de8ad3d6ed86dea391f90c0b768c333e3a7af1dddacda5": {
+    "nome": "Leonardo Gambini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "4db87cfc00b2ae0191591e1d9452a212a9fc5fb1378480245f6cf370693aa4a4": {
+    "nome": "Giulio La Rosa",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "b2f00073db4de3d1b022f0c111eb41c804deb2442d057ed941e5d191a6af3f45": {
+    "nome": "Alberto Zanini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "3c5804c5e6369e8b764b13c88db82b63111998738a744431ae6bc3a799a48006": {
+    "nome": "Francesco Marotta",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "4c0a3a014e7604c38d434869267b0e49b1a0a9a7c40dcf5ace22bc99240d663a": {
+    "nome": "Sara Pieracci",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "4b855be0f0461d10f1cf247a10fcfaa74d50fc6564b4736da8473ad36118fc04": {
+    "nome": "Andrea Leon Biondi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "9ef526d586f2df8fbcc2eef4a99ee7f90cb2433ca0fcce0c428e237467d79f2f": {
+    "nome": "Rebecca Meucci",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "a4fee68c356c6c1a9355a9d58650858b1b862e149ccec7cce53a0ba975c63556": {
+    "nome": "Anna Zerillo",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "bb3a8885810701bfc3cb5b7f455d71546c0f6a0105b00d095369f2f3eab71f86": {
+    "nome": "Lorenzo Paoli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "583c655f9b37782fe7156961f0a9905042b3a813619928a9dc9140e931aaf1c8": {
+    "nome": "Sophia Canali",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "e32cb4202f8b07a22d89958681cc9cbbafccc4ada3c5e89dc26f87cd0ed04552": {
+    "nome": "Leonardo Baroni",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "2c241889c54e21c8339deb5047c887283a022d9e05a38cf0fde273f7717f91d1": {
+    "nome": "Aurora Pantaloni",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "2c64638d8bd88d6fef67a1002e3a0a2f1e8b2e926f0fc61f9393c98c21559219": {
+    "nome": "Oscar Izzia",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "1ef9205b42016283f56541765d0e228bb7803174b24f2876b48fefcbb7674c97": {
+    "nome": "Giulia Silvietti",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "5443027bd9cff0645fe45cc7a9d9b3ce842f38349ca7b96b52892d04cf92b444": {
+    "nome": "Emanuele Niccolai",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "1f972d91616f1b88ede174b3d7136ce8656a1d06dd710683623e93f69b9aaeac": {
+    "nome": "Fabio Forlini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "97a1aea606d14069e2d5db0c5aebb5aad92bb4690ba0f587fce72284a3f95bfa": {
+    "nome": "Giorgia Giattino",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "efc677a97ccc8eaccb042c113b3977a642a1fc8ebe03d2067cd2201ccce9fdd2": {
+    "nome": "Ettore Corazza",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "90f109d83a095e8bbcfa646c5a7c6018bea60541d9e30f3aa5f085fb3a9e4784": {
+    "nome": "Elia Raffanti",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "f3b756e8a24e8b25bf58c81750945425b3ddf88e40a365730b1090eab3072d70": {
+    "nome": "Christian Savona",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "225789cdc50e01840eab33c3bb0ec32ef16cebfaca9155495b0a54aa2213fe0f": {
+    "nome": "Matteo Antonio Briante",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "5ad3aa7e9f0ca4579ae2b7509976765ba9702eef12cd8c90277e2fcedefd4f36": {
+    "nome": "Lorenzo Lapiccirella",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "9dcf390aa69624d0f1160d7dd38270a6a9bd405f4a5bcd717b53f45e3b5b49f9": {
+    "nome": "Thomas Browe",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "aa1abe1a6d850e55dbea77e079d8d363b040f1b5140657fce0727869005d2650": {
+    "nome": "Benedetta Barsottelli",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "8afc42d0c576549a4f935e5767f7a704f5c8fa3c854b1d7dd2ded38394a91f7a": {
+    "nome": "Valentino Giomi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "92d5751fbb34f7c301949503dfa2bb2800a299ec4f740eb53ced01d138b7c777": {
+    "nome": "Aurora Lentini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "e7092e7670c009aa40fd1353999fd8362a55d0474e39faac5952aec344703b32": {
+    "nome": "Davide Palazzuoli",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "78462ee9440ae28db4c939c57836d0b37431b2e357a30b56f9aaa260e0674b91": {
+    "nome": "Cindy Cecchini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "8b9521d1dbaec4b32b15db8376e7fad2ce6cad0f2143b7e7cafad4ad41f3bcff": {
+    "nome": "Giorgio Siclari",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "bbe6f70924628b013d1337f4c3ab6ca0dfb56b90fe8c3661e9f9799adc24ba7d": {
+    "nome": "Muhammad Hassan",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "cb975f1c62726dc0f16d2891c5009f949d376218a2479ce4bed402233d98d43c": {
+    "nome": "Vanessa Paris",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "1ac42eb0357c84027b7fdd60712e57fe70acb46ad4252fb2e5aefdf29ced14b5": {
+    "nome": "Leonardo Malvaldi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "ac38fa461982ff75a5f5f2c1db0a368499b34d41425c74b1a4ccc38e8c8d8976": {
+    "nome": "Aurora Rossi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "ea38f9768e806fd2d13a084a50964e4f997285c55fc38938f333989b932b11b5": {
+    "nome": "Andrea Boccali",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "ef6f437d53edb2f6ce4ce0d299f51439cf1670bbd3842ff65ea2f87ef098e81e": {
+    "nome": "Matteo Forcina",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "18ed7528c26510b15fab1c22faa5a6ff525b09b791597f1fd43b8cd13f777386": {
+    "nome": "Matilde Leonardi",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "38512b7b65da6b885155ba5b706d8995532fa381046d72816326997214b6ec53": {
+    "nome": "Anita Sogliuzzo",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "c4a9194048e5a4e1a26999309eb8255bbcdf3db2552fcb51b50a8c74679e183a": {
+    "nome": "Dora Valentini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "470feeb321a4f84d95e3f46bcc18d686c1fdc5b1959d9058f7d88c427abc41fe": {
+    "nome": "Ndeye Amy Niang",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "1d1f9994b9069965e1c410d9d4cb3b4348241dafb35b82e15a88adcba850ba45": {
+    "nome": "Erica Piromallo",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "c6dd695a7338ec1c812feb89db25a16b8ca93010b4d3cd8ec98ffaeb00c91900": {
+    "nome": "Viola Lombardi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "5fc629166cd667f2db4af2e8217a69a4e14b427a254b999988aea1370edacdd2": {
+    "nome": "Selina Venturini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "07ec44f326152c10cf56a5c5687a4ec50e1ed3b7481cb605dda36bcd43b31879": {
+    "nome": "Ilaria Del Pistoia",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "7e33c9cb5fed7badb6b07d1052df7849214271d31a3f5c1c7ee390a6c59a3466": {
+    "nome": "Gioele Rio Giunta",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "66634505c8a48a1f9fa4ff69fb986200cc8e760e2c0dbeba50b82e830900bedb": {
+    "nome": "Gaia Barbagli",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "30cb2a351752d92b6b953954406568447067075e7c5ff81d8be55078c566203d": {
+    "nome": "Rania Fadile",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "62f15875bef77489ccef1fd4207c73dff71ea70f8b6d9685ee17b6feb68c2756": {
+    "nome": "Roberto Della Corte",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "b346cd1a0b5e6203d44206a18e96639105ad423624b37fb5bc988ec1b26d04d3": {
+    "nome": "Alice Pascucci",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "b4a93a3520c48c4f3018b6568e7cf5f6f2f6730c30caaaa6b6591a506f94a211": {
+    "nome": "Asya Cerboneschi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "e368486901c38ebb0f1e622b135960b45c7f716ec8a249b37378d2f039fe6efa": {
+    "nome": "Stella Casini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "c04f8c237b188b7f0478bc5c523f76d066331a964415b96358fd701ee09ecbb8": {
+    "nome": "Edoardo Braccini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "b351ed118f0d1d541470c3aa58df02a6768546d347e4344a8f84707e1905f93c": {
+    "nome": "Teresa Della Porta",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "93b5704a252c216129b89c3ea830f5329111ce36b02df32c1240cea002b91a23": {
+    "nome": "Giorgia Desideri",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "102d3c507723c81b73362061fcf9ba79308b5c08b9ba79e4bf70c7ccfcdbb680": {
+    "nome": "Lucia Marchetto",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "90e516e91bc3d9ded5518ee2e154a11a09f56591054fd4db0583d78ee58e3a8c": {
+    "nome": "Maira Ferman",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "b597bb5106702f924f66a4bf64c5fdc56cccd528cd96279f6cfb6c0811e3836a": {
+    "nome": "Jacopo Lombardi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "67715b7b38d40de1b5e2c8ab621688ebf6644c79b717e5827c899b35317c252a": {
+    "nome": "Bianca Mosti",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "0edf3528e0616f67ac62cc99cdd468d477d8374d17e3dc1c72494eb53c447248": {
+    "nome": "Francesca Berlingò",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "d0469443710fa44045be2c8f947386d465d4c11e21bafb0f63092b492f198e59": {
+    "nome": "Alessio Aiazzi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "3c36a5f15ae8c39d47371367e88d6b646165b6d0244db216cfe0db70c867ffc9": {
+    "nome": "Marta Cappelli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "5e7725f677f75b9a3ddaac62a53379aa3c71d4bc929bc431f762ea7792ffc8d7": {
+    "nome": "Ichrak Naji",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "8d837b83a865c176cafe8cf010a5cf3762478aa128a88f87c296b0357c5bd310": {
+    "nome": "Viola Daniele",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "bb627e8008004b5595cbdb7b7db1d457eca12db3d1302689d829977a048723c2": {
+    "nome": "Caterina Di Guilmi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "2fbd146fae5653d2a26e42fbe097a9c30c43d3eef7f5c1069e338777668cc54f": {
+    "nome": "Edoardo Alberto Ciolfi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "3fc2a083fe94928c3081aba7aa7d0aa24886a22e7a5b3e9d3088966cf53f5f21": {
+    "nome": "Vladimir Ceccarelli",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "e9baa624dfa92b1b912d3f2f86acf3e009a5be2af87df2052622488d5897f897": {
+    "nome": "Adele Lo Grande",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "ad70c2c8b8edc79322de2fdd2e9a1b8a3a636dc048151a65c9fe0fb66ec2922f": {
+    "nome": "Jacopo Bartolini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "d38b14003565cce15093f8d724daafb4c35c379f9c1879a9ac95a64ba1d60ba9": {
+    "nome": "Elisa Giachi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "7a7497182dd5c59e43efb66de7a31cca620050a9b2969462468bfdf93a493961": {
+    "nome": "Leonor Zahario",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "f866564ea142f545d0dbcdaf789d696c6a938545ee06ff2fd622714e1c51a67e": {
+    "nome": "Benedetta Carnesecchi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "6f6604eb7ec6d12ce4d3815bdfe0a65ea0f9c37039214833cb501f20f9b5fa7e": {
+    "nome": "Amelia Dondi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "56fede31cfec8c1a79f9b64d9b4822ea22a824bfd564ecb21b30424f468d9490": {
+    "nome": "Sofia Montagnani",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "2bdcb10166a6057a4b88f41abc32f26cb2af22a39590efa40772e2af8d228b4e": {
+    "nome": "Niccoló Scalini",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "c816e2ae3c29bdb38c41f71b82bc3e11b3b37b2ecdb74df58e8dbc698e4aba83": {
+    "nome": "Chiara Bianconi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "3e9582cdea26ec97d9e20f424368c86eeccf9c34a65182e41e264bd14a98866d": {
+    "nome": "Antonio Pelusi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "b17a67600782b1fc214a5246173dd42022ec730cdeed94dd25a77e383c834331": {
+    "nome": "Pietro Lorenzo Sani",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "56200e470a18d920878df124b93d924d825470d56a92ee06332d55c158feddb8": {
+    "nome": "Jacopo Massari",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "57030933fd881108c72012c47a2c7d54c9c00a0fe31677f7f1e0e512acdbd6e7": {
+    "nome": "Andrea Fabbro",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "f834512f609f91c8a3197fd3b3de46fbeab535ad715c9ab4d54a364ac88f1738": {
+    "nome": "Beatrice Carletti",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "be65a438558f8e4c0b906bd5477ae1799f6bbc3c1336d97020ed305999bcecdf": {
+    "nome": "Gabriele Bravin",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "246c62048420d480e761dc423f551275725805bb346db68b5c530f9e74bf3633": {
+    "nome": "Demetra Cataldo",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "5dd48ed081268980298397ddf06050560352b97e7b29ed8945fb463090a66343": {
+    "nome": "Sarah Debdoubi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "ceef89b17697fded5f7ae2f7288d9365d3cdfb1327ab6c352b8b358cbcd7b10e": {
+    "nome": "Nora Fambrini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "40544f6d9d2109428ad20f6b80ff07e13fc9b7af57a2ef4635a61b1ecf09df53": {
+    "nome": "Sara Metalia",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "466b1e403f90d3aabe5941918a66bf7cfe39206d5555d3ba119223bf14664c6c": {
+    "nome": "Matilde Turi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "319a1835585279adc362124f609088b59098bb3d50eb94319e771f0da35d16ed": {
+    "nome": "Anna Serena Mustaro",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "56102b7a79e4986880f7b134cca89e85ff83d4f9ef15b09abe478c9693b2db0c": {
+    "nome": "Letizia Del Carlo",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "3410528cc89a47edf37247ceb6b41524c5986df8e08d79bd2a0c0f2e474a1f9c": {
+    "nome": "Linda Brocchini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "8df3063c1ce8ed0b90dc2fe8514d50a1ae53edec17201ec6e1bd05e00c4accb8": {
+    "nome": "Gloria Guidetti",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "62c4ee8fbd4962dca24a6a56ae2c2478b6b3cd9a54605ccc3e6fd06845298d7f": {
+    "nome": "Diego Galletti",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "111d0a5d6fc1686b5d35072df8d8be24dfaa7ed4e5e57ec5fa30f89d0de750cc": {
+    "nome": "Matteo Ippindo",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "7667623b982f4c678f2c87f81295420a8c74bf1784d14080e0bfce3945d90db0": {
+    "nome": "Giacomo Panichi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "b29a1371cc1fa75b9a2253f9fc56f50b1060d7800239b28e6bb52e92cefb1844": {
+    "nome": "Flavio Marsili",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "6dea20326f045c4c717456217258bd7b7f48fc46b0e28bb9299e395a7549101e": {
+    "nome": "Nicola Pelosi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "f118a5481abeae298895e705c30f02671fe55585cef7a3570fd6a62f8e2efa05": {
+    "nome": "Ines Kosova",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "6d56a261aed5497b056cc2124ccca3c202f70846cadc0ef2bd2f9e6a102d7993": {
+    "nome": "Chiara Scarselli",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "70bc0f505fd46c7055c3ec09eab8ccf4904dbfbcecdd34c42c4c1a1d162a084b": {
+    "nome": "Alina Felix Reyes",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "643f63496fc7ab6a5f9cafea6d8ab38bb03ad90fb37f80ccda0b91a8535716bf": {
+    "nome": "Aurora Fedi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "a0eb9567b3b3737dc416ac2e6b4c4555e597eb2bad77486e9396a369c199ab70": {
+    "nome": "Chanuka Dawinda Murukkuwa Dura",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "ea3d737e598b77acbddf4fce2b07290c000bd70ad9d34717df5e537d6a259d77": {
+    "nome": "Giulio Antonio Ferrante",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "ad0d0b93140c6aeaab9dad4f16af0c920fcc3735d89683b3caab871be200e5db": {
+    "nome": "Anita Simi",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "f36aab3d77d05170fb6d8aa79151fc47950b9b3b06279c2c7b760df94d744255": {
+    "nome": "Emma Morelli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "561649cddbdf1c23836df4b74457299b67d4945e136b51683ba1f5bcb34873dc": {
+    "nome": "Camilla Rusconi Braga",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "44f029af535f51708a09e547401de84c4ea4e1aad6237644f0e146212c24f29e": {
+    "nome": "Dario Bimbi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "f335cd32eefa0222028cb2f87cecfa39128005d03a1f180edd6c5b57e5171c1f": {
+    "nome": "Luca Aringhieri",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "834981163efdc5f8af13c0aa863c8f9a0409a163a1947e499ed1e16732092be3": {
+    "nome": "Andrea Bertanza",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "fccba32e2fb83fd510ac9be362db047549f21c6bf391071b41c3a7eecd4ab2da": {
+    "nome": "Ginevra Rabuffi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "0d17753506cf453c56e56bc5b3928ef091fb94d975a4160887866ffd12fa2232": {
+    "nome": "Giulia Naddeo",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "5c86b5b44c988d96dc6dd4c94716215a38184e5241d74b45493107fdc21685b6": {
+    "nome": "Greta Taddei",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "68f9a723b221c376cdb0da60afec2ec3ad9e07631ab580534da81416d426604b": {
+    "nome": "Irene De Clercq",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "db84376a6048d7be070218cdc05636a0c9274657213a9137e7ed3abd3fea4f59": {
+    "nome": "Giada Saviozzi",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "56cf4d9e7ec4ab13815c507e2f62f753ee846220e3154e405681b6c50790813a": {
+    "nome": "Francesco Baroni",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "df0ecbd5f074dffc4257b37233b65993db650261dd71b102d29c79b47a1c1484": {
+    "nome": "Anna Mariani",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "2866e062aaad8cca44993c3d3d47bf9a67122b14d4920029a12312efa3b08891": {
+    "nome": "Silvia Palagi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "c91692f889fc909f7420b9b12432bd11fe48d094ad9ace91eae1f0f677c08a17": {
+    "nome": "Margherita Betti",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "fae5c34bd239afe918908d1469ebdb857722ca5b6931aeaf24e48a248145631d": {
+    "nome": "Isabella Petruzzellis",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "19f00785746e9bc9c9660393db4c5f5d11ea4127563d865cfbbc0e26ac0c3d9b": {
+    "nome": "Andrea Taras",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "f67e0b5a5507d97b473c29b794b04bb35fbda46ef15e5efb0cbb72e7b72fb5a7": {
+    "nome": "Aurora Mauro",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "0bb9f07b6898dc0abc9a889df97932959075c2aa70ea3b5597563b16a2a30cde": {
+    "nome": "Giorgia Manzo",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "83769419918be8f2b6075869457d31bed7b0e77e051c2beb725f99cc16dfb73d": {
+    "nome": "Francesca Magaldi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "6271b936a1426b05e2686ea196c153e5357a00460bbbde6e25381db86ecdca1b": {
+    "nome": "Nicodemo Chen",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "955d0c56a2fd6592168bd3800e4e7688710b3e75b1eec3d62e11bd2a2cc4ba9c": {
+    "nome": "Tommaso Sponziello",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "7dc910a296f244dda1204e36f004bba8ff5e96a60b8f45c0bafa438009dfc5c3": {
+    "nome": "Rachele Granchi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "16c4b9c7df4c58ad3680d2680590a51325d3b7bad6f8bbb40a6a93d038076cef": {
+    "nome": "Francesco Mazzanti",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "552ad292eab2d95e9676253a4d7f271f27d8359b0f7397c69564256be66f6e3c": {
+    "nome": "Federica Recine",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "f7566607df09a0093ba0fdf83fe9e40e296e55c51ca53dd5b188ef78e82d27be": {
+    "nome": "Letizia Bianchi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "cca386e98f2e1c416a898931500fee56ebd9fbefaabfd6b95e1f6128a307b88e": {
+    "nome": "Elena Vitale",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "f59a0fa8d85a1afddf600fe94b9f2febc77f936e07b448279a8f12bbf296ac35": {
+    "nome": "Anna Cavazzuti",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "03c945594f7161600c713f22a795bed476dbd91ea3220e36fa6c90fa71bdb0af": {
+    "nome": "Gabriele Mariani",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "561fc81961dc4ad07acce6834a9913f4777e432e4262f52949ac019f663e6195": {
+    "nome": "Fabio Pierucci",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "7aaa6865bf265b597b48d27177c788b523ebedda39f6bbb438237c24cffacd60": {
+    "nome": "Stefano Pierucci",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "38cbc30f6f742ae5202e3abfd5e2c8460844102ea679d41bf0e53c4bdb3a377b": {
+    "nome": "Tommaso Ciaperoni",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "08558fed4bbce108a3c2beea2e6a973c6560165bfeb2a5ba3386980d009b1b00": {
+    "nome": "Desirée Tambellini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "959cd33a43d4f9c66ae24fcedd1398b7e23a72e05efcaadaa14fe42aa7e58380": {
+    "nome": "Beatrice Barbara D’Angelo",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "790114248fb7efbf8cc89ad2dab00f9fc689987f6d188a729779a350b796ec63": {
+    "nome": "Rachele Maggi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "e33b86fd81c4028d02e740bc0f8150f88a55ce8cccc2846530cbeeef3eea8e8f": {
+    "nome": "Margherita Troni",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "0fb6843d25e6c00b0ed8dff6c53e76908e20c05e05ae514274692c9d2d5fc542": {
+    "nome": "Maria Sofia Giordano",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "452d14fda7c78f9fc6499edf92ac45d1ebee3ab1b0cd1d7a72a47274973ebb4d": {
+    "nome": "Tommaso Mannucci",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "6dd7155cf733e7a6d26be22685cdcd8542a8e8b97514944659c5efbcff715b44": {
+    "nome": "Andrea Ceccarelli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "8b3fb02657b2241b0e32bbe51ab2a429f5358a502bec9e3da2c45aa531e590a7": {
+    "nome": "Iole Menchetti",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "bfc2c3b236c87e5bdc8000c686e6624b0a01514a58aa428a0d1b9cdcbbe53482": {
+    "nome": "Ester Mantione",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "8e00c31a2ebae707fa02d1f360a813358b61d7c3778df4e5c63b031fb7806c2d": {
+    "nome": "Iris Mazzetti",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "8c3642fcdbbd346431e7b6d7ee0b040de08c2ecd59b9ec9e25bd9dc36b7e4791": {
+    "nome": "Nicole Montinaro",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "4067ef68e8e47ae1048eabd7b510080eabfc5973833635bf2c5b721c4c9db80a": {
+    "nome": "Adele Perugini",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "e244331a57920bbbe82389694efdada26af67ccbb277fcacb93f91d616c8eb9d": {
+    "nome": "Erica Svistal",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "511a6408f3f88b7d2164298e0be59b3ef134efdb65bf38dff52a0ad66d42086e": {
+    "nome": "Giulia Giannini",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "c91fff0ed3d666cc22e5c535035df7b41f7b724ed1306575b0a33c781c6364f0": {
+    "nome": "Mattia Terlizzi",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "3a388736d1d7ca64f32a49c7e30a1afad7dd063b67272d43cc50dec8d8bc6cf8": {
+    "nome": "Andrea Calzolari",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "578e1166027bf1a0c463e58bd3193e865298271b4bf20d38252a76409d408843": {
+    "nome": "Emma Morra",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "9ad82eca7a521f670feb8069acfaaf1244e52f1344c856cf096a728844142886": {
+    "nome": "Ana Maria Hrenevici",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "2e70766acf84918dc5d98abc7f1e0432e50a992ee8509613fa7e41eed7361a5c": {
+    "nome": "Giulia Tamburini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "f17373db7cc2d917a7225f552ec0615449d9bee43c59b2f90e0a1aeb8bd1624b": {
+    "nome": "Giulia De Angelis",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "800e7b9c4c059412fa458ee875faffc696f240f9c67908605282c75d92c4f4e0": {
+    "nome": "Lorenzo Angelini",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "d83cc64607aefa424811831716cd9bdbb429279d89180498ed4cc0135faad4d3": {
+    "nome": "Lien Martinelli",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "b9b631ed300f041e27540dd3e20f099a68c858640c2bbf5d65ebebfe8e2736a5": {
+    "nome": "Leonardo Castaldi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "f7c7c0dc27e9a88e5d0696baba3a7d4c6c0bb8c75925f859fa751aedfd4e222f": {
+    "nome": "Martina Rebollini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "7d80bd91b00b4e92de51cef4c83304dd01916afb2de677647d7f3c5196f63edb": {
+    "nome": "Gabriele Fusco",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "a658fcf514244c2c63e768425441b32acb050cbed1d80fd5b76f6304090c18a4": {
+    "nome": "Davide Minguzzi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "3a92fff01e9710939a4b84edf62843e697f2e71c33931f69204941e3395b5d15": {
+    "nome": "Matilde Martorana",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "9207c16b9964d74ba26c85c672b2bcbfae9296ae2f1e2d3b137c3d0185c11aea": {
+    "nome": "Aurora Scarnati",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "4d30569e5fc2713074b8d6508eb37f10a3d6278afff1a2ae0e77ab1291bcc7e6": {
+    "nome": "Lorenzo Cattani",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "4cc2be0b31edfe0f38462dfc7ebcf5ad3371d0e669286e7f3f6b0b3883835917": {
+    "nome": "Alessandro Bini",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "c4d590058c55e035bb46dd5a7e882f8086a8a8918542d95c6451d05c876477d5": {
+    "nome": "Giulio Fatighenti",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "ad33dfd563cf8699481f2ab54656740a80a082b1d20237a7093c7d076ed081a8": {
+    "nome": "Xin Cao",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "d1797a7bc7d55722a2d31ea0e7fac4684ad4aca246fa5adddd2ea457d79c8df8": {
+    "nome": "Anna Zanaga",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "4f639c8bb4d8a968ec6f595bf6223aa1576055c06adc4442502c45c8f086b4df": {
+    "nome": "Angela D'Angelo",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "10ff3f81ee67fa81b0ce69c1b15d3253e9dc1750f62e4dd88b97b21aa2b43832": {
+    "nome": "Giannina Stefania Tomescu",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "1a15b027b014efd2af7253bf30fa573de47cecf8b893171eacaf5ab42e5199b9": {
+    "nome": "Mohamed Amin Hassouna",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "5ce8e184e3c1e1f4da2a04265dc179be1d16b92607097ea72c8f3164e5e7bcfc": {
+    "nome": "Giorgio Tonelli",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "1de921102a4e09f8c5f01766f84b24c08d86feebf34bb3e4a62be552c97e2c27": {
+    "nome": "Matilde Biagioni",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "01bc432e1cbcd47d6a24b11d5f317288060a7e3b8f8d3a0f840bab815f25c746": {
+    "nome": "Alessandra Maceri",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "626bc2da8fc4c82991792ccf4a0fa4de2d9332be4b5ff22b78cf070614f80672": {
+    "nome": "Annalivia Provenzali",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "2e11e13a85c616fb6b5b2df43e77a2b6791490ebdd5889fd8733076662d976bf": {
+    "nome": "Emma Giovannini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "b1d955599a9b3743f82993476a0f8356a0134f60c8f49cf99f4e2d8609f3f3ef": {
+    "nome": "Sofia Anselmi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "c49409111000eb498994c6ce3a83443d63f3654b5bd427ac231ec5edcceb0ded": {
+    "nome": "Mattia Buti",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "9b2579403c68a967546945df1266ebba635f4d675ddc62a6210269f67ce637f5": {
+    "nome": "David Eduard Iosub",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "c799a2caf2e161cae6fa25db55486145f0f422fa46228545382116f7112bd1f0": {
+    "nome": "Anna Cupisti",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "564e0aadb0a28e1486772d37c87c21457fdd29db8696acb99c389318a5eb69f5": {
+    "nome": "Emma Siro",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "a7908ea76757036ebfe97aa54a4b37ceaab189f8879ce626d4a3faf210c8916c": {
+    "nome": "Mattia Cini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "0a0f3f4600f1e140aa5be469fc2a10ad33779c66d6a829a3d1393db0f3dae5cc": {
+    "nome": "Luca Tosi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "535afdf4a0dd55e26d94395423b11cfa5e90ce6fe4bc1d0fc5ebf57292676c87": {
+    "nome": "Lorenzo Berni",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "c1ce85a74392e01dba602ab6b09bd6daf7ab42a395e592ddb02104d32d787b82": {
+    "nome": "Paolo Baglivo",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "b7641babcdda00e90ba123579e3be4e216174ae2a23c45fa843fb08f9c453e6e": {
+    "nome": "Elisha Nathari Perera Karawe Thanthrige",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "b1bf3afc2db9b907dcb4d6201e79d321264a1ffb9ffe3075181b7b4a844433f9": {
+    "nome": "Giada Boriosi",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "78d719f995b56348be657875411edab19b9d98b47313ae34b670bfa32f8e1f40": {
+    "nome": "Nadia Simoncini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "e7de4c0e4022f850d9cca60f6c9512dba9a3140e9492846af0a2ccf19dbcc956": {
+    "nome": "Marco Balletta",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "3ab4be6d8f2ad0634f791d6346b732eab18c0efb8ef94f515c2100adce5e4a3c": {
+    "nome": "Carolina Maxia",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "4f795878210d455aa9868b7287d58deee883e2761689b4a846ecaa609de6e1d0": {
+    "nome": "Sabina Polidori",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "194b47648ea04f2377ecb1a9004f073341a30a15faa85d08ad93b10193272371": {
+    "nome": "Luna Lazzari",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "2418abd2afe5ca07b862257583610f5ddc0bff1f53371bf67be311f9690ce182": {
+    "nome": "Ilyas Attaf",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "72d9aa7cb7fd2a740e86386fa2dd7b8b233c2c7117f6b67362a2a421cbdb588d": {
+    "nome": "Yuri Mengozzi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "1374fd2ce083cacdba0dc00b62e6cffbd7de69ed77d3b2f7a46fd56a32e83e4c": {
+    "nome": "Emma Amoroso",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "f3f07a777000b7f756242afcd4f24d8e2ccdb12d34240d275f5f7136e4836595": {
+    "nome": "Sara Marcucci",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "242e8bc5a3bebfadb47f507e5d0d4f08f332d8d5f09f82f959f4b7fbead20917": {
+    "nome": "Lara Mallossek Tallinucci",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "28473b0e2de6dbe3986af79268a2f935120fa44d61ef19365c03b093d462fccc": {
+    "nome": "Alessia Gibellini",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "1b1c80279b436be45529d925a3b890050a8cbda5c38312877fd8893d87d99eda": {
+    "nome": "Maya Ruffini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "33f551c88d969a012dcd3b51196abaf6f405bf1fb0261b336a09125bfa839900": {
+    "nome": "Niccoló Raffeca",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "b1f961e5e24fc4fb4360a1174f0fb810f134a015717a009e759bab03160f4cb6": {
+    "nome": "Mariavittoria Gentile",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "8d6f0a5f3dd840a8d62afa4b4109eb86d2dede5a9eb29747301deb4176bf49cf": {
+    "nome": "Anita Giari",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "ece1aced5c4c8b19729de483a5fd42e5803492474a74dd92be1b3d2488ffebdb": {
+    "nome": "Gioele Ulivi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "00481c2f39ac81ace24a3158436494b4637d9c39c70ccc42217dc4c2173bea00": {
+    "nome": "Sofia Chiarelli",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "4385ef6834bd64a391e6e9c07de645228f5563d804aa326ba8fe2e8d391251a3": {
+    "nome": "Anna Salvi Henry",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "8cfda4b81be0ebb6d91616c922d90bb56cc1d90a0739acb88cc04bba86ae0ebb": {
+    "nome": "Vittoria Borghini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "147c90b770145b0f8153af6e54e7a436beb8d63da64a546178f7d7bcc6b34006": {
+    "nome": "Rebecca Marchi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "e26df72b63b1de750be8809cb95c1a90b3f4973a278a3137816fb505c0b80ddb": {
+    "nome": "Alessio Giammarino",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "580a0524e62d7f66064f72bd87735b9415fd0b030a8309574ec332ba52d4d5d7": {
+    "nome": "Clizia Loretta Fusta",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "8b39b84252b628c8ef376c465533245b0c7c0805db444642465cf63f0bfd2638": {
+    "nome": "Matteo Moriconi",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "0f68aeab9d4b77e7deacb17b6ee14ccc72ced7d24ba0b0e190aa127a58bfc57f": {
+    "nome": "Edoardo Avallone",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "821020cc14d8ddf9af290ca1f15a96f078586e57fdd3479c69ec1581d623b84b": {
+    "nome": "Irene Rossi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "903b9dd8528733a365f33f95a993a26d3d690a1942e9e986a0459ca084503ffb": {
+    "nome": "Laura Mastromattei",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "cf904cb03e6d71e151c3a66ed0b31e1639f195854d4d13cdb6f85359372dbebf": {
+    "nome": "Greta Savasta",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "e8ef909969443d87ab70c46bf41d810de4e52b844473a27519ddd3d44797bdef": {
+    "nome": "Jonas Lin Iacomino",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "5ac204212e05420246148b7d92b15b174587f51c485584993063e8c8ff3bfc6d": {
+    "nome": "Elisa Salvadori",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "0b341ab15f4e1322348093311175399597c896667a4dd6c649d3adc7ad3bca13": {
+    "nome": "Giulio Zinni",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "203843c41aefbc366d61017c8ba345e4a9de29dc85fadb7292ca84026441cb16": {
+    "nome": "Alessandro Massari",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "03febced6df22d61780566e99ec7cc13f8cdbd57d735affdb644a28bbd7a952c": {
+    "nome": "Marwa Bouhamed",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "698de98b65d97cd3b11d53c219d293e57c7297b27ab589c7f1e6fb1a987f670c": {
+    "nome": "Martina Ragusa",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "df74dc07fbcd80e2f2cecc9d2db9c0a95f82baa479e61b23e8108d9f0daed7b0": {
+    "nome": "Francesco Giusti",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "e57b2587c87c9b0b5f85594c0ab12614138f2db681c94bbab58d84bc5abd5c15": {
+    "nome": "Alice Langella",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "aefb63e370c609a45571dee63b2505413cd40f8282d65452dcca31788711afea": {
+    "nome": "Matilde Palmigiano",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "6dda94cdc2801b93c1b190295274dab41c19abe565ecb0c188bdd5eb7195860b": {
+    "nome": "Ludovico Sanacore",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "6aaad3f1fab9dd9bdf131b6aff9b3c1aa70dd938915baf99c24a830959f71caa": {
+    "nome": "Giulia Lusini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "80ac63a2571d1b916100f00fd6da0790c4828634edcb628c8ceea4161a3d7d47": {
+    "nome": "Beatrice De Nevi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "f5fe184a2f60c04223fdbce2189db81dbc6ffa5138e0f13518543a3b1219c7be": {
+    "nome": "Cosmin Oleinic",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "3c9a300b88d916cf9c9da75691ab5fa7192c342eeb2f72638f35d486204631de": {
+    "nome": "Martina Puleo",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "51b4dfca2ce91f0caea150e94691ca4109c9ab840dd1422244613e986e34aa8e": {
+    "nome": "Matteo Borrini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "0a7bc99b076d1ff42b13d97d5b29b8283be9dbf16b8dd101e14adb749d7db89d": {
+    "nome": "Alessandro Lopez",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "1f01ac6826602ba3cc16ee42dba313867008bc392741e8b23a29c114a94f05cc": {
+    "nome": "Lorenzo Brugnoli",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "b94f5d714b095ab0c5986ec644a0442306d95261b57e4488bdd23cc1c8a61148": {
+    "nome": "Daiana Nicole Leiva Durand",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "a6e0764d6a3f8d7c45ef462948ac25dc637671e91916c3b02dea4cc68336dbf8": {
+    "nome": "Serena Roshel Warnakulasuriya",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "0e6256e78bdb2acb70ffa725c49beac975452dbca2dfd2d74f17dfd1207c68db": {
+    "nome": "Angelica Lagman",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "7316f8c4a6c7aea4e4ee7abbcf3b6aadad7bf5c28b5ba687a6dc15d485d3fd00": {
+    "nome": "Camilla Battaglini Renzoni",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "95526e1558955de24d538987e2b81e265e1b4be32ad9488d1dc6abd47cc9c568": {
+    "nome": "Andrea Massimiliano Sassaro",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "75bdd3b497e63595f42acd230774a5a7ceedc4484373f0404a7e4fe438f8e786": {
+    "nome": "Diego Bellucci",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "f00fffb7a1eaed8850b54a431250be7c4e8232f38f2c27c5debf8460228a0b79": {
+    "nome": "Alessandro Priami",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "d92e0dbf4fe04bc8fdd0613dbc0818b7004c23dc701c8bc5970e9224482709fb": {
+    "nome": "Lucrezia Milton",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "c9f58aad9d3507d4d488e228bdd664a0d8797ecdddf20a5805b73a2ce2c897e3": {
+    "nome": "Elettra Cardenas",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "23c49c0aaa492226be796677ce901cb0a0b77b34342a6f454e3e98e2bc470306": {
+    "nome": "Filippo Baldazzi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "b6296d389a792fa76abb3c42b2db601fa8614a7f36f38b5710391712beda3743": {
+    "nome": "Zeen Ali",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "d5e860c90f3c3f092f5f60bde0fed2834dc188d128019e7e9828b6356edbcc9a": {
+    "nome": "FILIPPO BALDAZZI",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "a74f1e7e5218b7be2de8e60414f0bd5e467d47ad1f6a2e2e57e1bf4a901d3a5f": {
+    "nome": "Davide Aliberti",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "92c5994879a85cc42839247383390b0a6add5b4faaba75c260f98269e5a8c4bc": {
+    "nome": "Bianca Lamonica",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "7b5bee6282198e9b106bf7ab415022f5e3820284481f5d3579971d4eb39ac32f": {
+    "nome": "Luna Valeria Mamani Nunez",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "b9d20ac929c416c128ed88b7792741841e89edc1b38ab381c4a8ef2d73744e34": {
+    "nome": "Caterina Carlesi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "ac5cdc482e9b71d117addd5bb9d9efcbaef9834f028c11f916cfc267254ec0c0": {
+    "nome": "Eleonor Mazzoni",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "952c25678965a7568d9b6e19d72361d12a70585a51348d078879eaa2ed2932c8": {
+    "nome": "Agnese Salvadore",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "819ce3ecc95f0ba79ae0f050203767d2090afc89a5b7ae0859c8a7914d6cd363": {
+    "nome": "Enea Galardi",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "9a22636ed194b84a86a3274687dae97ed34344c32b910f4c397e96693291830e": {
+    "nome": "Asia Mulè",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "a6a96020e4dbe85a3e60183f1366268be8cab540882a5ecb1653310a0147d928": {
+    "nome": "Alessandra Deserti",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "f6ecc0a3f698d9456e8e485cecd3ba5a3d39372e3e93fc3fb27bc86b46db3d52": {
+    "nome": "Patricia Goncalves",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "04e9564b824064f6e2e5dd1703e709c091788f1c0f8847885744e9b0d91e8af8": {
+    "nome": "Sara Adragna",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "7f448f4bd5bb77d7c6903dfb42663c90bd0eb0edf411b3421554ddb4e1d7a775": {
+    "nome": "Aurora Pinori",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "be881cd751f485e73e2dbbe5e5ae43f76572dbb81b9e1314257716cbbb7783e2": {
+    "nome": "Viviann Menzel",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "ecda943a7227ec3e14531e3740fd0299a695c83d6f9fc2b6ae2948b825e8f1e5": {
+    "nome": "Massimiliano Cini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "b00279b501092b9679d6c704a65e090757bde783429cf4966a3ef8a5383063b1": {
+    "nome": "Filippo Picardi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "9f5c06ae8ad2cdbb87de782d6d8a8dee758a822d52468e6aa42390f19b58be5a": {
+    "nome": "Rebecca Muzzi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "9b60816cc45a520f2862be4120318d1450729e719332115d6ca3a078da697440": {
+    "nome": "Diego Pieroni",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "994e25f8621d9095b2027d1637e3890ac5fb5d59216a3c2191b48e042887a567": {
+    "nome": "Camilla Gagliardo",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "1fd11d75b0c9b00583e8a844a56c36fd464a7a7910f21565cfcf126a8b558cdf": {
+    "nome": "Alice Battimo",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "cd5e2dcc3ce09572e1070cb01299dfff3d00ca2ab63547418c775ac03630a275": {
+    "nome": "Nora Genovesi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "4a8673e28d10c1aaf28918b6e855e066c2ece436269bc981c935b044e64fd432": {
+    "nome": "Alessia Giannelli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "ff83446c259d6a3ff8fc8c507e75ed7002e57b2b8e331a147569765dadb085e2": {
+    "nome": "Martina Bozzi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "987e89fc798f97cf3c8a90203d61e3934c16577eea68e01b6ae38f9022a512de": {
+    "nome": "Sara Saviozzi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "0a44bd14f457103fb116ffa4568ff0eabadfc49ff3f60ed16257518bfc092810": {
+    "nome": "Nicholas Giani",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "68b61a363b1492f0ca1920b10bfbc124e0f76340f10fc8564260b9fc919a26c6": {
+    "nome": "Elena Morosi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "1fcec87fba3f50b51c63a46cac34b1034286c16e560c71f842896b75c4ac02d2": {
+    "nome": "Eros Fantozzi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "d57fb769e6b0f663e29f6677a5ef17eecad12992e809339c4bc05b7289f4ed17": {
+    "nome": "Diego Maltagliati",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "c5db3e60b510b6e0156035e44dcca2c4d6be20824c4ae4b745a11310d9e97e57": {
+    "nome": "Pietro Capalbo",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "0cd416b31f5181f9e1efe0301c42dbf47b7d2fa4a07ae816c5241672fd1bcc9a": {
+    "nome": "Sara Gennaretti",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "8a38a9de46d304f69d7d57d45ecbe03a422ba289101e52531d660df8bac3778f": {
+    "nome": "Isabelle Hoorn",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "b9e9cae5e4f9211c5c04a72710f603bff077b03ee98bad5ce1db2b89304ab45b": {
+    "nome": "Sofia Molini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "29f96ee84fb453976c082f1b994d9363e388e198466134df8a3e68e548eb9daf": {
+    "nome": "Lorenzo Ferraro",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "997a9f1540e6514028c057e34976092fcbad0eadfa5b8ea80c7b63de898a6cdb": {
+    "nome": "Asia Lucia Repiccioli",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "95e1ef6bc23e9ded7c9ad64d373a4de20a2c6d37406bb5a258cdccb6f696c6f6": {
+    "nome": "Olivia Carmignani",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "80375028ba78aef64e5e53d39595bb2c42fef031a925ae18a8d25e4ca714730d": {
+    "nome": "Alessandro Grandoni",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "e2d82658878d1a9368f52f6727da207b2e31ad309ce33a88016513b805b76d0c": {
+    "nome": "Alessandro Aliboni",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "460f9b6fe162b54179cc4b9943dc770e7904c85a430efa7365d4cd5bf114a124": {
+    "nome": "Silvano Antonelli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "9f23e5ab23c76af332697bbc66b8e9e49fa4123e86622eff351112840e2aa625": {
+    "nome": "Alissa Fornacciari",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "a538c038638188020e82f4de7669ac0db52707494ed105125836a7e2fc20bcbf": {
+    "nome": "Emma Camici",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "5d7ecbaba874c2497b9e74182f76d735c984ddce20cc0f4ff6e9492268feb0b5": {
+    "nome": "Rita Eleonora Bonasera",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "76d28f4843e8b793e168f07870ecad29abf8da7db868735af9358271e886bdac": {
+    "nome": "Linda Grassi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "ff5d857e3e1d636c28e7296f4010e23e923acb62f6b3fa66f018bca871a3f4e0": {
+    "nome": "Elisa Corradini",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "5f9e2ca45993d0ca6518fd3eff09e582304d6711025e9064c1960e2b4cf306b5": {
+    "nome": "Aurora Mazzanti",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "bfc39a425cc610e905d93bcdd14416674be1d933f7b05a1e699558b521afe274": {
+    "nome": "Miria Chimenti",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "679aea99c2d0974c6318d910c33e10f93f983d315ff1ff5f1d54e9402d2e3582": {
+    "nome": "Gianmarco Bertelli",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "1ff3a3dc552999605eab30bd71657ef61f38d669f245cbf31fdf0a6056dbdd7a": {
+    "nome": "Selly Saou",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "ae8a7c8f7a7bf158572cafb741e4519c99868ce52d3dc50f8f0cd45db7b9d3ad": {
+    "nome": "Melissa Sardi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "6c77ac094801ef422538a05bf334aa08176b356712f5ddb14f06c31cfe37b324": {
+    "nome": "Arame Diene",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "3b2e106bac6dcfc718aa8d0a009a209064359eabce50308f3fc3cf2d3c772818": {
+    "nome": "Chiara Bonuccelli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "67430d0d0ce3fedaada0772dcc3b082c94e56d59691d90aa436302896a82a58c": {
+    "nome": "Giorgia Landi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "5e5fd3b9e7b2ed03009d7af01d104309b05ce39de83224e86c1c6093eae8f2bb": {
+    "nome": "Bianca Ippolito",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "d00192c6821c0fbd0df8d339193da08ccf166d389174ad31b50982b6b4cc498f": {
+    "nome": "Tommaso Lari",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "c1866a23be593f75b6cd55b17f4f95e10141d57d98856969daab67ea19dbd737": {
+    "nome": "Luigi Pierini Monteverdi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "57cb878b8d3b47e8297dffa8df652db700c6528fe42ff74a61b0dfe770e8bd1b": {
+    "nome": "Alessia Mauro",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "5fe66686d3175eca29af47f79cbb57fcf914c9f52f9d520e4d3db54294f75b76": {
+    "nome": "Junrui Ye",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "8873a5d7838516c516bc433b07f87ee343e758f67b800199d519239ec191f912": {
+    "nome": "Federica Borzani",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "89a00f8b28f2b6e7806d625d087d0bc7c3f4235269ace76522b367bc01f553d3": {
+    "nome": "Margherita Vadi",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "523f4daae6988917d62e59cb36d42fafde9ef8b5e430a0f85a68adc1543ec1ee": {
+    "nome": "Alessia Giglioli",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "cf3180e57cd494ce8d2e5e2484ffa0038f39a8f99473d4332457b528742ae85c": {
+    "nome": "Emily Nannetti",
+    "giorno": "11-12 giugno 2026",
+    "seminario": ""
+  },
+  "07a1c1ac08f06a7eff73e9d39659b2d0f24433a688d8febc45ef0c4fb4ab2e2f": {
+    "nome": "Rebecca Amrooso",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "e0883c795d04961c71ec446dfacc8f3d80cd0af8405d4fcb9707ff3798ef60b8": {
+    "nome": "Emilia Cianciusi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "01d5710a208554fc2d2f86eb8cf2e39be1b774cc069bdebd28e59bbb3116e941": {
+    "nome": "Riccardo Micali",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "6ac560c92b4b06ef077cce617e5367470f53d0345e6caa7fb9593b1849e60b66": {
+    "nome": "Alice Bongini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "f6d4e66f13dd3e30309fe114c5fb250de22a0f550d01159c763aa7af03b86af5": {
+    "nome": "Alice Pescitelli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "c1acf0cd18e55bfee59c0288f32d7a15c8bdda99ddfe1bc01724743e11a3f6a1": {
+    "nome": "Elisa Maria Carrubba",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "0b88a033f5d72815262d0bd7d7300ef50a94f20180b3fe4f5fdc854935b3caff": {
+    "nome": "Greta Guerrucci",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "44e4e211319710b7982da67908abaa2fdfc08556e4d5df56f6689047383c1f53": {
+    "nome": "Marco Ricciardi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "0a7cd0b563954dce21cafab0933621a7f9ff9dbc7bd9b45bfa5bb76ad88e1b28": {
+    "nome": "Filippo Marazzi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "9bf7e13f3a9c5eeebeba3631e962b5428079e04597d9e854e9833d97d0269dad": {
+    "nome": "Aurora Lami",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "fc9ab9d0d62b3b5d9e85dbb66815e310a34c08323e82735a2f3b36587c00e585": {
+    "nome": "Greta Lavinia Maremmani",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "0e8867270e9358a76e42499668dc29fd90be036a4f964ddec12f8b78e9249e0f": {
+    "nome": "Ginevra Tagliagambe",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "a35b4e0d0d43a0c8945c23e0394645a51502c82f3178d64100955e73e8c5236f": {
+    "nome": "Rebecca Chersi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "d18fcc6f9827cd7aa639b0cf42e2b7023485f3379a6f63c3cb7f232a36ba40ba": {
+    "nome": "Ting Wei Cai",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "d56f0fd37495106734e6c267230b556bb502d20ab5fc84c47cac01f68ad80896": {
+    "nome": "Aicha Gaye",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "aa0b5fa6a04d05e62c03f537318582c82c68ca319c575c4f5d0186af49392eee": {
+    "nome": "Vanessa Turino",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "fb8133b47fc4b38b04fb44ded1099e0cc37f1d423a1a855f107d29271bb624a8": {
+    "nome": "Mariasole Moscatelli",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "87ebd5a4c5a8396598798dbb478091fef2c948194174ec38c65ef496e3862a11": {
+    "nome": "Gaia Paolini",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "f8925da5c7588e2c9a726899de744cd7551a374722a317a0a20fa7802dc5acb4": {
+    "nome": "Elettra Morelli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "2cd51b82cdf7f79f906eee753523ee9d40d177b63428b93c62996b6181255d1a": {
+    "nome": "Fatima Zahra Baghrir",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "a3228524046e78a776d265e74f2b3520e8a5db0710494e89950b219f43ee66d8": {
+    "nome": "Mia Masetti",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "3c44e8202d2ec52b289f5d2bb8b9271d11087d111498f1e2714777ac1b1cfc70": {
+    "nome": "Gianni Cavicchioli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "43e6f8eab7a56d1ec615099f235fd70f7c268d5d2708f76948bb2a066f492db1": {
+    "nome": "Sara Toffi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "22947df05df770fc2267d57aa896451e37669d7d49236b4cd2fe18938137b943": {
+    "nome": "Diego Birindelli",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "3901294cf0a4486690337297c15bcb54f380a6ce0416ac3976c62a5f68893166": {
+    "nome": "Federico Mastorci",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "056acded764643095922bb64cd7b57e049c3490dd5966abfe0bc9eff24a670f4": {
+    "nome": "Gabriele Moggi",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "f9d220b7832c1e0b8707ad5d5cd74404cd7f4bf0f7f5d2491ca5ef88e470c2f0": {
+    "nome": "Francesca Nordio",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "1720ccdc685cbbfef8cde7ed004087cf187fcf33a84a4afa3dead023e4e47926": {
+    "nome": "Gloria Morelli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "813a3d17b2e806d48790408131992a54319968cb5974422203e1b461fd7e4f62": {
+    "nome": "Linda Marcheschi",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "03221c225dd1cbee3b9458fb9e4e9ac9580dea2b7b1d59eb4356fff72b009a2e": {
+    "nome": "Qiqi Huang",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "9b84073f28ed26b4e85dba4bf39a77b40aeb12fb4f1c0dfa7b5114793d0fbca6": {
+    "nome": "Rasidu Gangana Warnakulasuriya Peiris",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "a93894bb752891730afa347182528690ea96f92271baf980db75cccbcee54cbe": {
+    "nome": "Matteo Celli",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "41aed78265169bc07fbe5a476370dc8f3f798f9d2471cc00d508a1dfa037aa37": {
+    "nome": "Erika Afanasjeva",
+    "giorno": "11 giugno 2026",
+    "seminario": ""
+  },
+  "d8319fe4a83af063cc7c881f319e2a7cf3f11bbb3c46e7e7a376c89ff684a45f": {
+    "nome": "Cristina Mannucci",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  },
+  "82dd2cf0605111542776924d803da27f36aa1614d5143ff6cbf37a0f45e993e3": {
+    "nome": "Veronica Conforti",
+    "giorno": "12 giugno 2026",
+    "seminario": ""
+  }
+}
