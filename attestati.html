@@ -220,7 +220,8 @@
 
   <script>
   // ── Configurazione ──────────────────────────────────────────
-  const PDF_FOLDER    = 'attestati/';
+  const PDF_FOLDER      = 'attestati/';
+  const MANIFEST_URL    = 'data/attestati.json';
   const DISPONIBILI_DAL = new Date('2026-06-09T00:00:00+02:00');
 
   // ── Init ────────────────────────────────────────────────────
@@ -244,15 +245,33 @@
     });
   }
 
+  // ── Manifest (caricato una sola volta) ──────────────────────
+  let _manifest = null;
+  async function getManifest() {
+    if (_manifest) return _manifest;
+    const res = await fetch(MANIFEST_URL);
+    if (!res.ok) throw new Error('manifest');
+    _manifest = await res.json();
+    return _manifest;
+  }
+
+  // ── SHA-256 del CF (Web Crypto API) ─────────────────────────
+  async function sha256hex(str) {
+    const buf = await crypto.subtle.digest(
+      'SHA-256', new TextEncoder().encode(str)
+    );
+    return Array.from(new Uint8Array(buf))
+      .map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
   // ── Estrae data di nascita dal Codice Fiscale ───────────────
-  // Ritorna {year, month, day} o null se il CF è malformato
   function birthDateFromCF(cf) {
     if (cf.length < 11) return null;
     const MESI = { A:1,B:2,C:3,D:4,E:5,H:6,L:7,M:8,P:9,R:10,S:11,T:12 };
-    const year2    = parseInt(cf.substring(6, 8), 10);
-    const mChar    = cf.charAt(8).toUpperCase();
-    let   day      = parseInt(cf.substring(9, 11), 10);
-    const month    = MESI[mChar];
+    const year2 = parseInt(cf.substring(6, 8), 10);
+    const mChar = cf.charAt(8).toUpperCase();
+    let   day   = parseInt(cf.substring(9, 11), 10);
+    const month = MESI[mChar];
     if (!month || isNaN(year2) || isNaN(day)) return null;
     if (day > 40) day -= 40;   // femmine: giorno + 40
     const curY2 = new Date().getFullYear() % 100;
@@ -260,12 +279,19 @@
     return { year, month, day };
   }
 
-  // ── Controllo se tutti i campi sono validi ──────────────────
+  // ── Normalizza stringa per confronto nomi ───────────────────
+  function normName(s) {
+    return s.trim().toUpperCase()
+      .normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/\s+/g, ' ');
+  }
+
+  // ── Controllo se tutti i campi sono compilati ───────────────
   function isFormReady() {
     const nome    = document.getElementById('nomeInput').value.trim();
     const cognome = document.getElementById('cognomeInput').value.trim();
-    const nascita = document.getElementById('nascitaInput').value;   // 'YYYY-MM-DD'
-    const cf      = document.getElementById('cfInput').value.trim().toUpperCase();
+    const nascita = document.getElementById('nascitaInput').value;
+    const cf      = document.getElementById('cfInput').value.trim();
     return nome.length > 0 && cognome.length > 0 && nascita !== '' && cf.length === 16;
   }
 
@@ -278,8 +304,7 @@
   function onCFInput(input) {
     const v = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
     input.value = v;
-    if (v.length === 16) input.classList.add('is-ok');
-    else                 input.classList.remove('is-ok');
+    input.classList.toggle('is-ok', v.length === 16);
     onFieldInput();
   }
 
@@ -287,12 +312,12 @@
   async function handleDownload() {
     const nome    = document.getElementById('nomeInput').value.trim();
     const cognome = document.getElementById('cognomeInput').value.trim();
-    const nascita = document.getElementById('nascitaInput').value;
+    const nascita = document.getElementById('nascitaInput').value;   // 'YYYY-MM-DD'
     const cf      = document.getElementById('cfInput').value.trim().toUpperCase();
 
     if (!isFormReady()) return;
 
-    // ── Verifica data di nascita contro CF ──────────────────
+    // 1. Verifica data di nascita contro CF (algoritmo deterministico)
     const fromCF = birthDateFromCF(cf);
     if (fromCF) {
       const [y, m, d] = nascita.split('-').map(Number);
@@ -309,24 +334,39 @@
     setLoading(true);
     hideStatus();
 
-    const url = PDF_FOLDER + cf + '.pdf';
-
     try {
-      const check = await fetch(url, { method: 'HEAD' });
+      // 2. Cerca nel manifest (dati dall'Excel)
+      const manifest = await getManifest();
+      const hash     = await sha256hex(cf);
+      const entry    = manifest[hash];
 
-      if (!check.ok) {
+      if (!entry) {
         setLoading(false);
         showStatus(
           '❌ Nessun attestato trovato per questo codice fiscale.\n\n' +
-          'Controlla di aver inserito lo stesso CF usato all\'iscrizione, ' +
+          'Controlla di aver usato lo stesso CF dell\'iscrizione, ' +
           'oppure contatta il team di orientamento.',
           'error'
         );
         return;
       }
 
-      // File trovato → scarica
-      const link    = document.createElement('a');
+      // 3. Verifica nome + cognome contro i dati dell'iscrizione
+      const storedNome = normName(entry.nome);
+      const inputNome  = normName(nome + ' ' + cognome);
+      if (storedNome !== inputNome) {
+        setLoading(false);
+        showStatus(
+          '❌ Nome o cognome non corrispondenti ai dati di iscrizione.\n\n' +
+          'Inserisci esattamente nome e cognome usati all\'iscrizione.',
+          'error'
+        );
+        return;
+      }
+
+      // 4. Tutto ok → scarica il PDF
+      const url  = PDF_FOLDER + cf + '.pdf';
+      const link = document.createElement('a');
       link.href     = url;
       link.download = 'attestato_summercamp2026_' + cf + '.pdf';
       document.body.appendChild(link);
@@ -338,7 +378,12 @@
 
     } catch (err) {
       setLoading(false);
-      showStatus('⚠️ Errore di rete. Controlla la connessione e riprova.', 'error');
+      showStatus(
+        err.message === 'manifest'
+          ? '⚠️ Impossibile caricare i dati. Riprova tra poco.'
+          : '⚠️ Errore di rete. Controlla la connessione e riprova.',
+        'error'
+      );
     }
   }
 
