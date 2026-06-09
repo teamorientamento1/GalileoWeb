@@ -40,24 +40,64 @@
       box-shadow: 0 2px 10px rgba(0,0,0,.07);
     }
 
+    .field-group { margin-bottom: 16px; }
+    .field-group:last-of-type { margin-bottom: 0; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
     .field-label {
       font-size: 12px; font-weight: 700;
       letter-spacing: .05em; text-transform: uppercase;
       color: var(--hint); margin-bottom: 8px;
     }
-    .cf-input {
-      width: 100%; padding: 14px 16px;
-      font-size: 18px;
-      font-family: 'SF Mono','Fira Code','Courier New',monospace;
-      font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+
+    .txt-input {
+      width: 100%; padding: 13px 14px;
+      font-size: 15px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 500;
       border: 2px solid #e5e7eb; border-radius: 10px;
       background: var(--sec-bg); color: var(--text);
       outline: none; transition: border-color .2s;
     }
-    .cf-input:focus   { border-color: var(--unipi); }
-    .cf-input.is-ok   { border-color: #16a34a; }
+    .txt-input:focus { border-color: var(--unipi); }
+    .txt-input.is-ok { border-color: #16a34a; }
+
+    .date-input {
+      width: 100%; padding: 13px 14px;
+      font-size: 15px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 500;
+      border: 2px solid #e5e7eb; border-radius: 10px;
+      background: var(--sec-bg); color: var(--text);
+      outline: none; transition: border-color .2s;
+      -webkit-appearance: none;
+    }
+    .date-input:focus { border-color: var(--unipi); }
+    .date-input.is-ok { border-color: #16a34a; }
+
+    .cf-input {
+      width: 100%; padding: 13px 14px;
+      font-size: 17px;
+      font-family: 'SF Mono','Fira Code','Courier New',monospace;
+      font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      border: 2px solid #e5e7eb; border-radius: 10px;
+      background: var(--sec-bg); color: var(--text);
+      outline: none; transition: border-color .2s;
+    }
+    .cf-input:focus { border-color: var(--unipi); }
+    .cf-input.is-ok { border-color: #16a34a; }
 
     .cf-hint { font-size: 11px; color: var(--hint); margin-top: 6px; }
+
+    .divider {
+      height: 1px; background: #e5e7eb;
+      margin: 18px 0;
+    }
 
     .btn-download {
       width: 100%; margin-top: 18px; padding: 16px;
@@ -83,13 +123,13 @@
     .status {
       margin-top: 14px; padding: 12px 14px; border-radius: 10px;
       font-size: 14px; font-weight: 500; display: none; line-height: 1.5;
+      white-space: pre-line;
     }
     .status.show    { display: block; }
     .status.success { background:#f0fdf4; color:#166534; border:1px solid #86efac; }
     .status.error   { background:#fef2f2; color:#991b1b; border:1px solid #fca5a5; }
     .status.info    { background:#eff6ff; color:#1e40af; border:1px solid #93c5fd; }
 
-    /* stato non ancora disponibile */
     .unavailable-card { text-align:center; padding:40px 20px; }
     .unavailable-card .big-icon { font-size:56px; margin-bottom:16px; }
     .unavailable-card h2 { font-size:18px; font-weight:700; margin-bottom:8px; }
@@ -126,15 +166,46 @@
   <!-- Form attivo -->
   <div id="formState" style="display:none;">
     <div class="card">
-      <div class="field-label">Il tuo Codice Fiscale</div>
-      <input
-        type="text" id="cfInput" class="cf-input"
-        placeholder="RSSMRA90A01H501Z"
-        maxlength="16" autocomplete="off" autocorrect="off"
-        spellcheck="false" inputmode="text"
-        oninput="onCFInput(this)"
-      >
-      <div class="cf-hint">16 caratteri · inserisci il CF che hai usato all'iscrizione</div>
+
+      <!-- Nome + Cognome -->
+      <div class="two-col">
+        <div class="field-group">
+          <div class="field-label">Nome</div>
+          <input type="text" id="nomeInput" class="txt-input"
+            placeholder="Mario"
+            autocomplete="given-name" autocorrect="off" spellcheck="false"
+            oninput="onFieldInput()">
+        </div>
+        <div class="field-group">
+          <div class="field-label">Cognome</div>
+          <input type="text" id="cognomeInput" class="txt-input"
+            placeholder="Rossi"
+            autocomplete="family-name" autocorrect="off" spellcheck="false"
+            oninput="onFieldInput()">
+        </div>
+      </div>
+
+      <!-- Data di nascita -->
+      <div class="field-group">
+        <div class="field-label">Data di Nascita</div>
+        <input type="date" id="nascitaInput" class="date-input"
+          max="2015-12-31" min="1900-01-01"
+          oninput="onFieldInput()" onchange="onFieldInput()">
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Codice Fiscale -->
+      <div class="field-group">
+        <div class="field-label">Codice Fiscale</div>
+        <input
+          type="text" id="cfInput" class="cf-input"
+          placeholder="RSSMRA90A01H501Z"
+          maxlength="16" autocomplete="off" autocorrect="off"
+          spellcheck="false" inputmode="text"
+          oninput="onCFInput(this)">
+        <div class="cf-hint">16 caratteri · stesso CF usato all'iscrizione</div>
+      </div>
 
       <button class="btn-download" id="downloadBtn" onclick="handleDownload()" disabled>
         <div class="spin"></div>
@@ -149,10 +220,7 @@
 
   <script>
   // ── Configurazione ──────────────────────────────────────────
-  // Cartella dove sono caricati i PDF (un file per CF: {CF}.pdf)
-  const PDF_FOLDER = 'attestati/';
-
-  // Data dopo la quale gli attestati sono disponibili
+  const PDF_FOLDER    = 'attestati/';
   const DISPONIBILI_DAL = new Date('2026-06-09T00:00:00+02:00');
 
   // ── Init ────────────────────────────────────────────────────
@@ -162,13 +230,11 @@
   }
 
   (function init() {
-    const ora = new Date();
-    if (ora < DISPONIBILI_DAL) {
-      // Prima del 13 giugno: non disponibili
+    if (new Date() < DISPONIBILI_DAL) {
       show('unavailableState');
     } else {
       show('formState');
-      document.getElementById('cfInput').focus();
+      document.getElementById('nomeInput').focus();
     }
   })();
 
@@ -178,25 +244,67 @@
     });
   }
 
-  // ── Validazione input ───────────────────────────────────────
-  function onCFInput(input) {
-    const v = input.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
-    input.value = v;
+  // ── Estrae data di nascita dal Codice Fiscale ───────────────
+  // Ritorna {year, month, day} o null se il CF è malformato
+  function birthDateFromCF(cf) {
+    if (cf.length < 11) return null;
+    const MESI = { A:1,B:2,C:3,D:4,E:5,H:6,L:7,M:8,P:9,R:10,S:11,T:12 };
+    const year2    = parseInt(cf.substring(6, 8), 10);
+    const mChar    = cf.charAt(8).toUpperCase();
+    let   day      = parseInt(cf.substring(9, 11), 10);
+    const month    = MESI[mChar];
+    if (!month || isNaN(year2) || isNaN(day)) return null;
+    if (day > 40) day -= 40;   // femmine: giorno + 40
+    const curY2 = new Date().getFullYear() % 100;
+    const year  = year2 <= curY2 ? 2000 + year2 : 1900 + year2;
+    return { year, month, day };
+  }
+
+  // ── Controllo se tutti i campi sono validi ──────────────────
+  function isFormReady() {
+    const nome    = document.getElementById('nomeInput').value.trim();
+    const cognome = document.getElementById('cognomeInput').value.trim();
+    const nascita = document.getElementById('nascitaInput').value;   // 'YYYY-MM-DD'
+    const cf      = document.getElementById('cfInput').value.trim().toUpperCase();
+    return nome.length > 0 && cognome.length > 0 && nascita !== '' && cf.length === 16;
+  }
+
+  // ── Input handlers ──────────────────────────────────────────
+  function onFieldInput() {
     hideStatus();
-    const btn = document.getElementById('downloadBtn');
-    if (v.length === 16) {
-      input.classList.add('is-ok');
-      btn.disabled = false;
-    } else {
-      input.classList.remove('is-ok');
-      btn.disabled = true;
-    }
+    document.getElementById('downloadBtn').disabled = !isFormReady();
+  }
+
+  function onCFInput(input) {
+    const v = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    input.value = v;
+    if (v.length === 16) input.classList.add('is-ok');
+    else                 input.classList.remove('is-ok');
+    onFieldInput();
   }
 
   // ── Download ────────────────────────────────────────────────
   async function handleDownload() {
-    const cf  = document.getElementById('cfInput').value.trim().toUpperCase();
-    if (cf.length !== 16) return;
+    const nome    = document.getElementById('nomeInput').value.trim();
+    const cognome = document.getElementById('cognomeInput').value.trim();
+    const nascita = document.getElementById('nascitaInput').value;
+    const cf      = document.getElementById('cfInput').value.trim().toUpperCase();
+
+    if (!isFormReady()) return;
+
+    // ── Verifica data di nascita contro CF ──────────────────
+    const fromCF = birthDateFromCF(cf);
+    if (fromCF) {
+      const [y, m, d] = nascita.split('-').map(Number);
+      if (fromCF.year !== y || fromCF.month !== m || fromCF.day !== d) {
+        showStatus(
+          '❌ La data di nascita non corrisponde al codice fiscale inserito.\n\n' +
+          'Controlla i dati e riprova.',
+          'error'
+        );
+        return;
+      }
+    }
 
     setLoading(true);
     hideStatus();
@@ -204,7 +312,6 @@
     const url = PDF_FOLDER + cf + '.pdf';
 
     try {
-      // Verifica che il file esista (HEAD request)
       const check = await fetch(url, { method: 'HEAD' });
 
       if (!check.ok) {
@@ -219,7 +326,7 @@
       }
 
       // File trovato → scarica
-      const link  = document.createElement('a');
+      const link    = document.createElement('a');
       link.href     = url;
       link.download = 'attestato_summercamp2026_' + cf + '.pdf';
       document.body.appendChild(link);
