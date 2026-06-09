@@ -7,15 +7,12 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     :root {
-      --bg:       var(--tg-theme-bg-color, #ffffff);
-      --text:     var(--tg-theme-text-color, #1a1a1a);
-      --hint:     var(--tg-theme-hint-color, #707070);
-      --link:     var(--tg-theme-link-color, #2481cc);
-      --btn-bg:   var(--tg-theme-button-color, #003a8c);
-      --btn-text: var(--tg-theme-button-text-color, #ffffff);
-      --sec-bg:   var(--tg-theme-secondary-bg-color, #f3f4f6);
-      --unipi:    #003a8c;
-      --radius:   14px;
+      --bg:     var(--tg-theme-bg-color, #ffffff);
+      --text:   var(--tg-theme-text-color, #1a1a1a);
+      --hint:   var(--tg-theme-hint-color, #707070);
+      --sec-bg: var(--tg-theme-secondary-bg-color, #f3f4f6);
+      --unipi:  #003a8c;
+      --radius: 14px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -25,7 +22,6 @@
       min-height: 100vh;
     }
 
-    /* ── Header ── */
     .hero {
       background: linear-gradient(135deg, #003a8c 0%, #0055cc 100%);
       color: #fff;
@@ -36,7 +32,6 @@
     .hero h1   { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
     .hero p    { font-size: 14px; opacity: .85; line-height: 1.5; }
 
-    /* ── Cards ── */
     .card {
       background: var(--bg);
       border-radius: var(--radius);
@@ -45,133 +40,65 @@
       box-shadow: 0 2px 10px rgba(0,0,0,.07);
     }
 
-    /* ── Form ── */
     .field-label {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-      color: var(--hint);
-      margin-bottom: 8px;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: .05em; text-transform: uppercase;
+      color: var(--hint); margin-bottom: 8px;
     }
     .cf-input {
-      width: 100%;
-      padding: 14px 16px;
+      width: 100%; padding: 14px 16px;
       font-size: 18px;
-      font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      border: 2px solid #e5e7eb;
-      border-radius: 10px;
-      background: var(--sec-bg);
-      color: var(--text);
-      outline: none;
-      transition: border-color .2s;
+      font-family: 'SF Mono','Fira Code','Courier New',monospace;
+      font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      border: 2px solid #e5e7eb; border-radius: 10px;
+      background: var(--sec-bg); color: var(--text);
+      outline: none; transition: border-color .2s;
     }
-    .cf-input:focus { border-color: var(--unipi); }
-    .cf-input.is-error { border-color: #ef4444; }
-    .cf-input.is-ok    { border-color: #16a34a; }
+    .cf-input:focus   { border-color: var(--unipi); }
+    .cf-input.is-ok   { border-color: #16a34a; }
 
-    .cf-hint {
-      font-size: 11px;
-      color: var(--hint);
-      margin-top: 6px;
-    }
+    .cf-hint { font-size: 11px; color: var(--hint); margin-top: 6px; }
 
     .btn-download {
-      width: 100%;
-      margin-top: 18px;
-      padding: 16px;
-      background: var(--unipi);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      width: 100%; margin-top: 18px; padding: 16px;
+      background: var(--unipi); color: #fff;
+      border: none; border-radius: 12px;
+      font-size: 16px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
       transition: opacity .15s, transform .1s;
     }
-    .btn-download:active  { transform: scale(.97); }
-    .btn-download:disabled { opacity: .5; cursor: not-allowed; }
-    .btn-download.loading { opacity: .7; }
+    .btn-download:active   { transform: scale(.97); }
+    .btn-download:disabled { opacity: .4; cursor: not-allowed; }
 
-    /* spinner */
     .spin {
       width: 20px; height: 20px;
       border: 3px solid rgba(255,255,255,.3);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin .7s linear infinite;
-      display: none;
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin .7s linear infinite; display: none;
     }
-    .loading .spin { display: block; }
+    .loading .spin      { display: block; }
     .loading .btn-label { display: none; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── Status messages ── */
     .status {
-      margin-top: 14px;
-      padding: 12px 14px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 500;
-      display: none;
-      line-height: 1.5;
+      margin-top: 14px; padding: 12px 14px; border-radius: 10px;
+      font-size: 14px; font-weight: 500; display: none; line-height: 1.5;
     }
-    .status.show { display: block; }
-    .status.success { background: #f0fdf4; color: #166534; border: 1px solid #86efac; }
-    .status.error   { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
-    .status.info    { background: #eff6ff; color: #1e40af; border: 1px solid #93c5fd; }
+    .status.show    { display: block; }
+    .status.success { background:#f0fdf4; color:#166534; border:1px solid #86efac; }
+    .status.error   { background:#fef2f2; color:#991b1b; border:1px solid #fca5a5; }
+    .status.info    { background:#eff6ff; color:#1e40af; border:1px solid #93c5fd; }
 
-    /* ── Privacy note ── */
-    .privacy-note {
-      margin: 14px 16px 0;
-      padding: 12px 14px;
-      background: var(--bg);
-      border-radius: 10px;
-      font-size: 12px;
-      color: var(--hint);
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-    }
-    .privacy-note .lock { font-size: 16px; flex-shrink: 0; }
+    /* stato non ancora disponibile */
+    .unavailable-card { text-align:center; padding:40px 20px; }
+    .unavailable-card .big-icon { font-size:56px; margin-bottom:16px; }
+    .unavailable-card h2 { font-size:18px; font-weight:700; margin-bottom:8px; }
+    .unavailable-card p  { font-size:14px; color:var(--hint); line-height:1.6; }
 
-    /* ── Not available state ── */
-    .unavailable-card {
-      text-align: center;
-      padding: 40px 20px;
-    }
-    .unavailable-card .big-icon { font-size: 56px; margin-bottom: 16px; }
-    .unavailable-card h2 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-    .unavailable-card p  { font-size: 14px; color: var(--hint); line-height: 1.6; }
-
-    /* ── Footer ── */
     .footer {
-      text-align: center;
-      padding: 24px 16px 32px;
-      font-size: 12px;
-      color: var(--hint);
+      text-align:center; padding:24px 16px 32px;
+      font-size:12px; color:var(--hint);
     }
-
-    /* ── Certificate preview (visibile prima del download su desktop) ── */
-    .cert-preview {
-      margin-top: 20px;
-      padding: 20px;
-      background: #fafbff;
-      border: 1.5px solid #c7d8f5;
-      border-radius: 12px;
-      text-align: center;
-      display: none;
-    }
-    .cert-preview.show { display: block; }
-    .cert-preview .cert-name { font-size: 20px; font-weight: 800; color: var(--unipi); margin: 8px 0; }
-    .cert-preview .cert-date { font-size: 13px; color: var(--hint); }
   </style>
 </head>
 <body>
@@ -182,36 +109,32 @@
     <p>SummerCamp @ UniPi 2026<br>Polo Fibonacci, Pisa</p>
   </div>
 
-  <!-- Stato: caricamento dati -->
-  <div id="loadingState" class="card" style="text-align:center; padding:40px 20px; display:none;">
-    <div style="font-size:32px; margin-bottom:12px;">⏳</div>
-    <p style="color:var(--hint); font-size:14px;">Caricamento in corso…</p>
+  <!-- Caricamento -->
+  <div id="loadingState" class="card" style="text-align:center;padding:40px 20px;">
+    <div style="font-size:32px;margin-bottom:12px;">⏳</div>
+    <p style="color:var(--hint);font-size:14px;">Verifica disponibilità…</p>
   </div>
 
-  <!-- Stato: dati non ancora disponibili -->
+  <!-- Non ancora disponibili -->
   <div id="unavailableState" class="card unavailable-card" style="display:none;">
     <div class="big-icon">📋</div>
     <h2>Attestati non ancora disponibili</h2>
-    <p>Gli attestati saranno disponibili al termine dell'evento (dopo il 12 giugno 2026).<br><br>Riceverai un messaggio sul bot quando potrai scaricarli.</p>
+    <p>Gli attestati saranno disponibili dopo la conclusione dell'evento.<br><br>
+       Riceverai un messaggio sul bot non appena potrai scaricarli.</p>
   </div>
 
-  <!-- Stato: form attivo -->
+  <!-- Form attivo -->
   <div id="formState" style="display:none;">
     <div class="card">
       <div class="field-label">Il tuo Codice Fiscale</div>
       <input
-        type="text"
-        id="cfInput"
-        class="cf-input"
+        type="text" id="cfInput" class="cf-input"
         placeholder="RSSMRA90A01H501Z"
-        maxlength="16"
-        autocomplete="off"
-        autocorrect="off"
-        spellcheck="false"
-        inputmode="text"
+        maxlength="16" autocomplete="off" autocorrect="off"
+        spellcheck="false" inputmode="text"
         oninput="onCFInput(this)"
       >
-      <div class="cf-hint">16 caratteri · solo lettere e cifre</div>
+      <div class="cf-hint">16 caratteri · inserisci il CF che hai usato all'iscrizione</div>
 
       <button class="btn-download" id="downloadBtn" onclick="handleDownload()" disabled>
         <div class="spin"></div>
@@ -219,71 +142,33 @@
       </button>
 
       <div id="statusMsg" class="status"></div>
-
-      <!-- Anteprima (mostrata dopo lookup riuscito) -->
-      <div id="certPreview" class="cert-preview">
-        <div style="font-size:11px; text-transform:uppercase; letter-spacing:.06em; color:var(--hint); margin-bottom:4px;">Attestato trovato per</div>
-        <div class="cert-name" id="previewName">—</div>
-        <div class="cert-date" id="previewDate">—</div>
-      </div>
-    </div>
-
-    <div class="privacy-note">
-      <span class="lock">🔒</span>
-      <span>Il codice fiscale viene elaborato <strong>solo nel tuo browser</strong> e non viene inviato a nessun server. Il PDF è generato in locale sul tuo dispositivo.</span>
     </div>
   </div>
 
-  <div class="footer">
-    Università di Pisa · Team Orientamento 2026
-  </div>
-
-  <!-- jsPDF caricato solo quando serve -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
-          integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfYHqkZDHmt8w=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <div class="footer">Università di Pisa · Team Orientamento 2026</div>
 
   <script>
-  // ─────────────────────────────────────────────────────────────
-  //  Configurazione
-  // ─────────────────────────────────────────────────────────────
-  const DATA_URL       = 'data/attestati.json';
-  const EVENT_END_DATE = new Date('2026-06-12T23:59:00+02:00');
+  // ── Configurazione ──────────────────────────────────────────
+  // Cartella dove sono caricati i PDF (un file per CF: {CF}.pdf)
+  const PDF_FOLDER = 'attestati/';
 
-  let attestatiDB  = null;  // hash → { nome, giorno, seminario }
-  let dataLoaded   = false;
-  let currentEntry = null;  // entry trovata per il CF corrente
+  // Data dopo la quale gli attestati sono disponibili
+  const DISPONIBILI_DAL = new Date('2026-06-13T00:00:00+02:00');
 
-  // ─────────────────────────────────────────────────────────────
-  //  Init Telegram WebApp
-  // ─────────────────────────────────────────────────────────────
+  // ── Init ────────────────────────────────────────────────────
   if (window.Telegram?.WebApp) {
     Telegram.WebApp.ready();
     Telegram.WebApp.expand();
   }
 
-  // ─────────────────────────────────────────────────────────────
-  //  Carica dati al boot
-  // ─────────────────────────────────────────────────────────────
-  (async function init() {
-    show('loadingState');
-
-    try {
-      const res = await fetch(DATA_URL + '?t=' + Date.now());
-      if (!res.ok) throw new Error('not found');
-      attestatiDB = await res.json();
-      dataLoaded  = true;
-
-      if (Object.keys(attestatiDB).length === 0) {
-        // File esiste ma è vuoto → non ancora disponibili
-        show('unavailableState');
-      } else {
-        show('formState');
-        document.getElementById('cfInput').focus();
-      }
-    } catch (e) {
-      // File non trovato → non ancora disponibili
+  (function init() {
+    const ora = new Date();
+    if (ora < DISPONIBILI_DAL) {
+      // Prima del 13 giugno: non disponibili
       show('unavailableState');
+    } else {
+      show('formState');
+      document.getElementById('cfInput').focus();
     }
   })();
 
@@ -293,222 +178,69 @@
     });
   }
 
-  // ─────────────────────────────────────────────────────────────
-  //  Input CF → validazione live
-  // ─────────────────────────────────────────────────────────────
+  // ── Validazione input ───────────────────────────────────────
   function onCFInput(input) {
-    const v = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const v = input.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
     input.value = v;
-    currentEntry = null;
-
-    // Reset preview e status
-    document.getElementById('certPreview').classList.remove('show');
     hideStatus();
-
     const btn = document.getElementById('downloadBtn');
     if (v.length === 16) {
-      input.classList.remove('is-error');
       input.classList.add('is-ok');
       btn.disabled = false;
     } else {
-      input.classList.remove('is-ok', 'is-error');
+      input.classList.remove('is-ok');
       btn.disabled = true;
     }
   }
 
-  // ─────────────────────────────────────────────────────────────
-  //  Calcola SHA-256 del CF
-  // ─────────────────────────────────────────────────────────────
-  async function sha256(text) {
-    const buf  = new TextEncoder().encode(text);
-    const hash = await crypto.subtle.digest('SHA-256', buf);
-    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
-  }
-
-  // ─────────────────────────────────────────────────────────────
-  //  Lookup + generazione
-  // ─────────────────────────────────────────────────────────────
+  // ── Download ────────────────────────────────────────────────
   async function handleDownload() {
-    const cf = document.getElementById('cfInput').value.trim().toUpperCase();
+    const cf  = document.getElementById('cfInput').value.trim().toUpperCase();
     if (cf.length !== 16) return;
 
     setLoading(true);
     hideStatus();
 
-    const hash  = await sha256(cf);
-    const entry = attestatiDB?.[hash];
+    const url = PDF_FOLDER + cf + '.pdf';
 
-    if (!entry) {
-      setLoading(false);
-      document.getElementById('cfInput').classList.add('is-error');
-      showStatus(
-        '❌ Nessun attestato trovato per questo codice fiscale.\n\nContatta il team di orientamento se ritieni ci sia un errore.',
-        'error'
-      );
-      return;
-    }
-
-    currentEntry = entry;
-
-    // Mostra anteprima
-    document.getElementById('previewName').textContent = entry.nome;
-    document.getElementById('previewDate').textContent = entry.giorno;
-    document.getElementById('certPreview').classList.add('show');
-
-    // Genera il PDF
     try {
-      await generatePDF(entry);
+      // Verifica che il file esista (HEAD request)
+      const check = await fetch(url, { method: 'HEAD' });
+
+      if (!check.ok) {
+        setLoading(false);
+        showStatus(
+          '❌ Nessun attestato trovato per questo codice fiscale.\n\n' +
+          'Controlla di aver inserito lo stesso CF usato all\'iscrizione, ' +
+          'oppure contatta il team di orientamento.',
+          'error'
+        );
+        return;
+      }
+
+      // File trovato → scarica
+      const link  = document.createElement('a');
+      link.href     = url;
+      link.download = 'attestato_summercamp2026_' + cf + '.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
       setLoading(false);
-      showStatus('✅ Attestato scaricato con successo! Controlla i download.', 'success');
+      showStatus('✅ Download avviato! Controlla la cartella Download.', 'success');
+
     } catch (err) {
       setLoading(false);
-      showStatus('⚠️ Errore nella generazione del PDF. Riprova o contatta il team.', 'error');
-      console.error(err);
+      showStatus('⚠️ Errore di rete. Controlla la connessione e riprova.', 'error');
     }
   }
 
-  // ─────────────────────────────────────────────────────────────
-  //  Generazione PDF con jsPDF
-  // ─────────────────────────────────────────────────────────────
-  async function generatePDF(entry) {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
-
-    const W = 297, H = 210;
-    const MX = 14; // margine
-
-    // ── Sfondo ────────────────────────────────────────────────
-    doc.setFillColor(249, 251, 255);
-    doc.rect(0, 0, W, H, 'F');
-
-    // ── Bordo esterno (doppia linea) ───────────────────────────
-    doc.setDrawColor(0, 58, 140);
-    doc.setLineWidth(2.2);
-    doc.roundedRect(MX, MX, W - MX*2, H - MX*2, 3, 3);
-    doc.setLineWidth(0.5);
-    doc.roundedRect(MX+3.5, MX+3.5, W - (MX+3.5)*2, H - (MX+3.5)*2, 2, 2);
-
-    // ── Angoli decorativi ──────────────────────────────────────
-    const cornSize = 8;
-    const corners = [
-      [MX, MX], [W-MX, MX], [MX, H-MX], [W-MX, H-MX]
-    ];
-    doc.setFillColor(0, 58, 140);
-    corners.forEach(([cx, cy]) => {
-      doc.circle(cx, cy, 2, 'F');
-    });
-
-    // ── Fascia superiore colorata ──────────────────────────────
-    doc.setFillColor(0, 58, 140);
-    doc.rect(MX, MX, W - MX*2, 22, 'F');
-
-    // ── Intestazione ──────────────────────────────────────────
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9);
-    doc.setTextColor(255, 255, 255);
-    doc.text('UNIVERSITA DI PISA  •  TEAM ORIENTAMENTO', W/2, MX+9, { align: 'center' });
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    doc.text('SummerCamp 2026  •  Polo Fibonacci, Pisa', W/2, MX+16, { align: 'center' });
-
-    // ── Titolo ────────────────────────────────────────────────
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(19);
-    doc.setTextColor(0, 58, 140);
-    doc.text('ATTESTATO DI PARTECIPAZIONE', W/2, 56, { align: 'center' });
-
-    // Linea sotto titolo
-    doc.setDrawColor(0, 58, 140);
-    doc.setLineWidth(0.6);
-    doc.line(60, 60, W-60, 60);
-
-    // ── Corpo ─────────────────────────────────────────────────
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(12);
-    doc.setTextColor(80, 80, 80);
-    doc.text('Si certifica che', W/2, 73, { align: 'center' });
-
-    // Nome
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(28);
-    doc.setTextColor(10, 10, 10);
-    const nomeUpper = entry.nome.toUpperCase();
-    doc.text(nomeUpper, W/2, 88, { align: 'center' });
-
-    // Linea decorativa sotto il nome
-    const nomeW = doc.getTextWidth(nomeUpper);
-    doc.setDrawColor(0, 58, 140);
-    doc.setLineWidth(0.4);
-    const lineStart = W/2 - nomeW/2;
-    doc.line(lineStart, 91, lineStart + nomeW, 91);
-
-    // Testo evento
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(12);
-    doc.setTextColor(80, 80, 80);
-    doc.text('ha partecipato al', W/2, 101, { align: 'center' });
-
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(16);
-    doc.setTextColor(0, 58, 140);
-    doc.text('SummerCamp @ UniPi 2026', W/2, 112, { align: 'center' });
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(11);
-    doc.setTextColor(90, 90, 90);
-    doc.text('Orientamento universitario', W/2, 121, { align: 'center' });
-    doc.text('Polo Fibonacci – Largo Bruno Pontecorvo, Pisa', W/2, 128, { align: 'center' });
-
-    // Data
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.setTextColor(40, 40, 40);
-    doc.text(entry.giorno, W/2, 139, { align: 'center' });
-
-    // Seminario (se presente)
-    if (entry.seminario && entry.seminario.trim()) {
-      doc.setFont('helvetica', 'italic');
-      doc.setFontSize(10);
-      doc.setTextColor(80, 80, 80);
-      const sem = 'Seminario: “' + entry.seminario + '”';
-      const lines = doc.splitTextToSize(sem, 220);
-      doc.text(lines, W/2, 149, { align: 'center' });
-    }
-
-    // ── Footer ────────────────────────────────────────────────
-    doc.setDrawColor(200, 210, 230);
-    doc.setLineWidth(0.3);
-    doc.line(MX+6, 168, W-MX-6, 168);
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8.5);
-    doc.setTextColor(140, 140, 140);
-    doc.text('Pisa, giugno 2026', MX+8, 175);
-    doc.text('Universita di Pisa', W/2, 175, { align: 'center' });
-    doc.text('orientamento.unipi.it', W-MX-8, 175, { align: 'right' });
-
-    // ── Numero progressivo / hash (ultimo 8 hex del hash del CF come ID) ──
-    const cf  = document.getElementById('cfInput').value.trim().toUpperCase();
-    const h   = await sha256(cf);
-    const pid = h.slice(-8).toUpperCase();
-    doc.setFontSize(7);
-    doc.setTextColor(180, 180, 180);
-    doc.text('ID: ' + pid, W/2, 182, { align: 'center' });
-
-    // ── Salva ─────────────────────────────────────────────────
-    const safeName = entry.nome.replace(/\s+/g, '_').replace(/[^A-Za-z_]/g, '');
-    doc.save('attestato_summercamp2026_' + safeName + '.pdf');
-  }
-
-  // ─────────────────────────────────────────────────────────────
-  //  Helpers UI
-  // ─────────────────────────────────────────────────────────────
+  // ── Helpers UI ──────────────────────────────────────────────
   function setLoading(on) {
     const btn = document.getElementById('downloadBtn');
     btn.disabled = on;
     btn.classList.toggle('loading', on);
   }
-
   function showStatus(msg, type) {
     const el = document.getElementById('statusMsg');
     el.textContent = msg;
@@ -518,11 +250,9 @@
     document.getElementById('statusMsg').className = 'status';
   }
 
-  // Enter key
   document.addEventListener('keydown', e => {
-    if (e.key === 'Enter' && !document.getElementById('downloadBtn').disabled) {
+    if (e.key === 'Enter' && !document.getElementById('downloadBtn').disabled)
       handleDownload();
-    }
   });
   </script>
 </body>
