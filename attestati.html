@@ -293,8 +293,8 @@
   //   {{download_link}} → URL diretto del PDF
   // ════════════════════════════════════════════════════════════
 
-  const PDF_FOLDER      = 'attestati/';
-  const MANIFEST_URL    = 'data/attestati.json';
+  // URL del Cloudflare Worker (aggiorna dopo il deploy)
+  const WORKER_URL      = 'https://attestati-unipi.ACCOUNT.workers.dev/attestato';
   const DISPONIBILI_DAL = new Date('2026-06-09T00:00:00+02:00');
 
   // ── Init ────────────────────────────────────────────────────
@@ -341,43 +341,8 @@
       : '📄 Scarica il mio Attestato';
   }
 
-  // ── Manifest ─────────────────────────────────────────────────
-  let _manifest = null;
-  async function getManifest() {
-    if (_manifest) return _manifest;
-    const res = await fetch(MANIFEST_URL);
-    if (!res.ok) throw new Error('manifest');
-    _manifest = await res.json();
-    return _manifest;
-  }
-
-  // ── SHA-256 (Web Crypto) ─────────────────────────────────────
-  async function sha256hex(str) {
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-  }
-
-  // ── Data di nascita dal CF ───────────────────────────────────
-  function birthDateFromCF(cf) {
-    if (cf.length < 11) return null;
-    const MESI = { A:1,B:2,C:3,D:4,E:5,H:6,L:7,M:8,P:9,R:10,S:11,T:12 };
-    const year2 = parseInt(cf.substring(6, 8), 10);
-    const mChar = cf.charAt(8).toUpperCase();
-    let   day   = parseInt(cf.substring(9, 11), 10);
-    const month = MESI[mChar];
-    if (!month || isNaN(year2) || isNaN(day)) return null;
-    if (day > 40) day -= 40;
-    const curY2 = new Date().getFullYear() % 100;
-    const year  = year2 <= curY2 ? 2000 + year2 : 1900 + year2;
-    return { year, month, day };
-  }
-
-  // ── Normalizza nomi ──────────────────────────────────────────
-  function normName(s) {
-    return s.trim().toUpperCase()
-      .normalize('NFD').replace(/[̀-ͯ]/g, '')
-      .replace(/\s+/g, ' ');
-  }
+  // ── Tutta la verifica è delegata al Worker ───────────────────
+  // (niente manifest locale, niente SHA-256 lato client)
 
   // ── Validità form ────────────────────────────────────────────
   function isFormReady() {
@@ -403,7 +368,7 @@
     onFieldInput();
   }
 
-  // ── Download (+ invio email opzionale) ──────────────────────
+  // ── Download via Cloudflare Worker ──────────────────────────
   async function handleDownload() {
     const nome    = document.getElementById('nomeInput').value.trim();
     const cognome = document.getElementById('cognomeInput').value.trim();
@@ -413,55 +378,49 @@
 
     if (!isFormReady()) return;
 
-    // 1 · Verifica data di nascita dal CF
-    const fromCF = birthDateFromCF(cf);
-    if (fromCF) {
-      const [y, m, d] = nascita.split('-').map(Number);
-      if (fromCF.year !== y || fromCF.month !== m || fromCF.day !== d) {
-        showStatus('❌ La data di nascita non corrisponde al codice fiscale.\n\nControlla i dati e riprova.', 'error');
-        return;
-      }
-    }
-
     setLoading(true);
     hideStatus();
 
     try {
-      // 2 · Cerca nel manifest
-      const manifest = await getManifest();
-      const hash     = await sha256hex(cf);
-      const entry    = manifest[hash];
+      // Il Worker verifica CF + nome + cognome + data nascita e restituisce il PDF
+      const resp = await fetch(WORKER_URL, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ cf, nome, cognome, nascita }),
+      });
 
-      if (!entry) {
+      if (!resp.ok) {
         setLoading(false);
-        showStatus('❌ Nessun attestato trovato per questo codice fiscale.\n\nContatta il team di orientamento se pensi sia un errore.', 'error');
+        const { error } = await resp.json().catch(() => ({}));
+        const msgs = {
+          birth_date_mismatch: '❌ La data di nascita non corrisponde al codice fiscale.',
+          name_mismatch:       '❌ Nome o cognome non corrispondenti ai dati di iscrizione.',
+          not_found:           '❌ Nessun attestato trovato per questo codice fiscale.',
+          pdf_not_found:       '❌ File non trovato. Contatta il team di orientamento.',
+        };
+        showStatus(msgs[error] || '⚠️ Errore ' + resp.status + '. Riprova.', 'error');
         return;
       }
 
-      // 3 · Verifica nome + cognome
-      if (normName(entry.nome) !== normName(nome + ' ' + cognome)) {
-        setLoading(false);
-        showStatus('❌ Nome o cognome non corrispondenti ai dati di iscrizione.\n\nInserisci esattamente il nome e cognome usati all\'iscrizione.', 'error');
-        return;
-      }
-
-      // 4 · Scarica il PDF
-      const pdfUrl = PDF_FOLDER + cf + '.pdf';
-      const link   = document.createElement('a');
-      link.href     = pdfUrl;
-      link.download = 'attestato_summercamp2026_' + cf + '.pdf';
+      // Blob → download
+      const blob     = await resp.blob();
+      const blobUrl  = URL.createObjectURL(blob);
+      const link     = document.createElement('a');
+      link.href      = blobUrl;
+      link.download  = 'attestato_summercamp2026_' + cf + '.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
 
-      // 5 · Invia email (se attivo)
+      // Invia email (se attivo)
       if (emailEnabled && email) {
         try {
           await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
             to_email:      email,
             nome_cognome:  nome + ' ' + cognome,
-            giorno:        entry.giorno || 'giugno 2026',
-            download_link: 'https://teamorientamento1.github.io/GalileoWeb/' + pdfUrl,
+            giorno:        'giugno 2026',
+            download_link: 'https://teamorientamento1.github.io/GalileoWeb/attestati.html',
           });
           setLoading(false);
           showStatus('✅ Download avviato e email inviata a ' + email + '!', 'success');
@@ -475,14 +434,9 @@
         showStatus('✅ Download avviato! Controlla la cartella Download.', 'success');
       }
 
-    } catch (err) {
+    } catch (e) {
       setLoading(false);
-      showStatus(
-        err.message === 'manifest'
-          ? '⚠️ Impossibile caricare i dati. Riprova tra poco.'
-          : '⚠️ Errore di rete. Controlla la connessione e riprova.',
-        'error'
-      );
+      showStatus('⚠️ Errore di rete. Controlla la connessione e riprova.', 'error');
     }
   }
 
