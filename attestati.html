@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Attestato SummerCamp UniPi 2026</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <style>
     :root {
       --bg:     var(--tg-theme-bg-color, #ffffff);
@@ -41,7 +42,6 @@
     }
 
     .field-group { margin-bottom: 16px; }
-    .field-group:last-of-type { margin-bottom: 0; }
 
     .two-col {
       display: grid;
@@ -78,7 +78,6 @@
       -webkit-appearance: none;
     }
     .date-input:focus { border-color: var(--unipi); }
-    .date-input.is-ok { border-color: #16a34a; }
 
     .cf-input {
       width: 100%; padding: 13px 14px;
@@ -94,11 +93,51 @@
 
     .cf-hint { font-size: 11px; color: var(--hint); margin-top: 6px; }
 
-    .divider {
-      height: 1px; background: #e5e7eb;
-      margin: 18px 0;
+    .divider { height: 1px; background: #e5e7eb; margin: 18px 0; }
+
+    /* ── Toggle email ── */
+    .email-toggle-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px;
+      background: var(--sec-bg); border-radius: 10px;
+      cursor: pointer; user-select: none;
+      margin-top: 4px;
+    }
+    .email-toggle-row:active { opacity: .8; }
+    .toggle-text {
+      font-size: 14px; font-weight: 600; color: var(--text);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .toggle-switch {
+      width: 44px; height: 26px; background: #d1d5db;
+      border-radius: 13px; position: relative;
+      transition: background .2s; flex-shrink: 0;
+    }
+    .toggle-switch::after {
+      content: ''; position: absolute;
+      width: 20px; height: 20px; background: #fff;
+      border-radius: 50%; top: 3px; left: 3px;
+      transition: transform .2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    }
+    .toggle-switch.on { background: var(--unipi); }
+    .toggle-switch.on::after { transform: translateX(18px); }
+
+    /* ── Email input (collassato di default) ── */
+    .email-row {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height .3s ease, margin-top .3s ease, opacity .2s;
+      opacity: 0;
+      margin-top: 0;
+    }
+    .email-row.open {
+      max-height: 100px;
+      opacity: 1;
+      margin-top: 12px;
     }
 
+    /* ── Pulsante ── */
     .btn-download {
       width: 100%; margin-top: 18px; padding: 16px;
       background: var(--unipi); color: #fff;
@@ -168,15 +207,15 @@
     <div class="card">
 
       <!-- Nome + Cognome -->
-      <div class="two-col">
-        <div class="field-group">
+      <div class="two-col" style="margin-bottom:16px;">
+        <div>
           <div class="field-label">Nome</div>
           <input type="text" id="nomeInput" class="txt-input"
             placeholder="Mario"
             autocomplete="given-name" autocorrect="off" spellcheck="false"
             oninput="onFieldInput()">
         </div>
-        <div class="field-group">
+        <div>
           <div class="field-label">Cognome</div>
           <input type="text" id="cognomeInput" class="txt-input"
             placeholder="Rossi"
@@ -198,8 +237,7 @@
       <!-- Codice Fiscale -->
       <div class="field-group">
         <div class="field-label">Codice Fiscale</div>
-        <input
-          type="text" id="cfInput" class="cf-input"
+        <input type="text" id="cfInput" class="cf-input"
           placeholder="RSSMRA90A01H501Z"
           maxlength="16" autocomplete="off" autocorrect="off"
           spellcheck="false" inputmode="text"
@@ -207,9 +245,27 @@
         <div class="cf-hint">16 caratteri · stesso CF usato all'iscrizione</div>
       </div>
 
+      <div class="divider"></div>
+
+      <!-- Toggle: invia per email -->
+      <div class="email-toggle-row" onclick="toggleEmail()">
+        <span class="toggle-text">📧 Inviamelo anche per email</span>
+        <div class="toggle-switch" id="emailSwitch"></div>
+      </div>
+
+      <!-- Input email (appare quando attivo) -->
+      <div class="email-row" id="emailRow">
+        <div class="field-label" style="margin-top:2px;">Il tuo indirizzo email</div>
+        <input type="email" id="emailInput" class="txt-input"
+          placeholder="mario.rossi@gmail.com"
+          autocomplete="email" inputmode="email"
+          oninput="onFieldInput()">
+      </div>
+
+      <!-- Pulsante -->
       <button class="btn-download" id="downloadBtn" onclick="handleDownload()" disabled>
         <div class="spin"></div>
-        <span class="btn-label">📄 Scarica il mio Attestato</span>
+        <span class="btn-label" id="btnLabel">📄 Scarica il mio Attestato</span>
       </button>
 
       <div id="statusMsg" class="status"></div>
@@ -219,12 +275,31 @@
   <div class="footer">Università di Pisa · Team Orientamento 2026</div>
 
   <script>
-  // ── Configurazione ──────────────────────────────────────────
+  // ════════════════════════════════════════════════════════════
+  //  CONFIGURAZIONE — compila con i tuoi dati EmailJS
+  //  Crea account su https://www.emailjs.com (gratis fino a 200/mese)
+  //  Poi: Email Services → aggiungi Gmail/SMTP → copia Service ID
+  //       Email Templates → crea template → copia Template ID
+  //       Account → General → copia Public Key
+  // ════════════════════════════════════════════════════════════
+  const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // Account → General
+  const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // Email Services
+  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // Email Templates
+
+  // Variabili usate nel template EmailJS:
+  //   {{to_email}}      → email dello studente
+  //   {{nome_cognome}}  → "Mario Rossi"
+  //   {{giorno}}        → "11 giugno 2026"
+  //   {{download_link}} → URL diretto del PDF
+  // ════════════════════════════════════════════════════════════
+
   const PDF_FOLDER      = 'attestati/';
   const MANIFEST_URL    = 'data/attestati.json';
   const DISPONIBILI_DAL = new Date('2026-06-09T00:00:00+02:00');
 
   // ── Init ────────────────────────────────────────────────────
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
   if (window.Telegram?.WebApp) {
     Telegram.WebApp.ready();
     Telegram.WebApp.expand();
@@ -245,7 +320,28 @@
     });
   }
 
-  // ── Manifest (caricato una sola volta) ──────────────────────
+  // ── Toggle email ─────────────────────────────────────────────
+  let emailEnabled = false;
+
+  function toggleEmail() {
+    emailEnabled = !emailEnabled;
+    document.getElementById('emailSwitch').classList.toggle('on', emailEnabled);
+    document.getElementById('emailRow').classList.toggle('open', emailEnabled);
+    if (emailEnabled) {
+      setTimeout(() => document.getElementById('emailInput').focus(), 320);
+    }
+    updateBtn();
+    onFieldInput();
+  }
+
+  function updateBtn() {
+    const lbl = document.getElementById('btnLabel');
+    lbl.textContent = emailEnabled
+      ? '📄 Scarica e invia per email'
+      : '📄 Scarica il mio Attestato';
+  }
+
+  // ── Manifest ─────────────────────────────────────────────────
   let _manifest = null;
   async function getManifest() {
     if (_manifest) return _manifest;
@@ -255,16 +351,13 @@
     return _manifest;
   }
 
-  // ── SHA-256 del CF (Web Crypto API) ─────────────────────────
+  // ── SHA-256 (Web Crypto) ─────────────────────────────────────
   async function sha256hex(str) {
-    const buf = await crypto.subtle.digest(
-      'SHA-256', new TextEncoder().encode(str)
-    );
-    return Array.from(new Uint8Array(buf))
-      .map(b => b.toString(16).padStart(2, '0')).join('');
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
   }
 
-  // ── Estrae data di nascita dal Codice Fiscale ───────────────
+  // ── Data di nascita dal CF ───────────────────────────────────
   function birthDateFromCF(cf) {
     if (cf.length < 11) return null;
     const MESI = { A:1,B:2,C:3,D:4,E:5,H:6,L:7,M:8,P:9,R:10,S:11,T:12 };
@@ -273,29 +366,31 @@
     let   day   = parseInt(cf.substring(9, 11), 10);
     const month = MESI[mChar];
     if (!month || isNaN(year2) || isNaN(day)) return null;
-    if (day > 40) day -= 40;   // femmine: giorno + 40
+    if (day > 40) day -= 40;
     const curY2 = new Date().getFullYear() % 100;
     const year  = year2 <= curY2 ? 2000 + year2 : 1900 + year2;
     return { year, month, day };
   }
 
-  // ── Normalizza stringa per confronto nomi ───────────────────
+  // ── Normalizza nomi ──────────────────────────────────────────
   function normName(s) {
     return s.trim().toUpperCase()
       .normalize('NFD').replace(/[̀-ͯ]/g, '')
       .replace(/\s+/g, ' ');
   }
 
-  // ── Controllo se tutti i campi sono compilati ───────────────
+  // ── Validità form ────────────────────────────────────────────
   function isFormReady() {
     const nome    = document.getElementById('nomeInput').value.trim();
     const cognome = document.getElementById('cognomeInput').value.trim();
     const nascita = document.getElementById('nascitaInput').value;
     const cf      = document.getElementById('cfInput').value.trim();
-    return nome.length > 0 && cognome.length > 0 && nascita !== '' && cf.length === 16;
+    const email   = document.getElementById('emailInput').value.trim();
+    const emailOk = !emailEnabled || (email.length > 3 && email.includes('@'));
+    return nome.length > 0 && cognome.length > 0 && nascita !== '' && cf.length === 16 && emailOk;
   }
 
-  // ── Input handlers ──────────────────────────────────────────
+  // ── Input handlers ───────────────────────────────────────────
   function onFieldInput() {
     hideStatus();
     document.getElementById('downloadBtn').disabled = !isFormReady();
@@ -308,25 +403,22 @@
     onFieldInput();
   }
 
-  // ── Download ────────────────────────────────────────────────
+  // ── Download (+ invio email opzionale) ──────────────────────
   async function handleDownload() {
     const nome    = document.getElementById('nomeInput').value.trim();
     const cognome = document.getElementById('cognomeInput').value.trim();
-    const nascita = document.getElementById('nascitaInput').value;   // 'YYYY-MM-DD'
+    const nascita = document.getElementById('nascitaInput').value;
     const cf      = document.getElementById('cfInput').value.trim().toUpperCase();
+    const email   = document.getElementById('emailInput').value.trim();
 
     if (!isFormReady()) return;
 
-    // 1. Verifica data di nascita contro CF (algoritmo deterministico)
+    // 1 · Verifica data di nascita dal CF
     const fromCF = birthDateFromCF(cf);
     if (fromCF) {
       const [y, m, d] = nascita.split('-').map(Number);
       if (fromCF.year !== y || fromCF.month !== m || fromCF.day !== d) {
-        showStatus(
-          '❌ La data di nascita non corrisponde al codice fiscale inserito.\n\n' +
-          'Controlla i dati e riprova.',
-          'error'
-        );
+        showStatus('❌ La data di nascita non corrisponde al codice fiscale.\n\nControlla i dati e riprova.', 'error');
         return;
       }
     }
@@ -335,46 +427,52 @@
     hideStatus();
 
     try {
-      // 2. Cerca nel manifest (dati dall'Excel)
+      // 2 · Cerca nel manifest
       const manifest = await getManifest();
       const hash     = await sha256hex(cf);
       const entry    = manifest[hash];
 
       if (!entry) {
         setLoading(false);
-        showStatus(
-          '❌ Nessun attestato trovato per questo codice fiscale.\n\n' +
-          'Controlla di aver usato lo stesso CF dell\'iscrizione, ' +
-          'oppure contatta il team di orientamento.',
-          'error'
-        );
+        showStatus('❌ Nessun attestato trovato per questo codice fiscale.\n\nContatta il team di orientamento se pensi sia un errore.', 'error');
         return;
       }
 
-      // 3. Verifica nome + cognome contro i dati dell'iscrizione
-      const storedNome = normName(entry.nome);
-      const inputNome  = normName(nome + ' ' + cognome);
-      if (storedNome !== inputNome) {
+      // 3 · Verifica nome + cognome
+      if (normName(entry.nome) !== normName(nome + ' ' + cognome)) {
         setLoading(false);
-        showStatus(
-          '❌ Nome o cognome non corrispondenti ai dati di iscrizione.\n\n' +
-          'Inserisci esattamente nome e cognome usati all\'iscrizione.',
-          'error'
-        );
+        showStatus('❌ Nome o cognome non corrispondenti ai dati di iscrizione.\n\nInserisci esattamente il nome e cognome usati all\'iscrizione.', 'error');
         return;
       }
 
-      // 4. Tutto ok → scarica il PDF
-      const url  = PDF_FOLDER + cf + '.pdf';
-      const link = document.createElement('a');
-      link.href     = url;
+      // 4 · Scarica il PDF
+      const pdfUrl = PDF_FOLDER + cf + '.pdf';
+      const link   = document.createElement('a');
+      link.href     = pdfUrl;
       link.download = 'attestato_summercamp2026_' + cf + '.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
 
-      setLoading(false);
-      showStatus('✅ Download avviato! Controlla la cartella Download.', 'success');
+      // 5 · Invia email (se attivo)
+      if (emailEnabled && email) {
+        try {
+          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            to_email:      email,
+            nome_cognome:  nome + ' ' + cognome,
+            giorno:        entry.giorno || 'giugno 2026',
+            download_link: 'https://teamorientamento1.github.io/GalileoWeb/' + pdfUrl,
+          });
+          setLoading(false);
+          showStatus('✅ Download avviato e email inviata a ' + email + '!', 'success');
+        } catch (mailErr) {
+          setLoading(false);
+          showStatus('✅ Download avviato!\n⚠️ Invio email non riuscito — riprova o scarica direttamente.', 'info');
+        }
+      } else {
+        setLoading(false);
+        showStatus('✅ Download avviato! Controlla la cartella Download.', 'success');
+      }
 
     } catch (err) {
       setLoading(false);
@@ -387,7 +485,7 @@
     }
   }
 
-  // ── Helpers UI ──────────────────────────────────────────────
+  // ── Helpers UI ───────────────────────────────────────────────
   function setLoading(on) {
     const btn = document.getElementById('downloadBtn');
     btn.disabled = on;
