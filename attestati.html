@@ -467,7 +467,8 @@
           showStatus('✅ Download avviato e email inviata a ' + email + '!', 'success');
         } catch (mailErr) {
           setLoading(false);
-          showStatus('✅ Download avviato!\n⚠️ Invio email non riuscito — riprova o scarica direttamente.', 'info');
+          const detail = mailErr?.text || mailErr?.message || JSON.stringify(mailErr);
+          showStatus('✅ Download avviato!\n⚠️ Email non inviata: ' + detail, 'info');
         }
       } else {
         setLoading(false);
