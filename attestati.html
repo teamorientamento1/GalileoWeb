@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Attestato SummerCamp UniPi 2026</title>
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <style>
     :root {
       --bg:     var(--tg-theme-bg-color, #ffffff);
@@ -275,30 +274,8 @@
   <div class="footer">Università di Pisa · Team Orientamento 2026</div>
 
   <script>
-  // ════════════════════════════════════════════════════════════
-  //  CONFIGURAZIONE — compila con i tuoi dati EmailJS
-  //  Crea account su https://www.emailjs.com (gratis fino a 200/mese)
-  //  Poi: Email Services → aggiungi Gmail/SMTP → copia Service ID
-  //       Email Templates → crea template → copia Template ID
-  //       Account → General → copia Public Key
-  // ════════════════════════════════════════════════════════════
-  const EMAILJS_PUBLIC_KEY  = 'mTmHQIjBrluVU6pDt';
-  const EMAILJS_SERVICE_ID  = 'service_jrcr5bu';
-  const EMAILJS_TEMPLATE_ID = 'template_9l9yf3p';
-
-  // Variabili usate nel template EmailJS:
-  //   {{to_email}}      → email dello studente
-  //   {{nome_cognome}}  → "Mario Rossi"
-  //   {{giorno}}        → "11 giugno 2026"
-  //   {{download_link}} → URL diretto del PDF
-  // ════════════════════════════════════════════════════════════
-
-  // URL del Cloudflare Worker (aggiorna dopo il deploy)
   const WORKER_URL      = 'https://attestati-unipi.teamorientamento1.workers.dev/attestato';
   const DISPONIBILI_DAL = new Date('2026-06-09T00:00:00+02:00');
-
-  // ── Init ────────────────────────────────────────────────────
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
 
   if (window.Telegram?.WebApp) {
     Telegram.WebApp.ready();
@@ -382,11 +359,11 @@
     hideStatus();
 
     try {
-      // Il Worker verifica CF + nome + cognome + data nascita e restituisce il PDF
+      // Il Worker verifica i dati, restituisce il PDF e (se email presente) invia l'allegato
       const resp = await fetch(WORKER_URL, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ cf, nome, cognome, nascita }),
+        body:    JSON.stringify({ cf, nome, cognome, nascita, email: emailEnabled ? email : undefined }),
       });
 
       if (!resp.ok) {
@@ -413,24 +390,10 @@
       document.body.removeChild(link);
       setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
 
-      // Invia email (se attivo)
+      setLoading(false);
       if (emailEnabled && email) {
-        try {
-          await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-            to_email:      email,
-            nome_cognome:  nome + ' ' + cognome,
-            giorno:        'giugno 2026',
-            download_link: 'https://teamorientamento1.github.io/GalileoWeb/attestati.html',
-          });
-          setLoading(false);
-          showStatus('✅ Download avviato e email inviata a ' + email + '!', 'success');
-        } catch (mailErr) {
-          setLoading(false);
-          const detail = mailErr?.text || mailErr?.message || JSON.stringify(mailErr);
-          showStatus('✅ Download avviato!\n⚠️ Email non inviata: ' + detail, 'info');
-        }
+        showStatus('✅ Download avviato! L\'email con l\'allegato è in arrivo a ' + email + '.', 'success');
       } else {
-        setLoading(false);
         showStatus('✅ Download avviato! Controlla la cartella Download.', 'success');
       }
 
