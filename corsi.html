@@ -547,26 +547,80 @@ function openCourse(corso){
     (corso.url ? `<button class="cd-btn-main" id="btn-site" style="background:${area.colore};">Vai al sito UniPi →</button>` : '');
 
   // 🔊 Sintesi vocale
+  // Su mobile i testi lunghi in una sola utterance falliscono in silenzio
+  // (Chrome Android si blocca dopo ~15s, iOS a volte non parte proprio):
+  // il testo viene spezzato in frasi corte accodate una alla volta, con
+  // voce italiana scelta esplicitamente e keep-alive resume() per Chrome.
   let speaking = false;
+  let keepAlive = null;
+
+  function vocoItaliana(){
+    const voci = speechSynthesis.getVoices();
+    return voci.find(v => v.lang === 'it-IT') || voci.find(v => v.lang && v.lang.startsWith('it')) || null;
+  }
+
+  function spezzaInFrasi(testo, maxLen){
+    const frasi = testo.match(/[^.!?\n]+[.!?\n]*/g) || [testo];
+    const chunks = [];
+    let cur = '';
+    for(const f of frasi){
+      if((cur + f).length > maxLen && cur){ chunks.push(cur.trim()); cur = ''; }
+      cur += f;
+    }
+    if(cur.trim()) chunks.push(cur.trim());
+    return chunks;
+  }
+
+  function stopLettura(){
+    speaking = false;
+    if(keepAlive){ clearInterval(keepAlive); keepAlive = null; }
+    speechSynthesis.cancel();
+    const b = document.getElementById('btn-speak');
+    if(b){ b.classList.remove('lit'); b.innerHTML='<span class="ico">🔊</span>Leggi'; }
+  }
+
   document.getElementById('btn-speak').addEventListener('click', function(){
     if(!window.speechSynthesis){ haptic('medium'); return; }
-    if(speaking){
-      speechSynthesis.cancel(); speaking = false;
-      this.classList.remove('lit');
-      this.innerHTML = '<span class="ico">🔊</span>Leggi';
-    } else {
-      const testo = corso.nome + '. ' + (corso.descrizione||'');
-      const utt = new SpeechSynthesisUtterance(testo);
-      utt.lang = 'it-IT'; utt.rate = 0.88;
-      utt.onend = () => {
-        speaking = false;
-        const b = document.getElementById('btn-speak');
-        if(b){ b.classList.remove('lit'); b.innerHTML='<span class="ico">🔊</span>Leggi'; }
-      };
-      speechSynthesis.speak(utt);
+    if(speaking){ stopLettura(); return; }
+
+    const avvia = () => {
+      // sblocco iOS: cancel+resume prima di parlare
+      speechSynthesis.cancel();
+      speechSynthesis.resume();
+
+      const voce   = vocoItaliana();
+      const chunks = spezzaInFrasi(corso.nome + '. ' + (corso.descrizione||''), 180);
+
+      chunks.forEach((txt, i) => {
+        const utt = new SpeechSynthesisUtterance(txt);
+        utt.lang = 'it-IT'; utt.rate = 0.88;
+        if(voce) utt.voice = voce;
+        if(i === chunks.length - 1) utt.onend = stopLettura;
+        speechSynthesis.speak(utt);
+      });
+
+      // Chrome (Android/desktop) sospende la sintesi dopo ~15s: keep-alive
+      keepAlive = setInterval(() => {
+        if(!speechSynthesis.speaking){ stopLettura(); return; }
+        speechSynthesis.pause(); speechSynthesis.resume();
+      }, 10000);
+
       speaking = true;
-      this.classList.add('lit');
-      this.innerHTML = '<span class="ico">⏹</span>Stop';
+      const b = document.getElementById('btn-speak');
+      if(b){ b.classList.add('lit'); b.innerHTML = '<span class="ico">⏹</span>Stop'; }
+    };
+
+    // Su mobile le voci si caricano in modo asincrono al primo uso
+    if(speechSynthesis.getVoices().length === 0){
+      let partito = false;
+      speechSynthesis.addEventListener('voiceschanged', () => {
+        if(!partito){ partito = true; avvia(); }
+      }, { once: true });
+      // fallback se voiceschanged non arriva entro mezzo secondo
+      setTimeout(() => { if(!partito){ partito = true; avvia(); } }, 500);
+      speechSynthesis.getVoices(); // innesca il caricamento
+    } else {
+      avvia();
     }
   });
 
