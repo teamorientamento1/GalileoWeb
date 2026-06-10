@@ -368,7 +368,15 @@
 
       if (!resp.ok) {
         setLoading(false);
-        const { error } = await resp.json().catch(() => ({}));
+        const { error, disponibile_dal } = await resp.json().catch(() => ({}));
+        if (error === 'not_yet_available' && disponibile_dal) {
+          const quando = new Date(disponibile_dal).toLocaleString('it-IT', {
+            day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit',
+            timeZone: 'Europe/Rome',
+          });
+          showStatus('⏳ Il tuo attestato sarà disponibile dalle ' + quando + '.', 'error');
+          return;
+        }
         const msgs = {
           birth_date_mismatch: '❌ La data di nascita non corrisponde al codice fiscale.',
           name_mismatch:       '❌ Nome o cognome non corrispondenti ai dati di iscrizione.',
