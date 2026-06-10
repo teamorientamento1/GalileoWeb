@@ -608,6 +608,21 @@ function openCourse(corso){
       speaking = true;
       const b = document.getElementById('btn-speak');
       if(b){ b.classList.add('lit'); b.innerHTML = '<span class="ico">⏹</span>Stop'; }
+
+      // La WebView Android (usata da Telegram) spesso non ha il motore TTS:
+      // speak() non dà errore ma l'audio non parte mai. Se dopo 1.5s la
+      // sintesi non è effettivamente partita, avvisa l'utente.
+      setTimeout(() => {
+        if(speaking && !speechSynthesis.speaking){
+          stopLettura();
+          const msg = 'La lettura vocale non è disponibile dentro Telegram su questo dispositivo. ' +
+                      'Apri la pagina in un browser (es. Chrome) per usarla.';
+          try {
+            if(tg && tg.showAlert) tg.showAlert('🔊 ' + msg);
+            else alert(msg);
+          } catch(e){ alert(msg); }
+        }
+      }, 1500);
     };
 
     // Su mobile le voci si caricano in modo asincrono al primo uso
