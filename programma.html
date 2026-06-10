@@ -187,18 +187,19 @@
     .map-cta-sub   { font-size: 11.5px; font-weight: 600; opacity: .9; margin-top: 2px; }
     .map-cta-arrow { font-size: 26px; font-weight: 700; opacity: .85; flex-shrink: 0; }
 
-    /* Mini-mappa del Polo nella vista planimetria (edificio corrente evidenziato) */
+    /* Mini-mappa del Polo nella vista planimetria (edificio corrente evidenziato).
+       pointer-events:none → i tocchi la attraversano e arrivano sempre alle aule;
+       se copre l'aula selezionata scivola sull'altro lato. */
     .mini-map {
-      position: absolute; top: 10px; left: 10px; z-index: 5;
-      width: 76px;
-      background: rgba(255,255,255,.95);
+      position: absolute; top: 8px; left: 8px; z-index: 5;
+      width: 62px;
+      background: rgba(255,255,255,.93);
       border: 1.5px solid #cbd5e1; border-radius: 11px;
       padding: 4px; line-height: 0;
       box-shadow: 0 3px 12px rgba(0,0,0,.22);
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
+      pointer-events: none;
+      transition: transform .28s ease;
     }
-    .mini-map:active { transform: scale(.96); }
     .mini-map svg { width: 100%; height: auto; display: block; }
     .mini-map .mini-map-lbl {
       display: block; line-height: 1.2; text-align: center;
@@ -944,8 +945,8 @@ c11 -233 67 -157 -601 -825 -379 -379 -570 -577 -570 -591 0 -25 18 -44 42
             <!-- overlay generato via JS -->
           </svg>
         </div>
-        <!-- Mini-mappa del Polo: dove ti trovi (tocca per la panoramica) -->
-        <div class="mini-map" id="miniMap" onclick="showOverview()"></div>
+        <!-- Mini-mappa del Polo: dove ti trovi (i tocchi la attraversano) -->
+        <div class="mini-map" id="miniMap"></div>
       </div>
       <div class="map-room-info" id="mapRoomInfo"></div>
     </div>
@@ -1257,6 +1258,7 @@ function paintDetail() {
   if (!_mapCtx) return;
   renderLiveOverlay(_mapCtx.bld, _mapCtx.room);
   renderInfoPanel(_mapCtx.bld, _mapCtx.room);
+  positionMiniMap();
 }
 
 function showOverview() {
@@ -1308,6 +1310,43 @@ function renderMiniMap(b) {
   lbl.className = 'mini-map-lbl';
   lbl.textContent = 'Sei qui';
   box.appendChild(lbl);
+  positionMiniMap();
+}
+
+// La mini-mappa non intercetta i tocchi (pointer-events:none), quindi le aule
+// sotto restano sempre cliccabili. Qui si sceglie il lato dove dà meno fastidio:
+// lato libero da aule se esiste, altrimenti il lato che NON copre l'aula
+// selezionata (così l'anello di selezione resta visibile), altrimenti quello
+// con meno aule sotto. Le misure sono in coordinate planimetria (2000×1125).
+function positionMiniMap() {
+  const box = document.getElementById('miniMap');
+  if (!box || !_mapCtx) return;
+  const wrap  = box.parentElement;
+  const W     = wrap.clientWidth;
+  if (!W) return;
+  const scale = 2000 / W;                          // px CSS → coordinate planimetria
+  const mmW   = (box.offsetWidth  + 16) * scale;   // ingombro + margine
+  const mmH   = (box.offsetHeight + 16) * scale;
+
+  const rooms = FLOOR_PLANS[_mapCtx.bld].rooms;
+  const sotto = lato => Object.keys(rooms).filter(code => {
+    const r = rooms[code];
+    if (r.y >= mmH) return false;
+    return lato === 'left' ? (r.x < mmW) : (r.x + r.w > 2000 - mmW);
+  });
+
+  const aSinistra = sotto('left');
+  const aDestra   = sotto('right');
+  let lato;
+  if      (aSinistra.length === 0)               lato = 'left';
+  else if (aDestra.length === 0)                 lato = 'right';
+  else if (_mapCtx.room && aSinistra.includes(_mapCtx.room)) lato = 'right';
+  else if (_mapCtx.room && aDestra.includes(_mapCtx.room))   lato = 'left';
+  else lato = aDestra.length < aSinistra.length ? 'right' : 'left';
+
+  box.style.transform = lato === 'right'
+    ? `translateX(${wrap.clientWidth - box.offsetWidth - 16}px)`
+    : 'none';
 }
 
 function showDetail(b, room = null) {
