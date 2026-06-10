@@ -7,37 +7,68 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     :root {
-      --bg:     var(--tg-theme-bg-color, #ffffff);
-      --text:   var(--tg-theme-text-color, #1a1a1a);
-      --hint:   var(--tg-theme-hint-color, #707070);
-      --sec-bg: var(--tg-theme-secondary-bg-color, #f3f4f6);
-      --unipi:  #003a8c;
-      --radius: 14px;
+      --giallo:  #F4E84F;
+      --azzurro: #7FCFE9;
+      --crema:   #FFFBEE;
+      --navy:    #2C4C9C;
+      --navy2:   #1F3A7A;
+      --hint:    #6B79A8;
+      --radius: 16px;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--sec-bg);
-      color: var(--text);
+      background: var(--giallo);
+      color: var(--navy);
       min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
     }
+
+    /* ── Onde decorative (stile locandina) ── */
+    .wave-deco {
+      position: fixed; pointer-events: none; z-index: 0;
+      opacity: .95;
+    }
+    .wave-top    { top: -40px; right: -60px; width: 290px; }
+    .wave-bottom { bottom: -50px; left: -70px; width: 270px; transform: rotate(180deg); }
+    .content { position: relative; z-index: 1; }
 
     .hero {
-      background: linear-gradient(135deg, #003a8c 0%, #0055cc 100%);
-      color: #fff;
-      padding: 36px 24px 28px;
+      color: var(--navy);
+      padding: 38px 24px 22px;
       text-align: center;
     }
-    .hero .icon { font-size: 52px; margin-bottom: 10px; line-height: 1; }
-    .hero h1   { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
-    .hero p    { font-size: 14px; opacity: .85; line-height: 1.5; }
+    .hero .brand {
+      font-size: 11px; font-weight: 800;
+      letter-spacing: .3em; text-transform: uppercase;
+      color: var(--navy2); opacity: .85; margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-size: 27px; font-weight: 900;
+      letter-spacing: .1em; text-transform: uppercase;
+      line-height: 1.25;
+      color: var(--navy);
+      text-shadow: 2.5px 2.5px 0 rgba(255,255,255,.75);
+      margin-bottom: 12px;
+    }
+    .hero .evento {
+      font-size: 15px; font-weight: 800;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--navy2);
+    }
+    .hero .luogo {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--navy2); opacity: .75; margin-top: 6px;
+    }
 
     .card {
-      background: var(--bg);
+      background: var(--crema);
       border-radius: var(--radius);
       padding: 22px 20px;
-      margin: 16px 16px 0;
-      box-shadow: 0 2px 10px rgba(0,0,0,.07);
+      margin: 14px 16px 0;
+      box-shadow: 0 4px 16px rgba(44,76,156,.18);
     }
 
     .field-group { margin-bottom: 16px; }
@@ -49,66 +80,66 @@
     }
 
     .field-label {
-      font-size: 12px; font-weight: 700;
-      letter-spacing: .05em; text-transform: uppercase;
-      color: var(--hint); margin-bottom: 8px;
+      font-size: 12px; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--navy); margin-bottom: 8px;
     }
 
     .txt-input {
       width: 100%; padding: 13px 14px;
       font-size: 15px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-weight: 500;
-      border: 2px solid #e5e7eb; border-radius: 10px;
-      background: var(--sec-bg); color: var(--text);
+      font-weight: 600;
+      border: 2px solid #E3D9B8; border-radius: 10px;
+      background: #fff; color: var(--navy2);
       outline: none; transition: border-color .2s;
     }
-    .txt-input:focus { border-color: var(--unipi); }
+    .txt-input:focus { border-color: var(--navy); }
     .txt-input.is-ok { border-color: #16a34a; }
 
     .date-input {
       width: 100%; padding: 13px 14px;
       font-size: 15px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-weight: 500;
-      border: 2px solid #e5e7eb; border-radius: 10px;
-      background: var(--sec-bg); color: var(--text);
+      font-weight: 600;
+      border: 2px solid #E3D9B8; border-radius: 10px;
+      background: #fff; color: var(--navy2);
       outline: none; transition: border-color .2s;
       -webkit-appearance: none;
     }
-    .date-input:focus { border-color: var(--unipi); }
+    .date-input:focus { border-color: var(--navy); }
 
     .cf-input {
       width: 100%; padding: 13px 14px;
       font-size: 17px;
       font-family: 'SF Mono','Fira Code','Courier New',monospace;
-      font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
-      border: 2px solid #e5e7eb; border-radius: 10px;
-      background: var(--sec-bg); color: var(--text);
+      font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      border: 2px solid #E3D9B8; border-radius: 10px;
+      background: #fff; color: var(--navy2);
       outline: none; transition: border-color .2s;
     }
-    .cf-input:focus { border-color: var(--unipi); }
+    .cf-input:focus { border-color: var(--navy); }
     .cf-input.is-ok { border-color: #16a34a; }
 
     .cf-hint { font-size: 11px; color: var(--hint); margin-top: 6px; }
 
-    .divider { height: 1px; background: #e5e7eb; margin: 18px 0; }
+    .divider { height: 2px; background: var(--azzurro); opacity: .4; border-radius: 2px; margin: 18px 0; }
 
     /* ── Toggle email ── */
     .email-toggle-row {
       display: flex; align-items: center; justify-content: space-between;
       padding: 14px 16px;
-      background: var(--sec-bg); border-radius: 10px;
+      background: rgba(127,207,233,.22); border-radius: 10px;
       cursor: pointer; user-select: none;
       margin-top: 4px;
     }
     .email-toggle-row:active { opacity: .8; }
     .toggle-text {
-      font-size: 14px; font-weight: 600; color: var(--text);
+      font-size: 14px; font-weight: 700; color: var(--navy);
       display: flex; align-items: center; gap: 8px;
     }
     .toggle-switch {
-      width: 44px; height: 26px; background: #d1d5db;
+      width: 44px; height: 26px; background: #C9BF95;
       border-radius: 13px; position: relative;
       transition: background .2s; flex-shrink: 0;
     }
@@ -119,7 +150,7 @@
       transition: transform .2s;
       box-shadow: 0 1px 3px rgba(0,0,0,.2);
     }
-    .toggle-switch.on { background: var(--unipi); }
+    .toggle-switch.on { background: var(--navy); }
     .toggle-switch.on::after { transform: translateX(18px); }
 
     /* ── Email input (collassato di default) ── */
@@ -138,15 +169,20 @@
 
     /* ── Pulsante ── */
     .btn-download {
-      width: 100%; margin-top: 18px; padding: 16px;
-      background: var(--unipi); color: #fff;
-      border: none; border-radius: 12px;
-      font-size: 16px; font-weight: 700; cursor: pointer;
+      width: 100%; margin-top: 20px; padding: 16px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+      color: #fff;
+      border: none; border-radius: 14px;
+      font-size: 16px; font-weight: 800;
+      letter-spacing: .06em; text-transform: uppercase;
+      cursor: pointer;
       display: flex; align-items: center; justify-content: center; gap: 8px;
-      transition: opacity .15s, transform .1s;
+      transition: opacity .15s, transform .1s, box-shadow .2s;
+      box-shadow: 0 4px 12px rgba(44,76,156,.3);
     }
     .btn-download:active   { transform: scale(.97); }
     .btn-download:disabled { opacity: .4; cursor: not-allowed; }
+    .btn-download:not(:disabled):hover { box-shadow: 0 6px 16px rgba(44,76,156,.45); }
 
     .spin {
       width: 20px; height: 20px;
@@ -170,22 +206,37 @@
 
     .unavailable-card { text-align:center; padding:40px 20px; }
     .unavailable-card .big-icon { font-size:56px; margin-bottom:16px; }
-    .unavailable-card h2 { font-size:18px; font-weight:700; margin-bottom:8px; }
+    .unavailable-card h2 { font-size:18px; font-weight:700; margin-bottom:8px; color: var(--navy2); }
     .unavailable-card p  { font-size:14px; color:var(--hint); line-height:1.6; }
 
     .footer {
       text-align:center; padding:24px 16px 32px;
-      font-size:12px; color:var(--hint);
+      font-size:11px; color:var(--hint); font-weight:700;
+      letter-spacing:.08em;
     }
   </style>
 </head>
 <body>
 
-  <div class="hero">
-    <div class="icon">🎓</div>
-    <h1>Attestato di Partecipazione</h1>
-    <p>SummerCamp @ UniPi 2026<br>Polo Fibonacci, Pisa</p>
-  </div>
+  <!-- Onde decorative (SVG) -->
+  <svg class="wave-deco wave-top" viewBox="0 0 290 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 Q73,20 146,50 T292,80 L292,0 L0,0 Z" fill="#7FCFE9" opacity="0.7"/>
+    <circle cx="220" cy="35" r="8" fill="white" opacity="0.6"/>
+    <circle cx="245" cy="55" r="6" fill="white" opacity="0.5"/>
+  </svg>
+  <svg class="wave-deco wave-bottom" viewBox="0 0 270 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,60 Q68,35 135,70 T270,110 L270,200 L0,200 Z" fill="#7FCFE9" opacity="0.75"/>
+    <circle cx="50" cy="85" r="7" fill="white" opacity="0.6"/>
+    <circle cx="100" cy="65" r="5" fill="white" opacity="0.5"/>
+  </svg>
+
+  <div class="content">
+    <div class="hero">
+      <div class="brand">Università di Pisa</div>
+      <h1>Attestato di<br>Partecipazione</h1>
+      <div class="evento">SUMMERCAMP @UNIPI</div>
+      <div class="luogo">Polo Fibonacci, Pisa</div>
+    </div>
 
   <!-- Caricamento -->
   <div id="loadingState" class="card" style="text-align:center;padding:40px 20px;">
@@ -271,7 +322,8 @@
     </div>
   </div>
 
-  <div class="footer">Università di Pisa · Team Orientamento 2026</div>
+    <div class="footer">Università di Pisa · Team Orientamento 2026</div>
+  </div>
 
   <script>
   const WORKER_URL      = 'https://attestati-unipi.teamorientamento1.workers.dev/attestato';
