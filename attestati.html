@@ -196,8 +196,8 @@
   <!-- Non ancora disponibili -->
   <div id="unavailableState" class="card unavailable-card" style="display:none;">
     <div class="big-icon">📋</div>
-    <h2>Attestati non ancora disponibili</h2>
-    <p>Gli attestati saranno disponibili dopo la conclusione dell'evento.<br><br>
+    <h2>Attestati non disponibili al momento</h2>
+    <p id="unavailableMsg">Gli attestati saranno disponibili dopo la conclusione dell'evento.<br><br>
        Riceverai un messaggio sul bot non appena potrai scaricarli.</p>
   </div>
 
@@ -275,19 +275,38 @@
 
   <script>
   const WORKER_URL      = 'https://attestati-unipi.teamorientamento1.workers.dev/attestato';
-  const DISPONIBILI_DAL = new Date('2026-06-09T00:00:00+02:00');
+  const STATO_URL       = 'https://attestati-unipi.teamorientamento1.workers.dev/stato';
 
   if (window.Telegram?.WebApp) {
     Telegram.WebApp.ready();
     Telegram.WebApp.expand();
   }
 
-  (function init() {
-    if (new Date() < DISPONIBILI_DAL) {
-      show('unavailableState');
-    } else {
+  // Le fasce orarie di apertura sono decise dal Worker (endpoint /stato):
+  // qui si chiede solo "il servizio è aperto adesso?"
+  (async function init() {
+    show('loadingState');
+    let aperto = true, prossima = null;
+    try {
+      const r = await fetch(STATO_URL);
+      const s = await r.json();
+      aperto   = s.aperto;
+      prossima = s.prossima_apertura;
+    } catch (e) { /* se /stato non risponde, lascia aperto: il POST rifà il controllo */ }
+
+    if (aperto) {
       show('formState');
       document.getElementById('nomeInput').focus();
+    } else {
+      if (prossima) {
+        const quando = new Date(prossima).toLocaleString('it-IT', {
+          day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit',
+          timeZone: 'Europe/Rome',
+        });
+        document.getElementById('unavailableMsg').innerHTML =
+          'Il servizio attestati riaprirà il <strong>' + quando + '</strong>.<br><br>Torna a trovarci!';
+      }
+      show('unavailableState');
     }
   })();
 
@@ -368,7 +387,19 @@
 
       if (!resp.ok) {
         setLoading(false);
-        const { error, disponibile_dal } = await resp.json().catch(() => ({}));
+        const { error, disponibile_dal, prossima_apertura } = await resp.json().catch(() => ({}));
+        if (error === 'site_closed') {
+          const quando = prossima_apertura
+            ? new Date(prossima_apertura).toLocaleString('it-IT', {
+                day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit',
+                timeZone: 'Europe/Rome',
+              })
+            : null;
+          showStatus(quando
+            ? '🔒 Il servizio è chiuso. Riapre il ' + quando + '.'
+            : '🔒 Il servizio attestati è chiuso al momento.', 'error');
+          return;
+        }
         if (error === 'not_yet_available' && disponibile_dal) {
           const quando = new Date(disponibile_dal).toLocaleString('it-IT', {
             day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit',
