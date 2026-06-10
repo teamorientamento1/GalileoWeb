@@ -165,27 +165,29 @@
     .cz-label { font-family: -apple-system, sans-serif; font-weight: 800; fill: #fff;
                 pointer-events: none; }
 
-    /* CTA "Consulta la cartina" nel programma — con anteprima della mappa */
+    /* CTA mappa: card in evidenza, staccata dall'header e dalle card del programma */
+    .map-cta-section { padding: 16px 16px 6px; }
     .map-cta {
-      display: flex; align-items: center; gap: 13px;
-      width: 100%; margin: 2px 0 12px; padding: 11px 14px;
-      border: none; border-radius: 15px; cursor: pointer;
+      display: flex; align-items: center; gap: 14px;
+      width: 100%; margin: 0; padding: 15px 16px;
+      border: none; border-radius: 18px; cursor: pointer;
       background: linear-gradient(135deg, #2563eb, #7c3aed);
       color: #fff; text-align: left;
-      box-shadow: 0 5px 16px rgba(79,70,229,.32);
+      box-shadow: 0 8px 24px rgba(79,70,229,.4);
       -webkit-tap-highlight-color: transparent;
+      transition: transform .1s, box-shadow .15s;
     }
-    .map-cta:active { transform: scale(.99); }
+    .map-cta:active { transform: scale(.98); box-shadow: 0 4px 14px rgba(79,70,229,.35); }
     .map-cta-thumb {
-      width: 56px; flex-shrink: 0;
-      background: #fff; border-radius: 11px; padding: 4px;
+      width: 64px; flex-shrink: 0;
+      background: #fff; border-radius: 12px; padding: 5px;
       line-height: 0; box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
     }
     .map-cta-thumb svg { width: 100%; height: auto; display: block; }
     .map-cta-body  { flex: 1; min-width: 0; }
-    .map-cta-title { font-size: 15.5px; font-weight: 800; }
-    .map-cta-sub   { font-size: 11.5px; font-weight: 600; opacity: .9; margin-top: 2px; }
-    .map-cta-arrow { font-size: 26px; font-weight: 700; opacity: .85; flex-shrink: 0; }
+    .map-cta-title { font-size: 16.5px; font-weight: 800; }
+    .map-cta-sub   { font-size: 12px; font-weight: 600; opacity: .9; margin-top: 3px; }
+    .map-cta-arrow { font-size: 28px; font-weight: 700; opacity: .85; flex-shrink: 0; }
 
     /* Mini-mappa del Polo nella vista planimetria (edificio corrente evidenziato).
        pointer-events:none → i tocchi la attraversano e arrivano sempre alle aule;
@@ -326,6 +328,11 @@
 <div class="header">
   <h1>🎓 Programma SummerCamp UniPi</h1>
   <p class="subtitle">11–12 Giugno 2026 · Università di Pisa</p>
+  <div class="tabs" id="tabs"></div>
+</div>
+
+<!-- Mappa: card in evidenza, staccata dall'header e dal programma -->
+<div class="map-cta-section">
   <button class="map-cta" onclick="openMapOverview()">
     <div class="map-cta-thumb" id="mapCtaThumb"></div>
     <div class="map-cta-body">
@@ -334,7 +341,6 @@
     </div>
     <div class="map-cta-arrow">›</div>
   </button>
-  <div class="tabs" id="tabs"></div>
 </div>
 
 <div class="legend">
