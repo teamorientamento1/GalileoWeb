@@ -518,29 +518,38 @@
         return;
       }
 
-      // Se il Worker ha consegnato il PDF nella chat Telegram, niente download
+      // Risposte JSON: consegna in chat Telegram, oppure doppio attestato
       if ((resp.headers.get('Content-Type') || '').includes('application/json')) {
         const data = await resp.json();
         if (data.via_telegram) {
           setLoading(false);
+          const quanti = (data.giorni || []).length > 1 ? 'I tuoi attestati sono stati inviati' : 'Attestato inviato';
           showStatus(emailEnabled && email
-            ? '✅ Attestato inviato nella chat del bot e via email a ' + email + '!'
-            : '✅ Attestato inviato nella chat del bot! 📬', 'success');
+            ? '✅ ' + quanti + ' nella chat del bot e via email a ' + email + '!'
+            : '✅ ' + quanti + ' nella chat del bot! 📬', 'success');
           setTimeout(() => { try { Telegram.WebApp.close(); } catch (e) {} }, 1800);
+          return;
+        }
+        if (data.due_attestati) {
+          // Chi ha partecipato a entrambi i giorni: scarica un PDF per giornata
+          for (const g of data.giorni) {
+            const r2 = await fetch(WORKER_URL, {
+              method:  'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body:    JSON.stringify({ cf, nome, cognome, nascita, giorno: g }),
+            });
+            if (r2.ok) scaricaBlob(await r2.blob(), cf, g);
+          }
+          setLoading(false);
+          showStatus(emailEnabled && email
+            ? '✅ Scaricati 2 attestati (11 e 12 giugno)! L\'email con gli allegati è in arrivo a ' + email + '.'
+            : '✅ Scaricati 2 attestati (11 e 12 giugno)! Controlla la cartella Download.', 'success');
           return;
         }
       }
 
       // Blob → download
-      const blob     = await resp.blob();
-      const blobUrl  = URL.createObjectURL(blob);
-      const link     = document.createElement('a');
-      link.href      = blobUrl;
-      link.download  = 'attestato_summercamp2026_' + cf + '.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
+      scaricaBlob(await resp.blob(), cf, null);
 
       setLoading(false);
       if (emailEnabled && email) {
@@ -553,6 +562,17 @@
       setLoading(false);
       showStatus('⚠️ Errore di rete. Controlla la connessione e riprova.', 'error');
     }
+  }
+
+  function scaricaBlob(blob, cf, giorno) {
+    const blobUrl = URL.createObjectURL(blob);
+    const link    = document.createElement('a');
+    link.href     = blobUrl;
+    link.download = 'attestato_summercamp2026_' + cf + (giorno ? '_' + giorno + 'giugno' : '') + '.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 5000);
   }
 
   // ── Helpers UI ───────────────────────────────────────────────
