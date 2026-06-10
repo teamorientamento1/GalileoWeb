@@ -511,9 +511,6 @@ function openCourse(corso){
   const area = curArea;
   document.getElementById('course-topbar-title').textContent = TIPO_LABEL[corso.tipo];
 
-  // Ferma eventuale sintesi vocale precedente
-  if(window.speechSynthesis) speechSynthesis.cancel();
-
   // ── HEADER ──
   const durata  = parseDurata(corso.descrizione);
   const accesso = parseAccesso(corso.descrizione);
@@ -540,104 +537,10 @@ function openCourse(corso){
   const bar = document.getElementById('cd-bar');
   bar.innerHTML =
     `<div class="cd-bar-row">`+
-      `<button class="cd-action" id="btn-speak"><span class="ico">🔊</span>Leggi</button>`+
       `<button class="cd-action" id="btn-share"><span class="ico">📤</span>Condividi</button>`+
       `<button class="cd-action" id="btn-cpy"><span class="ico">📋</span>Copia link</button>`+
     `</div>`+
     (corso.url ? `<button class="cd-btn-main" id="btn-site" style="background:${area.colore};">Vai al sito UniPi →</button>` : '');
-
-  // 🔊 Sintesi vocale
-  // Su mobile i testi lunghi in una sola utterance falliscono in silenzio
-  // (Chrome Android si blocca dopo ~15s, iOS a volte non parte proprio):
-  // il testo viene spezzato in frasi corte accodate una alla volta, con
-  // voce italiana scelta esplicitamente e keep-alive resume() per Chrome.
-  let speaking = false;
-  let keepAlive = null;
-
-  function vocoItaliana(){
-    const voci = speechSynthesis.getVoices();
-    return voci.find(v => v.lang === 'it-IT') || voci.find(v => v.lang && v.lang.startsWith('it')) || null;
-  }
-
-  function spezzaInFrasi(testo, maxLen){
-    const frasi = testo.match(/[^.!?\n]+[.!?\n]*/g) || [testo];
-    const chunks = [];
-    let cur = '';
-    for(const f of frasi){
-      if((cur + f).length > maxLen && cur){ chunks.push(cur.trim()); cur = ''; }
-      cur += f;
-    }
-    if(cur.trim()) chunks.push(cur.trim());
-    return chunks;
-  }
-
-  function stopLettura(){
-    speaking = false;
-    if(keepAlive){ clearInterval(keepAlive); keepAlive = null; }
-    speechSynthesis.cancel();
-    const b = document.getElementById('btn-speak');
-    if(b){ b.classList.remove('lit'); b.innerHTML='<span class="ico">🔊</span>Leggi'; }
-  }
-
-  document.getElementById('btn-speak').addEventListener('click', function(){
-    if(!window.speechSynthesis){ haptic('medium'); return; }
-    if(speaking){ stopLettura(); return; }
-
-    const avvia = () => {
-      // sblocco iOS: cancel+resume prima di parlare
-      speechSynthesis.cancel();
-      speechSynthesis.resume();
-
-      const voce   = vocoItaliana();
-      const chunks = spezzaInFrasi(corso.nome + '. ' + (corso.descrizione||''), 180);
-
-      chunks.forEach((txt, i) => {
-        const utt = new SpeechSynthesisUtterance(txt);
-        utt.lang = 'it-IT'; utt.rate = 0.88;
-        if(voce) utt.voice = voce;
-        if(i === chunks.length - 1) utt.onend = stopLettura;
-        speechSynthesis.speak(utt);
-      });
-
-      // Chrome (Android/desktop) sospende la sintesi dopo ~15s: keep-alive
-      keepAlive = setInterval(() => {
-        if(!speechSynthesis.speaking){ stopLettura(); return; }
-        speechSynthesis.pause(); speechSynthesis.resume();
-      }, 10000);
-
-      speaking = true;
-      const b = document.getElementById('btn-speak');
-      if(b){ b.classList.add('lit'); b.innerHTML = '<span class="ico">⏹</span>Stop'; }
-
-      // La WebView Android (usata da Telegram) spesso non ha il motore TTS:
-      // speak() non dà errore ma l'audio non parte mai. Se dopo 1.5s la
-      // sintesi non è effettivamente partita, avvisa l'utente.
-      setTimeout(() => {
-        if(speaking && !speechSynthesis.speaking){
-          stopLettura();
-          const msg = 'La lettura vocale non è disponibile dentro Telegram su questo dispositivo. ' +
-                      'Apri la pagina in un browser (es. Chrome) per usarla.';
-          try {
-            if(tg && tg.showAlert) tg.showAlert('🔊 ' + msg);
-            else alert(msg);
-          } catch(e){ alert(msg); }
-        }
-      }, 1500);
-    };
-
-    // Su mobile le voci si caricano in modo asincrono al primo uso
-    if(speechSynthesis.getVoices().length === 0){
-      let partito = false;
-      speechSynthesis.addEventListener('voiceschanged', () => {
-        if(!partito){ partito = true; avvia(); }
-      }, { once: true });
-      // fallback se voiceschanged non arriva entro mezzo secondo
-      setTimeout(() => { if(!partito){ partito = true; avvia(); } }, 500);
-      speechSynthesis.getVoices(); // innesca il caricamento
-    } else {
-      avvia();
-    }
-  });
 
   // 📤 Condividi
   document.getElementById('btn-share').addEventListener('click', async function(){
