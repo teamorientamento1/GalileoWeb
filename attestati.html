@@ -25,13 +25,13 @@
       overflow-x: hidden;
     }
 
-    /* ── Onde decorative (stile locandina) ── */
+    /* ── Mare e spiaggia (stile locandina) ── */
     .wave-deco {
       position: fixed; pointer-events: none; z-index: 0;
-      opacity: .95;
+      height: auto;
     }
-    .wave-top    { top: -40px; right: -60px; width: 290px; }
-    .wave-bottom { bottom: -50px; left: -70px; width: 270px; transform: rotate(180deg); }
+    .wave-top    { top: 0; right: 0; width: min(56vw, 280px); }
+    .wave-bottom { bottom: 0; left: 0; width: min(50vw, 250px); transform: rotate(180deg); }
     .content { position: relative; z-index: 1; }
 
     .hero {
@@ -218,16 +218,51 @@
 </head>
 <body>
 
-  <!-- Onde decorative (SVG) -->
-  <svg class="wave-deco wave-top" viewBox="0 0 290 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,40 Q73,20 146,50 T292,80 L292,0 L0,0 Z" fill="#7FCFE9" opacity="0.7"/>
-    <circle cx="220" cy="35" r="8" fill="white" opacity="0.6"/>
-    <circle cx="245" cy="55" r="6" fill="white" opacity="0.5"/>
+  <!-- Mare e spiaggia (stile locandina): fascia azzurra diagonale con schiuma crema -->
+  <svg class="wave-deco wave-top" viewBox="0 0 360 460" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- schiuma (bordo crema festonato) -->
+    <path fill="#FFF8E4" d="M360,0 L150,0
+      C135,20 160,38 148,58 C136,78 110,80 118,102 C126,124 156,122 158,146
+      C160,170 132,176 140,198 C148,220 180,216 190,238 C200,260 176,272 188,292
+      C200,312 232,304 244,326 C256,348 236,362 252,380 C268,398 300,390 314,412
+      C328,434 318,450 336,460 L360,460 Z"/>
+    <!-- mare -->
+    <path fill="#7FCFE9" d="M360,0 L190,0
+      C178,16 198,32 188,50 C178,68 156,70 163,88 C170,106 196,104 198,124
+      C200,144 176,150 183,168 C190,186 218,182 227,200 C236,218 216,228 226,244
+      C236,260 264,254 274,272 C284,290 268,302 281,316 C294,330 322,324 333,342
+      C344,360 336,372 350,382 L360,386 Z"/>
+    <!-- bollicine nel mare -->
+    <circle cx="240" cy="42"  r="9" fill="#FFF8E4"/>
+    <circle cx="215" cy="98"  r="5" fill="#FFF8E4"/>
+    <circle cx="258" cy="150" r="7" fill="#FFF8E4"/>
+    <circle cx="288" cy="225" r="5" fill="#FFF8E4"/>
+    <circle cx="316" cy="300" r="8" fill="#FFF8E4"/>
+    <!-- bollicine sulla spiaggia -->
+    <circle cx="118" cy="36"  r="6" fill="#FFFFFF" opacity=".9"/>
+    <circle cx="96"  cy="86"  r="4" fill="#FFFFFF" opacity=".85"/>
+    <circle cx="124" cy="168" r="5" fill="#FFFFFF" opacity=".9"/>
+    <circle cx="158" cy="262" r="4" fill="#FFFFFF" opacity=".8"/>
   </svg>
-  <svg class="wave-deco wave-bottom" viewBox="0 0 270 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,60 Q68,35 135,70 T270,110 L270,200 L0,200 Z" fill="#7FCFE9" opacity="0.75"/>
-    <circle cx="50" cy="85" r="7" fill="white" opacity="0.6"/>
-    <circle cx="100" cy="65" r="5" fill="white" opacity="0.5"/>
+  <svg class="wave-deco wave-bottom" viewBox="0 0 360 460" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path fill="#FFF8E4" d="M360,0 L150,0
+      C135,20 160,38 148,58 C136,78 110,80 118,102 C126,124 156,122 158,146
+      C160,170 132,176 140,198 C148,220 180,216 190,238 C200,260 176,272 188,292
+      C200,312 232,304 244,326 C256,348 236,362 252,380 C268,398 300,390 314,412
+      C328,434 318,450 336,460 L360,460 Z"/>
+    <path fill="#7FCFE9" d="M360,0 L190,0
+      C178,16 198,32 188,50 C178,68 156,70 163,88 C170,106 196,104 198,124
+      C200,144 176,150 183,168 C190,186 218,182 227,200 C236,218 216,228 226,244
+      C236,260 264,254 274,272 C284,290 268,302 281,316 C294,330 322,324 333,342
+      C344,360 336,372 350,382 L360,386 Z"/>
+    <circle cx="240" cy="42"  r="9" fill="#FFF8E4"/>
+    <circle cx="215" cy="98"  r="5" fill="#FFF8E4"/>
+    <circle cx="258" cy="150" r="7" fill="#FFF8E4"/>
+    <circle cx="288" cy="225" r="5" fill="#FFF8E4"/>
+    <circle cx="316" cy="300" r="8" fill="#FFF8E4"/>
+    <circle cx="118" cy="36"  r="6" fill="#FFFFFF" opacity=".9"/>
+    <circle cx="96"  cy="86"  r="4" fill="#FFFFFF" opacity=".85"/>
+    <circle cx="124" cy="168" r="5" fill="#FFFFFF" opacity=".9"/>
   </svg>
 
   <div class="content">
@@ -333,6 +368,8 @@
     Telegram.WebApp.ready();
     Telegram.WebApp.expand();
   }
+  // Dentro Telegram il PDF arriva in chat (il download nella WebView non è affidabile)
+  const TG_CHAT_ID = window.Telegram?.WebApp?.initDataUnsafe?.user?.id || null;
 
   // Le fasce orarie di apertura sono decise dal Worker (endpoint /stato):
   // qui si chiede solo "il servizio è aperto adesso?"
@@ -384,10 +421,17 @@
 
   function updateBtn() {
     const lbl = document.getElementById('btnLabel');
-    lbl.textContent = emailEnabled
-      ? '📄 Scarica e invia per email'
-      : '📄 Scarica il mio Attestato';
+    if (TG_CHAT_ID) {
+      lbl.textContent = emailEnabled
+        ? '📄 Ricevi in chat e per email'
+        : '📄 Ricevi il mio Attestato';
+    } else {
+      lbl.textContent = emailEnabled
+        ? '📄 Scarica e invia per email'
+        : '📄 Scarica il mio Attestato';
+    }
   }
+  updateBtn();
 
   // ── Tutta la verifica è delegata al Worker ───────────────────
   // (niente manifest locale, niente SHA-256 lato client)
@@ -434,7 +478,11 @@
       const resp = await fetch(WORKER_URL, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ cf, nome, cognome, nascita, email: emailEnabled ? email : undefined }),
+        body:    JSON.stringify({
+          cf, nome, cognome, nascita,
+          email:      emailEnabled ? email : undefined,
+          tg_chat_id: TG_CHAT_ID || undefined,
+        }),
       });
 
       if (!resp.ok) {
@@ -468,6 +516,19 @@
         };
         showStatus(msgs[error] || '⚠️ Errore ' + resp.status + '. Riprova.', 'error');
         return;
+      }
+
+      // Se il Worker ha consegnato il PDF nella chat Telegram, niente download
+      if ((resp.headers.get('Content-Type') || '').includes('application/json')) {
+        const data = await resp.json();
+        if (data.via_telegram) {
+          setLoading(false);
+          showStatus(emailEnabled && email
+            ? '✅ Attestato inviato nella chat del bot e via email a ' + email + '!'
+            : '✅ Attestato inviato nella chat del bot! 📬', 'success');
+          setTimeout(() => { try { Telegram.WebApp.close(); } catch (e) {} }, 1800);
+          return;
+        }
       }
 
       // Blob → download
