@@ -165,18 +165,47 @@
     .cz-label { font-family: -apple-system, sans-serif; font-weight: 800; fill: #fff;
                 pointer-events: none; }
 
-    /* CTA "Consulta la cartina" nel programma */
+    /* CTA "Consulta la cartina" nel programma — con anteprima della mappa */
     .map-cta {
-      display: flex; align-items: center; justify-content: center; gap: 9px;
-      width: 100%; margin: 2px 0 12px; padding: 13px;
-      border: none; border-radius: 13px; cursor: pointer;
+      display: flex; align-items: center; gap: 13px;
+      width: 100%; margin: 2px 0 12px; padding: 11px 14px;
+      border: none; border-radius: 15px; cursor: pointer;
       background: linear-gradient(135deg, #2563eb, #7c3aed);
-      color: #fff; font-size: 14.5px; font-weight: 800;
+      color: #fff; text-align: left;
       box-shadow: 0 5px 16px rgba(79,70,229,.32);
       -webkit-tap-highlight-color: transparent;
     }
-    .map-cta small { font-weight: 600; opacity: .9; font-size: 11.5px; }
     .map-cta:active { transform: scale(.99); }
+    .map-cta-thumb {
+      width: 56px; flex-shrink: 0;
+      background: #fff; border-radius: 11px; padding: 4px;
+      line-height: 0; box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+    }
+    .map-cta-thumb svg { width: 100%; height: auto; display: block; }
+    .map-cta-body  { flex: 1; min-width: 0; }
+    .map-cta-title { font-size: 15.5px; font-weight: 800; }
+    .map-cta-sub   { font-size: 11.5px; font-weight: 600; opacity: .9; margin-top: 2px; }
+    .map-cta-arrow { font-size: 26px; font-weight: 700; opacity: .85; flex-shrink: 0; }
+
+    /* Mini-mappa del Polo nella vista planimetria (edificio corrente evidenziato) */
+    .mini-map {
+      position: absolute; top: 10px; left: 10px; z-index: 5;
+      width: 76px;
+      background: rgba(255,255,255,.95);
+      border: 1.5px solid #cbd5e1; border-radius: 11px;
+      padding: 4px; line-height: 0;
+      box-shadow: 0 3px 12px rgba(0,0,0,.22);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mini-map:active { transform: scale(.96); }
+    .mini-map svg { width: 100%; height: auto; display: block; }
+    .mini-map .mini-map-lbl {
+      display: block; line-height: 1.2; text-align: center;
+      font-size: 8.5px; font-weight: 800; color: #64748b;
+      text-transform: uppercase; letter-spacing: .05em;
+      padding: 3px 0 1px;
+    }
 
     /* Pulsante back (vista dettaglio) */
     .map-back-btn {
@@ -297,7 +326,12 @@
   <h1>🎓 Programma SummerCamp UniPi</h1>
   <p class="subtitle">11–12 Giugno 2026 · Università di Pisa</p>
   <button class="map-cta" onclick="openMapOverview()">
-    🗺️ Consulta la cartina <small>· aule ed eventi live</small>
+    <div class="map-cta-thumb" id="mapCtaThumb"></div>
+    <div class="map-cta-body">
+      <div class="map-cta-title">🗺️ Mappa del Polo Fibonacci</div>
+      <div class="map-cta-sub">Edifici, aule ed eventi in diretta</div>
+    </div>
+    <div class="map-cta-arrow">›</div>
   </button>
   <div class="tabs" id="tabs"></div>
 </div>
@@ -910,6 +944,8 @@ c11 -233 67 -157 -601 -825 -379 -379 -570 -577 -570 -591 0 -25 18 -44 42
             <!-- overlay generato via JS -->
           </svg>
         </div>
+        <!-- Mini-mappa del Polo: dove ti trovi (tocca per la panoramica) -->
+        <div class="mini-map" id="miniMap" onclick="showOverview()"></div>
       </div>
       <div class="map-room-info" id="mapRoomInfo"></div>
     </div>
@@ -1231,6 +1267,49 @@ function showOverview() {
   if (tg && tg.HapticFeedback.selectionChanged) tg.HapticFeedback.selectionChanged();
 }
 
+// ── Miniatura della cartina del Polo ─────────────────────────────────────────
+// Clona il disegno vettoriale del campus ritagliato sull'area degli edifici.
+// highlightBld = null → tutti gli edifici colorati (anteprima CTA)
+// highlightBld = 'B'  → solo quell'edificio evidenziato (mini-mappa "sei qui")
+function makeCampusThumb(highlightBld) {
+  const clone = document.getElementById('campusSvg').cloneNode(true);
+  clone.removeAttribute('id');
+  clone.removeAttribute('class');
+  clone.setAttribute('viewBox', '430 880 1130 1500');
+  clone.style.pointerEvents = 'none';
+
+  const layer = clone.querySelector('#czLayer');
+  layer.removeAttribute('id');
+  layer.innerHTML = Object.keys(CAMPUS_ZONES).map(b => {
+    const z    = CAMPUS_ZONES[b];
+    const meta = BUILDING_META[b];
+    const on   = !highlightBld || b === highlightBld;
+    const chip = on
+      ? `<rect x="${z.lx-80}" y="${z.ly-80}" width="160" height="160" rx="42"
+              fill="${meta.color}" stroke="#fff" stroke-width="10"/>
+         <text x="${z.lx}" y="${z.ly+8}" text-anchor="middle" dominant-baseline="middle"
+              fill="#fff" font-weight="800" font-size="110"
+              font-family="-apple-system,sans-serif">${b}</text>`
+      : '';
+    return `<polygon points="${z.pts}"
+              fill="${meta.color}" fill-opacity="${on ? .75 : .14}"
+              stroke="${meta.color}" stroke-width="${on ? 14 : 4}"/>${chip}`;
+  }).join('');
+  return clone;
+}
+
+// Mini-mappa nella vista planimetria: il Polo con l'edificio corrente evidenziato
+function renderMiniMap(b) {
+  const box = document.getElementById('miniMap');
+  if (!box) return;
+  box.innerHTML = '';
+  box.appendChild(makeCampusThumb(b));
+  const lbl = document.createElement('span');
+  lbl.className = 'mini-map-lbl';
+  lbl.textContent = 'Sei qui';
+  box.appendChild(lbl);
+}
+
 function showDetail(b, room = null) {
   if (!FLOOR_PLANS[b]) return;
   _mapView = 'detail';
@@ -1239,6 +1318,7 @@ function showDetail(b, room = null) {
   document.getElementById('mapDetail').style.display   = 'flex';
   document.getElementById('mapTitle').textContent      = FLOOR_PLANS[b].title;
   document.getElementById('mapFloorImg').src           = FLOOR_PLANS[b].img;
+  renderMiniMap(b);
   paintDetail();
   if (tg) tg.HapticFeedback.impactOccurred('light');
 }
@@ -1285,6 +1365,12 @@ function closeMap() {
   _mapCtx = _mapOrigin = null;
   document.getElementById('mapOverlay').classList.remove('show');
 }
+
+// Anteprima della cartina nel pulsante in testata
+(function initMapCtaThumb() {
+  const box = document.getElementById('mapCtaThumb');
+  if (box) box.appendChild(makeCampusThumb(null));
+})();
 
 function esc(str) {
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
