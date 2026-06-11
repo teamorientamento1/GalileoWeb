@@ -1133,10 +1133,13 @@ function renderLiveOverlay(bld, selectedRoom) {
   const rings = [];   // contorni colorati
   const tags  = [];   // etichette
 
+  // Si evidenzia SOLO l'aula selezionata (durante le sessioni parallele gli
+  // eventi sono in corso ovunque: accendere tutte le aule rendeva la mappa
+  // illeggibile). Lo stato live delle altre aule resta nel pannello sotto.
   for (const [code, rd] of Object.entries(plan.rooms)) {
-    const st    = live[code]?.status;          // 'active' | 'soon' | undefined
     const isSel = code === selectedRoom;
-    if (!st && !isSel) continue;               // resta in ombra
+    if (!isSel) continue;                      // le altre restano in ombra
+    const st = live[code]?.status;             // 'active' | 'soon' | undefined
 
     holes.push(`<rect x="${rd.x}" y="${rd.y}" width="${rd.w}" height="${rd.h}" rx="10" fill="#000"/>`);
 
@@ -1145,14 +1148,8 @@ function renderLiveOverlay(bld, selectedRoom) {
     else if (st === 'soon')
       rings.push(`<rect x="${rd.x}" y="${rd.y}" width="${rd.w}" height="${rd.h}" rx="10" class="r-soon-ring"/>`);
 
-    if (isSel)
-      rings.push(`<rect x="${rd.x-4}" y="${rd.y-4}" width="${rd.w+8}" height="${rd.h+8}" rx="13" class="r-sel-ring"/>`);
-
-    // Etichette: l'aula selezionata mostra sempre il suo nome (arancione),
-    // le altre attive/imminenti mostrano lo stato
-    if (isSel)              tags.push(makeTag(rd, rd.label, '#f97316'));
-    else if (st === 'active') tags.push(makeTag(rd, 'ORA', '#16a34a'));
-    else if (st === 'soon')   tags.push(makeTag(rd, 'tra ' + live[code].minuti + '′', '#ca8a04'));
+    rings.push(`<rect x="${rd.x-4}" y="${rd.y-4}" width="${rd.w+8}" height="${rd.h+8}" rx="13" class="r-sel-ring"/>`);
+    tags.push(makeTag(rd, rd.label, '#f97316'));
   }
 
   const scrim = holes.length
