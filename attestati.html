@@ -611,5 +611,13 @@
       handleDownload();
   });
   </script>
+<script>
+  /* statistiche anonime: conta solo l'apertura della pagina, nessun dato personale */
+  fetch('https://attestati-unipi.teamorientamento1.workers.dev/hit', {
+    method: 'POST', keepalive: true,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ page: 'attestati' })
+  }).catch(function(){});
+</script>
 </body>
 </html>
