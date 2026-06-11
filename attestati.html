@@ -424,15 +424,9 @@
 
   function updateBtn() {
     const lbl = document.getElementById('btnLabel');
-    if (TG_CHAT_ID) {
-      lbl.textContent = emailEnabled
-        ? '📄 Ricevi in chat e per email'
-        : '📄 Ricevi il mio Attestato';
-    } else {
-      lbl.textContent = emailEnabled
-        ? '📄 Scarica e invia per email'
-        : '📄 Scarica il mio Attestato';
-    }
+    lbl.textContent = emailEnabled
+      ? '📄 Scarica e invia per email'
+      : '📄 Scarica il mio Attestato';
   }
   updateBtn();
 
@@ -483,8 +477,8 @@
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({
           cf, nome, cognome, nascita,
-          email:      emailEnabled ? email : undefined,
-          tg_chat_id: TG_CHAT_ID || undefined,
+          email:       emailEnabled ? email : undefined,
+          want_tokens: TG_CHAT_ID ? true : undefined,
         }),
       });
 
@@ -533,13 +527,25 @@
       // Risposte JSON: consegna in chat Telegram, oppure doppio attestato
       if ((resp.headers.get('Content-Type') || '').includes('application/json')) {
         const data = await resp.json();
-        if (data.via_telegram) {
+        if (data.download_links) {
+          // Mini App Telegram: il download vero lo fa il telefono.
+          // downloadFile (Telegram 8.0+) salva nei Download con conferma;
+          // sui client più vecchi si apre il link nel browser esterno.
           setLoading(false);
-          const quanti = (data.giorni || []).length > 1 ? 'I tuoi attestati sono stati inviati' : 'Attestato inviato';
+          const tgApp = window.Telegram && Telegram.WebApp;
+          const haDownload = tgApp && typeof tgApp.downloadFile === 'function'
+            && tgApp.isVersionAtLeast && tgApp.isVersionAtLeast('8.0');
+          for (const d of data.download_links) {
+            if (haDownload) {
+              tgApp.downloadFile({ url: d.url, file_name: d.filename }, function () {});
+            } else {
+              try { tgApp.openLink(d.url); } catch (e) { window.open(d.url, '_blank'); }
+            }
+          }
+          const n = data.download_links.length;
           showStatus(emailEnabled && email
-            ? '✅ ' + quanti + ' nella chat del bot e via email a ' + email + '!'
-            : '✅ ' + quanti + ' nella chat del bot! 📬', 'success');
-          setTimeout(() => { try { Telegram.WebApp.close(); } catch (e) {} }, 1800);
+            ? '✅ Download avviato (' + n + (n > 1 ? ' attestati' : ' attestato') + ')! In arrivo anche via email a ' + email + '.'
+            : '✅ Download avviato! Conferma il salvataggio e controlla i Download del telefono.', 'success');
           return;
         }
         if (data.due_attestati) {
