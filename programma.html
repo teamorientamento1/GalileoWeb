@@ -1384,6 +1384,7 @@ function showDetail(b, room = null) {
   document.getElementById('mapTouchHint').style.display = _mapInteractive ? '' : 'none';
   renderMiniMap(b);
   paintDetail();
+  requestAnimationFrame(positionMiniMap);   // ricalcolo a layout assestato
   if (tg) tg.HapticFeedback.impactOccurred('light');
 }
 
@@ -1421,8 +1422,8 @@ function openMap(aulaLabel) {
   if (!bld || !FLOOR_PLANS[bld]) { openMapOverview(); return; }
   _mapOrigin = { bld, room };
   _mapInteractive = false;
-  showDetail(bld, room);
-  openSheet();
+  openSheet();              // prima si apre il foglio: con il foglio nascosto
+  showDetail(bld, room);    // le misure sono 0 e la mini-mappa non si sposta
 }
 
 function closeMap() {
