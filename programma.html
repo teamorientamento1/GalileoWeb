@@ -106,6 +106,10 @@
     .event-top { display: flex; align-items: flex-start; gap: 8px; }
     .event-time { font-size: 11px; font-weight: 600; color: var(--hint); white-space: nowrap; padding-top: 2px; min-width: 85px; }
     .event-body { flex: 1; }
+    /* 🔔 ricordami: apre il bot (/start ricorda_<id>), che avvisa 15 minuti prima */
+    .remind-btn { flex-shrink: 0; border: none; cursor: pointer; width: 36px; height: 32px; margin: -4px 0 -4px 4px;
+                  border-radius: 10px; background: #eef2ff; font-size: 16px; line-height: 1; }
+    .remind-btn.fatto { background: #dcfce7; }
     .event-title { font-size: 13px; font-weight: 500; line-height: 1.3; }
     .event-activity { font-size: 11px; color: var(--hint); margin-top: 3px; line-height: 1.35; }
 
@@ -367,6 +371,7 @@
 <div class="legend">
   <span class="legend-item"><span class="legend-dot" style="background:#3a5bcc"></span>Pomeriggio</span>
   <span class="legend-item"><span class="legend-dot" style="background:#c47c00"></span>Pausa</span>
+  <span class="legend-item">🔔 Ricordamelo: il bot ti avvisa 15 minuti prima</span>
 </div>
 
 <div id="days-container"></div>
@@ -1685,19 +1690,41 @@ function badge(ev) {
   return '';
 }
 
-function renderEvent(ev) {
+// 🔔 Ricordami: il bot (/start ricorda_<event_id>) segna l'evento e avvisa 15 minuti prima.
+// Il ✅ e' solo un ricordo di questo telefono; l'elenco vero e' in "Le mie prenotazioni" del bot.
+const BOT_EVENTO = 'GalileoUnipi_bot';
+function ricordati() {
+  try { return JSON.parse(localStorage.getItem('ricordati') || '[]'); } catch (e) { return []; }
+}
+function ricordami(id, btn) {
+  try {
+    const s = ricordati();
+    if (!s.includes(id)) { s.push(id); localStorage.setItem('ricordati', JSON.stringify(s)); }
+  } catch (e) {}
+  btn.classList.add('fatto'); btn.textContent = '✅';
+  const url = `https://t.me/${BOT_EVENTO}?start=ricorda_${id}`;
+  if (tg && tg.openTelegramLink) tg.openTelegramLink(url); else window.open(url, '_blank');
+}
+
+function renderEvent(ev, data) {
+  const futuro = data > todayKey() || (data === todayKey() && hhmm(ev.orario_inizio) > nowMin());
+  const segnato = ricordati().includes(ev.event_id);
+  const bell = futuro && !/pausa/i.test(ev.titolo_blocco)
+    ? `<button class="remind-btn${segnato ? ' fatto' : ''}" title="Ricordamelo" aria-label="Ricordamelo"
+         onclick="ricordami(${ev.event_id}, this)">${segnato ? '✅' : '🔔'}</button>` : '';
   return `<div class="event-row">
     <div class="event-top">
       <span class="event-time">${ev.orario_inizio}${ev.orario_fine ? '–' + ev.orario_fine : ''}</span>
       <div class="event-body">
         <span class="event-title">${esc(ev.titolo_blocco)}${badge(ev)}</span>
       </div>
+      ${bell}
     </div>
   </div>`;
 }
 
-function renderDept(dept, dayGiorno, key) {
-  const evHtml = dept.eventi.map(e => renderEvent(e)).join('')
+function renderDept(dept, dayGiorno, key, data) {
+  const evHtml = dept.eventi.map(e => renderEvent(e, data)).join('')
     + (dept.nota ? `<div class="event-row"><span class="event-title">ℹ️ ${esc(dept.nota)}</span></div>` : '');
   const bld = edificio(parseLuogo(dept.luogo).bld);
   const bMeta = BUILDING_META[bld];
@@ -1755,7 +1782,7 @@ function renderAll() {
     const view = document.createElement('div');
     view.className = 'day-view' + (i===primo ? ' active' : '');
     view.id = 'day-' + i;
-    view.innerHTML = day.dipartimenti.map((d,j) => renderDept(d, day.giorno, `${i}-${j}`)).join('');
+    view.innerHTML = day.dipartimenti.map((d,j) => renderDept(d, day.giorno, `${i}-${j}`, day.data)).join('');
     containerEl.appendChild(view);
   });
 }
