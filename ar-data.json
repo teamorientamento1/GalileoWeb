@@ -1,325 +1,2116 @@
 {
-  "B_A": {
-    "aula": "Aula A",
+  "B1_B1": {
+    "aula": "Aula B1",
     "edificio": "Edificio B",
-    "piano": "Piano Terra",
-    "dipartimento": "Scuola di Medicina",
-    "emoji": "🏥",
+    "piano": "Primo piano",
+    "dipartimento": "DIPARTIMENTO DI SCIENZE AGRARIE, ALIMENTARI E AGRO-AMBIENTALI",
+    "emoji": "🌾",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–11:00",  "titolo": "Presentazione offerta didattica dei Dipartimenti della Scuola di Medicina + seminario tematico"},
-        {"ora": "11:30–13:00", "titolo": "Presentazione offerta didattica dei Dipartimenti della Scuola di Medicina + seminario tematico"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e tour delle strutture"}
+      "2026-10-15": [
+        {
+          "ora": "9:10–9:40",
+          "titolo": "Presentazione Viticoltura e Enologia"
+        },
+        {
+          "ora": "9:50–10:20",
+          "titolo": "Seminario: I feromoni nella difesa delle colture"
+        },
+        {
+          "ora": "10:40–11:10",
+          "titolo": "Presentazione Scienze Agrarie"
+        },
+        {
+          "ora": "11:10–11:40",
+          "titolo": "Seminario: La qualità nutraceutica dei prodotti ortofrutticoli"
+        },
+        {
+          "ora": "11:50–12:20",
+          "titolo": "Presentazione Scienze degli Alimenti"
+        },
+        {
+          "ora": "12:30–13:00",
+          "titolo": "Seminario: Chi altro si mangia il nostro cibo? Come proteggere gli alimenti freschi e conservati dagli insetti dannosi"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione Viticoltura e Enologia"
+        },
+        {
+          "ora": "14:45–15:15",
+          "titolo": "Quanto ne sai di nutraceutica? (Quiz)"
+        },
+        {
+          "ora": "15:15–16:00",
+          "titolo": "Presentazione Scienze Agrarie"
+        },
+        {
+          "ora": "16:00–16:30",
+          "titolo": "Allevamento di precisione"
+        },
+        {
+          "ora": "16:30–17:15",
+          "titolo": "Presentazione Scienze degli Alimenti"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–11:00",  "titolo": "Presentazione offerta didattica dei Dipartimenti della Scuola di Medicina + seminario tematico"},
-        {"ora": "11:30–13:00", "titolo": "Presentazione offerta didattica dei Dipartimenti della Scuola di Medicina + seminario tematico"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:10–9:40",
+          "titolo": "Presentazione Viticoltura e Enologia"
+        },
+        {
+          "ora": "9:50–10:20",
+          "titolo": "Seminario: I feromoni nella difesa delle colture"
+        },
+        {
+          "ora": "10:40–11:10",
+          "titolo": "Presentazione Scienze Agrarie"
+        },
+        {
+          "ora": "11:10–11:40",
+          "titolo": "Seminario: Robot in agricoltura: siamo già nel futuro?"
+        },
+        {
+          "ora": "11:50–12:20",
+          "titolo": "Presentazione Scienze degli Alimenti"
+        },
+        {
+          "ora": "12:30–13:00",
+          "titolo": "Seminario: Chi altro si mangia il nostro cibo? Come proteggere gli alimenti freschi e conservati dagli insetti dannosi"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione Viticoltura e Enologia"
+        },
+        {
+          "ora": "14:45–15:15",
+          "titolo": "Seminario: Il superpotere delle leguminose"
+        },
+        {
+          "ora": "15:15–16:00",
+          "titolo": "Presentazione Scienze Agrarie"
+        },
+        {
+          "ora": "16:00–16:30",
+          "titolo": "Seminario Dal campo al prodotto: le piante che ci nutrono, ci vestono e ci sorprendono"
+        },
+        {
+          "ora": "16:30–17:15",
+          "titolo": "Presentazione Scienze degli Alimenti"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:10–9:40",
+          "titolo": "Presentazione Scienze Agrarie"
+        },
+        {
+          "ora": "9:50–10:20",
+          "titolo": "Seminario: Quanto impatta la tua dieta sull’ambiente? Scopriamolo insieme"
+        },
+        {
+          "ora": "10:40–11:10",
+          "titolo": "Presentazione Scienze degli Alimenti"
+        },
+        {
+          "ora": "11:10–11:40",
+          "titolo": "Seminario Sensory Games: Diventa giudice sensoriale per un giorno"
+        },
+        {
+          "ora": "11:50–12:20",
+          "titolo": "Presentazione Viticultura e Enologia"
+        }
       ]
     }
   },
-  "B_B": {
-    "aula": "Aula B",
+  "B1_A1": {
+    "aula": "Aula A1",
     "edificio": "Edificio B",
-    "piano": "Piano Terra",
-    "dipartimento": "Dipartimento di Farmacia",
-    "emoji": "💊",
+    "piano": "Primo piano",
+    "dipartimento": "DIPARTIMENTO DI VETERINARIA",
+    "emoji": "🐾",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–11:00",  "titolo": "Presentazione offerta formativa + seminario \"La microincapsulazione\""},
-        {"ora": "11:30–13:00", "titolo": "Presentazione offerta formativa + laboratori e giochi"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e tour delle strutture"}
+      "2026-10-15": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Presentazione dell’offerta didattica"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Seminario “Il mio cucciolo ha un soffio al cuore. Ruolo sociale del Medico Veterinario”"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta didattica"
+        },
+        {
+          "ora": "12:00–13:00",
+          "titolo": "Seminario “Uso prudente dei farmaci con quiz”/”Mastertox-Vet”"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione dell’offerta didattica"
+        },
+        {
+          "ora": "14:45–15:45",
+          "titolo": "Seminario “Il medico internista... uno Sherlock Holmes al lavoro!”"
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Presentazione dell’offerta didattica"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Seminario “Detective a raggi x”"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–11:00",  "titolo": "Presentazione offerta formativa + \"Il laboratorio chimico delle piante\""},
-        {"ora": "11:30–13:00", "titolo": "Presentazione offerta formativa + \"DNA senza più segreti: la mappa del genoma umano verso la medicina del futuro\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
-      ]
-    }
-  },
-  "B_C": {
-    "aula": "Aula C",
-    "edificio": "Edificio B",
-    "piano": "Piano Terra",
-    "dipartimento": "Dipartimento di Chimica e Chimica Industriale",
-    "emoji": "⚗️",
-    "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–11:00",  "titolo": "Studiare Chimica a Pisa: presentazione offerta didattica + incontro con i tutor"},
-        {"ora": "11:30–13:00", "titolo": "Studiare Chimica a Pisa: presentazione offerta didattica + incontro con i tutor"},
-        {"ora": "14:00–18:00", "titolo": "Incontro al desk tutor + visita guidata collezione strumenti storici scientifici"}
+      "2026-10-16": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Presentazione dell’offerta didattica"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Seminario \"L’intelligenza nel blu: la neuroanatomia dei delfini\""
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta didattica"
+        },
+        {
+          "ora": "12:00–13:00",
+          "titolo": "Seminario \"Le applicazioni della Genomica in Medicina Forense Veterinaria\""
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione dell’offerta didattica"
+        },
+        {
+          "ora": "14:45–15:45",
+          "titolo": "Seminario \"Medicina d'urgenza e musica!\""
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Presentazione dell’offerta didattica"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Seminario"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–11:00",  "titolo": "Studiare Chimica a Pisa: presentazione offerta didattica + incontro con i tutor"},
-        {"ora": "11:30–13:00", "titolo": "Studiare Chimica a Pisa: presentazione offerta didattica + incontro con i tutor"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-17": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Presentazione dell’offerta didattica"
+        },
+        {
+          "ora": "9:45–10:45",
+          "titolo": "Seminario \"C'è un cavallo in Banca\" - Quiz sulle razze di cavalli"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Presentazione dell’offerta didattica"
+        }
       ]
     }
   },
   "B_D": {
     "aula": "Aula D",
     "edificio": "Edificio B",
-    "piano": "Piano Terra",
-    "dipartimento": "Dipartimento di Fisica",
-    "emoji": "⚛️",
+    "piano": "Piano terra",
+    "dipartimento": "DIPARTIMENTO DI CIVILTÀ E FORME DEL SAPERE",
+    "emoji": "🏺",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–10:15",  "titolo": "\"Salviamo il gatto di Schrodinger\""},
-        {"ora": "10:15–11:00", "titolo": "Presentazione del Corso di Studi"},
-        {"ora": "11:30–12:15", "titolo": "\"Intelligenza Artificiale in Fisica Medica\""},
-        {"ora": "12:15–13:00", "titolo": "\"Dal qubit al teletrasporto\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e tour delle strutture"}
+      "2026-10-15": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "9:45–10:45",
+          "titolo": "Seminario Corpi e storia nell’Italia contemporanea"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "12:00–13:00",
+          "titolo": "Seminario Come leggere un testo del Rinascimento: la Cabala del cavallo Pegaseo di Giordano Bruno"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "14:45–15:45",
+          "titolo": "Seminario: Archeologia e clima: storie di cambiamento"
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "16:45–17:45",
+          "titolo": "Scienze della Formazione Primaria: cosa sapere"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–10:15",  "titolo": "\"Luce dal cosmo – esplorando l'Universo oltre il visibile\""},
-        {"ora": "10:15–11:00", "titolo": "Presentazione del Corso di Studi"},
-        {"ora": "11:30–12:15", "titolo": "\"Oltre e altrove nel mondo delle particelle\""},
-        {"ora": "12:15–13:00", "titolo": "\"La fusione nucleare, motore energetico delle stelle, sorgente futura di energia pulita\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "9:45–10:45",
+          "titolo": "Seminario Un'opera, molte domande: la ricerca storico-artistica"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "12:00–13:00",
+          "titolo": "Seminario Dalla graphic novel alla scena: Nufonia Must Fall tra teatro di figura e cinema"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "14:45–15:45",
+          "titolo": "Seminario Comunicare la politica nell'età dei social media"
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "16:45–17:45",
+          "titolo": "Scienze per la Pace: cooperazione internazionale e trasformazione dei conflitti"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "9:45–10:45",
+          "titolo": "Seminario \"Enigmi e tesori o fonti e ragionamenti?\""
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "12:00–13:00",
+          "titolo": "Seminario \"Il TOLC-SU: istruzioni per l'uso\""
+        }
+      ]
+    }
+  },
+  "B_C": {
+    "aula": "Aula C",
+    "edificio": "Edificio B",
+    "piano": "Piano terra",
+    "dipartimento": "DIPARTIMENTO DI FILOLOGIA, LETTERATURA E LINGUISTICA",
+    "emoji": "📜",
+    "giorni": {
+      "2026-10-15": [
+        {
+          "ora": "9:00–9:30",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "9:40–10:10",
+          "titolo": "Seminario “La lingua e la cultura romena. Una lingua romanza tra Oriente e Occidente”"
+        },
+        {
+          "ora": "10:20–10:45",
+          "titolo": "\"Prospettive sullo studio del latino a Pisa\""
+        },
+        {
+          "ora": "11:15–11:45",
+          "titolo": "\"Come scrivono gli slavi?\""
+        },
+        {
+          "ora": "11:50–12:20",
+          "titolo": "\"Come si studia Dante all'Università\""
+        },
+        {
+          "ora": "12:30–13:00",
+          "titolo": "\"Lingua e letteratura francese\""
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "Let's TOLC! Il TOLC-SU a FiLeLi. Presentazione e simulazione"
+        },
+        {
+          "ora": "16:00–16:30",
+          "titolo": "Presentazione dell’offerta didattica"
+        },
+        {
+          "ora": "16:35–17:00",
+          "titolo": "\"Letterature dei paesi di Lingua inglese\""
+        },
+        {
+          "ora": "17:15–17:45",
+          "titolo": "Studiare Informatica Umanistica a Pisa"
+        }
+      ],
+      "2026-10-16": [
+        {
+          "ora": "9:00–9:30",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "9:40–10:10",
+          "titolo": "Seminario \"Parole, testi, culture: Esplorare la lingua e la letteratura inglese e americana\""
+        },
+        {
+          "ora": "10:20–10:45",
+          "titolo": "“Presentazione di InErba”"
+        },
+        {
+          "ora": "11:15–11:45",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "11:50–12:20",
+          "titolo": "\"Vedere, sentire, capire l’animo umano: perché il teatro ci attrae da sempre\""
+        },
+        {
+          "ora": "12:30–13:00",
+          "titolo": "\"Cosa cambia? Studiare il greco all’Università\""
+        },
+        {
+          "ora": "14:00–14:30",
+          "titolo": "Seminario America magica: come raccontare la meraviglia del reale"
+        },
+        {
+          "ora": "14:30–15:00",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "15:15–15:45",
+          "titolo": "Studiare Lettere a Pisa"
+        },
+        {
+          "ora": "16:00–16:30",
+          "titolo": "Seminario \"Non chiamatela grammatica. Introduzione alle scienze del linguaggio\""
+        },
+        {
+          "ora": "16:45–17:15",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "17:20–17:45",
+          "titolo": "Studiare Lingue e Letterature a Pisa"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–9:30",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "9:40–10:10",
+          "titolo": "Seminario “Il latino si studia solo sui libri? Alla scoperta della lingua di Roma”"
+        },
+        {
+          "ora": "10:20–10:45",
+          "titolo": "Seminario \"Tra lingua e letteratura: leggere e comprendere il testo in tedesco\""
+        },
+        {
+          "ora": "11:15–11:45",
+          "titolo": "Presentazione offerta didattica"
+        },
+        {
+          "ora": "11:50–12:20",
+          "titolo": "\"Português Starter Pack\""
+        },
+        {
+          "ora": "12:30–13:00",
+          "titolo": "Seminario Quando il gioco si fa duro, i duri cominciano a giocare\""
+        }
       ]
     }
   },
   "B_E": {
     "aula": "Aula E",
     "edificio": "Edificio B",
-    "piano": "Piano Terra",
-    "dipartimento": "Dipartimento di Biologia",
+    "piano": "Piano terra",
+    "dipartimento": "DIPARTIMENTO DI BIOLOGIA",
     "emoji": "🧬",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–11:00",  "titolo": "\"Etologia e Antropocene: il comportamento animale in un mondo che cambia\" + presentazione corsi"},
-        {"ora": "11:30–13:00", "titolo": "\"La ricerca dalla prospettiva One Health\" + presentazione corsi"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e tour (Orto Botanico e Poli didattici)"}
+      "2026-10-15": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione dell’offerta formativa · Seminario “Ciliati: organismi semplicemente complessi: come essere una singola cellula e vivere felici!”"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Presentazione dell’offerta formativa · Seminario “Un occhio al sistema”"
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "Presentazione dell’offerta formativa · Seminario “Fattori di rischio legati allo sviluppo di tumori, dallo stile di vita alla genetica”"
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "Presentazione dell’offerta formativa · Seminario “A tu per tu con i biologi: racconti di biochimica”"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–11:00",  "titolo": "\"Etologia e Antropocene: il comportamento animale in un mondo che cambia\" + presentazione corsi"},
-        {"ora": "11:30–13:00", "titolo": "\"Voci dallo Scheletro: Storie di Vita, Cibo e Viaggi del Passato\" + presentazione corsi"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione dell’offerta formativa · Seminario “Perché i fossili di ominini si vanno a cercare in Africa?””"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Presentazione dell’offerta formativa · Seminario “Cervelli di tutte le specie”"
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "Presentazione dell’offerta formativa · Seminario “La botanica in laboratorio”"
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "Presentazione dell’offerta formativa · Seminario “Biologia marina, da passione a professione appassionante”"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione dell’offerta formativa · Seminario “I linguaggi delle piante: come comunicano, crescono e si adattano”"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Presentazione dell’offerta formativa · Seminario “Capire il comportamento animale in un mondo che cambia: l'etologia al tempo dell'Antropocene”"
+        }
       ]
     }
   },
-  "B_F": {
-    "aula": "Aula F",
+  "B1_D1": {
+    "aula": "Aula D1",
     "edificio": "Edificio B",
-    "piano": "Piano Terra",
-    "dipartimento": "Dipartimento di Giurisprudenza",
-    "emoji": "⚖️",
+    "piano": "Primo piano",
+    "dipartimento": "DIPARTIMENTO DI CHIMICA E CHIMICA INDUSTRIALE",
+    "emoji": "⚗️",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–11:00",  "titolo": "Studiare giurisprudenza a Pisa + \"Diritto, libertà, potere tra passato, presente e futuro\""},
-        {"ora": "11:30–13:00", "titolo": "Studiare giurisprudenza a Pisa + \"Diritto penale, criminologia e neuroscienze\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e tour delle strutture"}
+      "2026-10-15": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione Corsi di Laurea in Chimica e in Chimica per l’Industria e per l’Ambiente"
+        },
+        {
+          "ora": "9:45–10:15",
+          "titolo": "Seminario ‘La chimica sui muri: alla scoperta di colori, polimeri e materiali della street art’"
+        },
+        {
+          "ora": "10:15–10:45",
+          "titolo": "Spazio domande e risposte (a cura dei tutor)"
+        },
+        {
+          "ora": "11:15–11:45",
+          "titolo": "Seminario 'Le reazioni click e biortogonali: dalla risoluzione di problemi al premio Nobel'"
+        },
+        {
+          "ora": "11:45–13:00",
+          "titolo": "Quanto ne sai di chimica? e Spazio domande-risposte (a cura dei tutor)"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione Corsi di Laurea in Chimica e in Chimica per l’Industria e per l’Ambiente"
+        },
+        {
+          "ora": "14:45–15:45",
+          "titolo": "Quanto ne sai di chimica? (a cura dei tutor)"
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Presentazione Corsi di Laurea in Chimica e in Chimica per l’Industria e per l’Ambiente"
+        },
+        {
+          "ora": "16:45–17:15",
+          "titolo": "Seminario 'Strategie chimiche per una transizione energetica sostenibile'"
+        },
+        {
+          "ora": "17:15–17:45",
+          "titolo": "Spazio domande e risposte (a cura dei tutor)"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–11:00",  "titolo": "Studiare giurisprudenza a Pisa + \"Il diritto internazionale oggi\""},
-        {"ora": "11:30–13:00", "titolo": "Studiare giurisprudenza a Pisa + \"Il diritto del lavoro e le nuove tecnologie\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione Corsi di Laurea in Chimica e in Chimica per l’Industria e per l’Ambiente"
+        },
+        {
+          "ora": "9:45–10:15",
+          "titolo": "Seminario 'Dalla luce all'energia, un possibile aiuto dalla plastica'"
+        },
+        {
+          "ora": "10:15–10:45",
+          "titolo": "Spazio domande e risposte (a cura dei tutor)"
+        },
+        {
+          "ora": "11:15–11:45",
+          "titolo": "Seminario 'Polimeri per la salute: trasportare ciò che cura, fermare ciò che danneggia'"
+        },
+        {
+          "ora": "11:45–13:00",
+          "titolo": "Spazio domande-risposte (a cura dei tutor)"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione Corsi di Laurea in Chimica e in Chimica per l’Industria e per l’Ambiente"
+        },
+        {
+          "ora": "14:45–15:45",
+          "titolo": "Quanto ne sai di chimica? (a cura dei tutor)"
+        },
+        {
+          "ora": "16:00–16:30",
+          "titolo": "Seminario 'Dalla tavola periodica ai farmaci del futuro. Un viaggio tra storia e innovazione'"
+        },
+        {
+          "ora": "16:30–17:00",
+          "titolo": "Seminario 'Modelli molecolari ai tempi dello smartphone'"
+        },
+        {
+          "ora": "17:00–17:30",
+          "titolo": "Spazio domande e risposte (a cura dei tutor)"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione Corsi di Laurea in Chimica e in Chimica per l’Industria e per l’Ambiente"
+        },
+        {
+          "ora": "9:45–10:15",
+          "titolo": "Seminario 'L'affascinante mondo dei cristalli liquidi'"
+        },
+        {
+          "ora": "10:15–10:45",
+          "titolo": "Spazio domande e risposte (a cura dei tutor)"
+        },
+        {
+          "ora": "11:15–11:45",
+          "titolo": "Seminario 'Chimica verde: sfide e opportunità per un presente e un futuro sostenibili'"
+        },
+        {
+          "ora": "11:45–13:00",
+          "titolo": "Quanto ne sai di chimica? e Spazio domande-risposte (a cura dei tutor)"
+        }
       ]
     }
   },
-  "B_G": {
-    "aula": "Aula G",
+  "B1_E1": {
+    "aula": "Aula E1",
     "edificio": "Edificio B",
-    "piano": "Piano Terra",
-    "dipartimento": "Dipartimento di Economia e Management",
-    "emoji": "📊",
+    "piano": "Primo piano",
+    "dipartimento": "DIPARTIMENTO DI FISICA",
+    "emoji": "⚛️",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–11:00",  "titolo": "\"Scegliere Economia e Management: capire persone, organizzazioni, mercati e istituzioni\""},
-        {"ora": "11:30–13:00", "titolo": "\"Scegliere Economia e Management: capire persone, organizzazioni, mercati e istituzioni\""},
-        {"ora": "14:00–18:00", "titolo": "\"Un pomeriggio al DEM: Esplora, Conosci, Scegli\" – spazio domande e tour"}
+      "2026-10-15": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Seminario \"L'Universo dentro di noi\""
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Presentazione CdL in Fisica"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Seminario “The Dark Universe”"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Presentazione CdL in Fisica"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Seminario \"La passaporta, Harry! Dal qubit al teletrasporto: Dizionario di fisica e tecnologie quantistiche\""
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Presentazione del CdL in Fisica"
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Seminario \"Le nuove tecnologie quantistiche: dai computer super potenti alle comunicazioni super segrete\""
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Presentazione del CdL in Fisica"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–11:00",  "titolo": "\"Scegliere Economia e Management: capire persone, organizzazioni, mercati e istituzioni\""},
-        {"ora": "11:30–13:00", "titolo": "\"Scegliere Economia e Management: capire persone, organizzazioni, mercati e istituzioni\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Seminario \"Viaggia nel nano mondo delle cellule come AntMan (ma grazie alla fisica)\""
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Presentazione CdL in Fisica"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Seminario \"La fisica medica e le sue sfide\""
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Presentazione CdL in Fisica"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Seminario \"Salviamo il gatto di Schrodinger!!"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Presentazione del CdL in Fisica"
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Seminario \"Ascoltare l’Universo: dalle onde gravitazionali alle \"sirene\" cosmiche\""
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Presentazione del CdL in Fisica"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Seminario \"L'ordine del caos: le regole segrete della dinamica nonlineare che governano il mondo\""
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Presentazione CdL in Fisica"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Seminario \"Dentro l’atomo: Le particelle che non conoscete, e dove trovarle\""
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Presentazione CdL in Fisica"
+        }
+      ]
+    }
+  },
+  "B_LABM": {
+    "aula": "Lab-M",
+    "edificio": "Edificio B",
+    "piano": "Piano terra",
+    "dipartimento": "DIPARTIMENTO DI INFORMATICA",
+    "emoji": "💻",
+    "giorni": {
+      "2026-10-15": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione dell’offerta didattica · Seminario “Come funzionano le piattaforme di Streaming?”"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Presentazione dell’offerta didattica · Seminario “Come funziona un chatbot?”"
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "Presentazione dell’offerta didattica · Seminario “Informatica e lavoro: il percorso di un'ex studentessa”"
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "Presentazione dell’offerta didattica · Problemi e domande con i tutor"
+        }
+      ],
+      "2026-10-16": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione dell’offerta didattica · Seminario “Come funziona un chatbot?”"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Presentazione dell’offerta didattica · Informatica e lavoro: il percorso di un'ex studentessa"
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "Presentazione dell’offerta didattica · Seminario “Le applicazioni dell'Informatica nelle scienze biomediche”"
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "Presentazione dell’offerta didattica · Problemi e domande con i tutor"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione dell’offerta didattica · Informatica e lavoro: il percorso di un'ex studentessa"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Presentazione dell’offerta didattica · Problemi e domande con i tutor"
+        }
+      ]
+    }
+  },
+  "B1_C1": {
+    "aula": "Aula C1",
+    "edificio": "Edificio B",
+    "piano": "Primo piano",
+    "dipartimento": "DIPARTIMENTO DI MATEMATICA",
+    "emoji": "📐",
+    "giorni": {
+      "2026-10-15": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione dell’offerta didattica · Seminario \"Mettiti alla prova: problemi sfidanti in matematica\""
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Seminario \"Curve ellittiche: l'aritmetica incontra la geometria\" · Question time con i tutor"
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "Presentazione dell’offerta didattica · Seminario \"Mettiti alla prova: problemi sfidanti in matematica\""
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "Seminario \"Da effetti a cause: la matematica dei problemi inversi\" · Question time con i tutor"
+        }
+      ],
+      "2026-10-16": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione dell’offerta didattica · Seminario \"Mettiti alla prova: problemi sfidanti in matematica\""
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Seminario \"Il topo scappa, il gatto insegue, e il matematico guarda - Introduzione alle equazioni degli ecosistemi\" · Question time con i tutor"
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "Presentazione dell’offerta didattica · Seminario \"Mettiti alla prova: problemi sfidanti in matematica\""
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "Seminario · Question time con i tutor"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione dell’offerta didattica · Seminario \"Mettiti alla prova: problemi sfidanti in matematica\""
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Laboratorio sulla geometria della sfera"
+        }
       ]
     }
   },
   "B_L": {
     "aula": "Aula L",
     "edificio": "Edificio B",
-    "piano": "Piano Terra",
-    "dipartimento": "Dipartimento di Scienze della Terra",
-    "emoji": "🌍",
+    "piano": "Piano terra",
+    "dipartimento": "DIPARTIMENTO DI SCIENZE DELLA TERRA",
+    "emoji": "🌋",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–11:00",  "titolo": "Presentazione Scienze Geologiche + \"GeoQuiz: sfatate dei miti geologici giocando!\""},
-        {"ora": "11:30–13:00", "titolo": "Presentazione Scienze Geologiche + \"GeoQuiz: sfatate dei miti geologici giocando!\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e tour (attività laboratoriali su discipline geologiche e ambientali)"}
+      "2026-10-15": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione dei corsi di laurea e question time con i tutor"
+        },
+        {
+          "ora": "9:45–10:45",
+          "titolo": "Seminario di approfondimento sulle attività della Protezione Civile del Comune di Lucca: \"La Geologia e la Protezione Civile\""
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dei corsi di laurea e question time con i tutor"
+        },
+        {
+          "ora": "12:00–13:00",
+          "titolo": "Seminario di approfondimento sulle attività della Protezione Civile del Comune di Lucca: \"La Geologia e la Protezione Civile\""
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione dei corsi di laurea e question time con i tutor"
+        },
+        {
+          "ora": "14:45–15:45",
+          "titolo": "Seminario di approfondimento sulle attività della Protezione Civile del Comune di Lucca: \"La Geologia e la Protezione Civile\""
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Presentazione dei corsi di laurea e question time con i tutor"
+        },
+        {
+          "ora": "16:45–17:45",
+          "titolo": "Seminario di approfondimento sulle attività della Protezione Civile del Comune di Lucca: \"La Geologia e la Protezione Civile\""
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–11:00",  "titolo": "Presentazione Scienze Geologiche + \"GeoQuiz: sfatate dei miti geologici giocando!\""},
-        {"ora": "11:30–13:00", "titolo": "Presentazione Scienze Geologiche + \"GeoQuiz: sfatate dei miti geologici giocando!\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:00–9:30",
+          "titolo": "Presentazione dei corsi di laurea e question time con i tutor"
+        },
+        {
+          "ora": "9:45–10:45",
+          "titolo": "Seminario di approfondimento sulle attività dell'Ordine dei Geologi della Toscana dal titolo \"La professione del Geologo e le indagini geofisiche per la caratterizzazione del sottosuolo\" ed esperienze pratiche con strumentazioni"
+        },
+        {
+          "ora": "11:15–11:45",
+          "titolo": "Presentazione dei corsi di laurea e question time con i tutor"
+        },
+        {
+          "ora": "11:45–13:00",
+          "titolo": "Seminario di approfondimento sulle attività dell'Ordine dei Geologi della Toscana dal titolo \"La professione del Geologo e le indagini geofisiche per la caratterizzazione del sottosuolo\" ed esperienze pratiche con strumentazioni"
+        },
+        {
+          "ora": "14:00–14:30",
+          "titolo": "Presentazione dei corsi di laurea e question time con i tutor"
+        },
+        {
+          "ora": "14:45–15:45",
+          "titolo": "Seminario di approfondimento sulle attività dell'Ordine dei Geologi della Toscana dal titolo \"La professione del Geologo e le indagini geofisiche per la caratterizzazione del sottosuolo\" ed esperienze pratiche con strumentazioni"
+        },
+        {
+          "ora": "16:00–16:30",
+          "titolo": "Presentazione dei corsi di laurea e question time con i tutor"
+        },
+        {
+          "ora": "16:30–17:45",
+          "titolo": "Seminario di approfondimento sulle attività dell'Ordine dei Geologi della Toscana dal titolo \"La professione del Geologo e le indagini geofisiche per la caratterizzazione del sottosuolo\" ed esperienze pratiche con strumentazioni"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–9:30",
+          "titolo": "Presentazione dei corsi di laurea e question time con i tutor"
+        },
+        {
+          "ora": "9:45–10:45",
+          "titolo": "Seminario di approfondimento sugli studi di giovani ricercatori del DST riguardo e fossili e l'erosione costiera"
+        },
+        {
+          "ora": "11:15–11:45",
+          "titolo": "Presentazione dei corsi di laurea e question time con i tutor"
+        },
+        {
+          "ora": "11:45–13:00",
+          "titolo": "Seminario di approfondimento sugli studi di giovani ricercatori del DST riguardo e fossili e l'erosione costiera"
+        }
       ]
     }
   },
-  "B_LABH": {
-    "aula": "Aula Lab-H",
+  "B_A": {
+    "aula": "Aula A",
     "edificio": "Edificio B",
-    "piano": "Piano Terra",
-    "dipartimento": "Dipartimento di Informatica",
-    "emoji": "💻",
+    "piano": "Piano terra",
+    "dipartimento": "DIPARTIMENTO DI ECONOMIA E MANAGEMENT",
+    "emoji": "📊",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–11:00",  "titolo": "Presentazione offerta didattica + \"Problemi da Informatici\""},
-        {"ora": "11:30–13:00", "titolo": "Presentazione offerta didattica + \"Come funziona lo streaming video?\""},
-        {"ora": "14:00–18:00", "titolo": "Incontro con i tutor + Escape Room \"CTRL+ESCAPE: il Labirinto dell'Artefatto\""}
+      "2026-10-15": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Perchè studiare economia e management? · Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Studiare all’università: l’esperienza dei tutor DEM"
+        },
+        {
+          "ora": "11:15–12:15",
+          "titolo": "Perchè studiare economia e management? · Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Studiare all’università: l’esperienza dei tutor DEM"
+        },
+        {
+          "ora": "14:00–15:00",
+          "titolo": "Perchè studiare economia e management? · Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Studiare all’università: l’esperienza dei tutor DEM"
+        },
+        {
+          "ora": "16:00–17:00",
+          "titolo": "Perchè studiare economia e management? · Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Studiare all’università: l’esperienza dei tutor DEM"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–11:00",  "titolo": "Presentazione offerta didattica + \"Problemi da Informatici\""},
-        {"ora": "11:30–13:00", "titolo": "Presentazione offerta didattica + \"Etica dell'Intelligenza Artificiale\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Perchè studiare economia e management? · Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Studiare all’università: l’esperienza dei tutor DEM"
+        },
+        {
+          "ora": "11:15–12:15",
+          "titolo": "Perchè studiare economia e management? · Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Studiare all’università: l’esperienza dei tutor DEM"
+        },
+        {
+          "ora": "14:00–15:00",
+          "titolo": "Perchè studiare economia e management? · Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Studiare all’università: l’esperienza dei tutor DEM"
+        },
+        {
+          "ora": "16:00–17:00",
+          "titolo": "Perchè studiare economia e management? · Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Studiare all’università: l’esperienza dei tutor DEM"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Perchè studiare economia e management? · Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Studiare all’università: l’esperienza dei tutor DEM"
+        },
+        {
+          "ora": "11:15–12:15",
+          "titolo": "Perchè studiare economia e management? · Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Studiare all’università: l’esperienza dei tutor DEM"
+        }
       ]
     }
   },
-  "B_LABM": {
-    "aula": "Lab M",
+  "B_G": {
+    "aula": "Aula G",
     "edificio": "Edificio B",
-    "piano": "Piano Terra",
-    "dipartimento": "Dipartimento di Matematica",
-    "emoji": "📐",
+    "piano": "Piano terra",
+    "dipartimento": "DIPARTIMENTO DI GIURISPRUDENZA",
+    "emoji": "⚖️",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–10:00",  "titolo": "Presentazione offerta didattica"},
-        {"ora": "10:00–11:00", "titolo": "\"Misura dello spazio e insiemi frattali\""},
-        {"ora": "11:30–12:00", "titolo": "Presentazione offerta didattica"},
-        {"ora": "12:00–13:00", "titolo": "\"Problemi sfidanti in matematica\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e tour delle strutture"}
+      "2026-10-15": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Presentazione dell’offerta del Dipartimento e dei corsi di laurea"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Seminario di Diritto costituzionale"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta del Dipartimento e dei corsi di laurea"
+        },
+        {
+          "ora": "12:00–13:00",
+          "titolo": "Seminario di Diritto del lavoro: “La Costituzione e il salario dignitoso”"
+        },
+        {
+          "ora": "14:00–14:30",
+          "titolo": "Presentazione dell’offerta del Dipartimento e dei corsi di laurea"
+        },
+        {
+          "ora": "14:30–15:45",
+          "titolo": "Seminario di Diritto privato: “La tutela del consumatore in internet”"
+        },
+        {
+          "ora": "16:00–17:00",
+          "titolo": "Presentazione dell’offerta del Dipartimento e dei corsi di laurea"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Seminario tematico di Diritto civile"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–10:00",  "titolo": "Presentazione offerta didattica"},
-        {"ora": "10:00–11:00", "titolo": "\"Il motivo nascosto per cui una tazza da tè non è un pallone da calcio\""},
-        {"ora": "11:30–12:00", "titolo": "Presentazione offerta didattica"},
-        {"ora": "12:00–13:00", "titolo": "\"Da effetti a cause: la matematica dei problemi inversi\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Presentazione dell’offerta del Dipartimento e dei corsi di laurea"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Laboratorio: Moot court di diritto civile"
+        },
+        {
+          "ora": "11:00–11:30",
+          "titolo": "Presentazione dell’offerta del Dipartimento e dei corsi di laurea"
+        },
+        {
+          "ora": "11:30–12:15",
+          "titolo": "Seminario di Criminologia e diritto penale"
+        },
+        {
+          "ora": "11:30–12:15",
+          "titolo": "Seminario di Diritto internazionale"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione dell’offerta del Dipartimento e dei corsi di laurea"
+        },
+        {
+          "ora": "14:45–15:45",
+          "titolo": "Seminario di Diritto del lavoro"
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Presentazione dell’offerta del Dipartimento e dei corsi di laurea"
+        },
+        {
+          "ora": "16:45–17:45",
+          "titolo": "Seminario tematico di Storia del diritto"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Presentazione dell’offerta del Dipartimento e dei corsi di laurea"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Seminario di Diritto privato e Diritto processuale civile"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta del Dipartimento e dei corsi di laurea"
+        },
+        {
+          "ora": "12:00–13:00",
+          "titolo": "Laboratorio: Moot court di diritto penale"
+        }
       ]
     }
   },
-  "B_N": {
-    "aula": "Aula N",
+  "B_F": {
+    "aula": "Aula F",
     "edificio": "Edificio B",
-    "piano": "Piano Terra",
-    "dipartimento": "Dipartimento di Scienze Politiche",
+    "piano": "Piano terra",
+    "dipartimento": "DIPARTIMENTO DI SCIENZE POLITICHE",
     "emoji": "🏛️",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–11:00",  "titolo": "Scienze politiche, Servizio sociale e Turismo: presentazione corsi + question time"},
-        {"ora": "11:30–13:00", "titolo": "Scienze politiche, Servizio sociale e Turismo: presentazione corsi + question time"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e tour delle strutture"}
+      "2026-10-15": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "\"Scienze politiche e Scienze del servizio sociale: cosa si studia e perchè sceglierli\". · Presentazione del Corso di Laurea in Scienze politiche (L-36) e del Corso di Laurea in Scienze del servizio sociale (L-39)."
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Dallo studio al lavoro: le carriere nelle scienze del servizio sociale. \"Lavorare per la cooperazione sociale\". · Dallo studio al lavoro: le carriere nelle scienze politiche. \"Gestire le risorse umane\""
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "\"Scienze politiche e Scienze del servizio sociale: cosa si studia e perchè sceglierli\". Presentazione del Corso di Laurea in Scienze politiche (L-36) e del Corso di Laurea in Scienze del servizio sociale (L-39). · L’internazionalizzazione nel Dipartimento di Scienze politiche. \"L’importanza di svolgere una esperienza di studio e/o di tirocinio all’estero\""
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "\"Confrontati con chi ci è già passato: spazio ai Tutor\""
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–11:00",  "titolo": "Scienze politiche, Servizio sociale e Turismo: presentazione corsi + question time"},
-        {"ora": "11:30–13:00", "titolo": "Scienze politiche, Servizio sociale e Turismo: presentazione corsi + question time"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "\"Scienze politiche e Scienze del servizio sociale: cosa si studia e perchè sceglierli\". · Presentazione del Corso di Laurea in Scienze politiche (L-36) e del Corso di Laurea in Scienze del servizio sociale (L-39)."
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Capire il presente: uno sguardo multidisciplinare sui grandi temi di attualità \"Governare la transizione ecologica tra economia e società\" · Dallo studio al lavoro: le carriere nelle scienze politiche. \"Diventare giornalisti. La carriera nella comunicazione e nei media\""
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "\"Scienze politiche e Scienze del servizio sociale: cosa si studia e perchè sceglierli\". Presentazione del Corso di Laurea in Scienze politiche (L-36) e del Corso di Laurea in Scienze del servizio sociale (L-39). · L’internazionalizzazione nel Dipartimento di Scienze politiche. \"L’importanza di svolgere una esperienza di studio e/o di tirocinio all’estero\""
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "\"Confrontati con chi ci è già passato: spazio ai Tutor\""
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "\"Scienze politiche e Scienze del servizio sociale: cosa si studia e perchè sceglierli\". · Presentazione del Corso di Laurea in Scienze politiche (L-36) e del Corso di Laurea in Scienze del servizio sociale (L-39). · \"Confrontati con chi ci è già passato: spazio ai Tutor\"."
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Capire il presente: uno sguardo multidisciplinare sui grandi temi di attualità. \"Il contrasto alle nuove forme di povertà tra diritto e società\" · Presentazione del catalogo per le Scuole 2026- 2027"
+        }
       ]
     }
   },
-  "D_D2": {
-    "aula": "Aula D2",
-    "edificio": "Edificio D",
-    "piano": "",
-    "dipartimento": "Dipartimento di Veterinaria",
-    "emoji": "🐾",
+  "B1_N1": {
+    "aula": "Aula N1",
+    "edificio": "Edificio B",
+    "piano": "Primo piano",
+    "dipartimento": "POLO SISTEMI LOGISTICI DI LIVORNO",
+    "emoji": "🚢",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–11:00",  "titolo": "Presentazione offerta didattica + seminario sul cavallo"},
-        {"ora": "11:30–13:00", "titolo": "Presentazione offerta didattica + seminario tematico"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e tour (Museo Anatomico e laboratorio sulle zecche)"}
+      "2026-10-15": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Che cos’è la logistica: presentazione del Corso di Laurea in Economia e Legislazione dei Sistemi Logistici · Sbocchi professionali · Preparazione TOLC-E · Question time"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Che cos’è la logistica: presentazione del Corso di Laurea in Economia e Legislazione dei Sistemi Logistici · Sbocchi professionali · Preparazione TOLC-E · Question time"
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "Che cos’è la logistica: presentazione del Corso di Laurea in Economia e Legislazione dei Sistemi Logistici · Sbocchi professionali · Preparazione TOLC-E · Question time"
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "Che cos’è la logistica: presentazione del Corso di Laurea in Economia e Legislazione dei Sistemi Logistici · Sbocchi professionali · Preparazione TOLC-E · Question time"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–11:00",  "titolo": "Presentazione offerta didattica + seminario tematico"},
-        {"ora": "11:30–13:00", "titolo": "Presentazione offerta didattica + \"Partorire non è sempre facile\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Che cos’è la logistica: presentazione del Corso di Laurea in Economia e Legislazione dei Sistemi Logistici · Sbocchi professionali · Preparazione TOLC-E · Question time"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Che cos’è la logistica: presentazione del Corso di Laurea in Economia e Legislazione dei Sistemi Logistici · Sbocchi professionali · Preparazione TOLC-E · Question time"
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "Che cos’è la logistica: presentazione del Corso di Laurea in Economia e Legislazione dei Sistemi Logistici · Sbocchi professionali · Preparazione TOLC-E · Question time"
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "Che cos’è la logistica: presentazione del Corso di Laurea in Economia e Legislazione dei Sistemi Logistici · Sbocchi professionali · Preparazione TOLC-E · Question time"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Che cos’è la logistica: presentazione del Corso di Laurea in Economia e Legislazione dei Sistemi Logistici · Sbocchi professionali · Preparazione TOLC-E · Question time"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Che cos’è la logistica: presentazione del Corso di Laurea in Economia e Legislazione dei Sistemi Logistici · Sbocchi professionali · Preparazione TOLC-E · Question time"
+        }
       ]
     }
   },
-  "D_D3": {
-    "aula": "Aula D3",
-    "edificio": "Edificio D",
-    "piano": "",
-    "dipartimento": "Dipartimento di Filologia, Letteratura e Linguistica",
-    "emoji": "📖",
+  "B1_O1": {
+    "aula": "Aula O1",
+    "edificio": "Edificio B",
+    "piano": "Primo piano",
+    "dipartimento": "FONDAZIONE CAMPUS LUCCA - SCIENZE DEL TURISMO",
+    "emoji": "🧳",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–11:00",  "titolo": "\"Pisa è il posto giusto\" + \"La poesia ci salverà dall'estinzione (leggere poetesse spagnole)\""},
-        {"ora": "11:30–13:00", "titolo": "\"Pisa è il posto giusto\" + \"Dialogare con i classici nei manoscritti: voci degli antichi, altre voci\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e tour delle strutture"}
+      "2026-10-15": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione del Corso di Laurea triennale in Scienze del Turismo. · Conosci il corso: piano di studi, organizzazione stage, sbocchi professionali, i nostri servizi. · Parla con chi lo sta già vivendo · Sportello Tutor · Testimonianze video"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Presentazione del Corso di Laurea triennale in Scienze del Turismo. · Conosci il corso: piano di studi, organizzazione stage, sbocchi professionali, i nostri servizi. · Parla con chi lo sta già vivendo · Sportello Tutor · Testimonianze video"
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "Presentazione del Corso di Laurea triennale in Scienze del Turismo. · Conosci il corso: piano di studi, organizzazione stage, sbocchi professionali, i nostri servizi. · Parla con chi lo sta già vivendo · Sportello Tutor · Testimonianze video"
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "Presentazione del Corso di Laurea triennale in Scienze del Turismo. · Conosci il corso: piano di studi, organizzazione stage, sbocchi professionali, i nostri servizi. · Parla con chi lo sta già vivendo · Sportello Tutor · Testimonianze video"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–11:00",  "titolo": "\"Pisa è il posto giusto\" + \"Samba, tamburi e orixás: il Brasile che suona l'Africa\""},
-        {"ora": "11:30–13:00", "titolo": "\"Pisa è il posto giusto\" + \"App, video e test di orientamento. Le sfide di Fileli: quiz a premi\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione del Corso di Laurea triennale in Scienze del Turismo. · Conosci il corso: piano di studi, organizzazione stage, sbocchi professionali, i nostri servizi. · Parla con chi lo sta già vivendo · Sportello Tutor · Testimonianze video"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Presentazione del Corso di Laurea triennale in Scienze del Turismo. · Conosci il corso: piano di studi, organizzazione stage, sbocchi professionali, i nostri servizi. · Parla con chi lo sta già vivendo · Sportello Tutor · Testimonianze video"
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "Presentazione del Corso di Laurea triennale in Scienze del Turismo. · Conosci il corso: piano di studi, organizzazione stage, sbocchi professionali, i nostri servizi. · Parla con chi lo sta già vivendo · Sportello Tutor · Testimonianze video"
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "Presentazione del Corso di Laurea triennale in Scienze del Turismo. · Conosci il corso: piano di studi, organizzazione stage, sbocchi professionali, i nostri servizi. · Parla con chi lo sta già vivendo · Sportello Tutor · Testimonianze video"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione del Corso di Laurea triennale in Scienze del Turismo. · Conosci il corso: piano di studi, organizzazione stage, sbocchi professionali, i nostri servizi. · Parla con chi lo sta già vivendo · Sportello Tutor · Testimonianze video"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Presentazione del Corso di Laurea triennale in Scienze del Turismo. · Conosci il corso: piano di studi, organizzazione stage, sbocchi professionali, i nostri servizi. · Parla con chi lo sta già vivendo · Sportello Tutor · Testimonianze video"
+        }
       ]
     }
   },
-  "D_D4": {
-    "aula": "Aula D4",
-    "edificio": "Edificio D",
-    "piano": "",
-    "dipartimento": "Dipartimento di Scienze Agrarie, Alimentari e Agro-Ambientali",
-    "emoji": "🌾",
+  "B1_M1": {
+    "aula": "Aula M1",
+    "edificio": "Edificio B",
+    "piano": "Primo piano",
+    "dipartimento": "ACCADEMIA NAVALE DI LIVORNO",
+    "emoji": "⚓",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–10:00",  "titolo": "Presentazione Corso di Laurea in Scienze degli Alimenti"},
-        {"ora": "10:00–10:30", "titolo": "\"Ascoltare le piante: come gli strumenti di precisione svelano la fame d'azoto in tempo reale\""},
-        {"ora": "10:30–11:00", "titolo": "\"Il buono, il bello e il cattivo: tra insetti utili, dannosi e dal duplice ruolo\""},
-        {"ora": "11:00–11:30", "titolo": "\"Ogni persona conta: inclusione ed accoglienza nei percorsi universitari\""},
-        {"ora": "11:30–12:00", "titolo": "Presentazione Corso di Laurea in Scienze Agrarie"},
-        {"ora": "12:00–12:30", "titolo": "\"Genotipizzazione della salicornia per un'agricoltura sostenibile (SAGA)\""},
-        {"ora": "12:30–13:00", "titolo": "\"Robot in agricoltura: siamo già nel futuro?\""},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e tour (lab chimico agrario, respirazione del suolo, collezione entomologica)"}
+      "2026-10-15": [
+        {
+          "ora": "9:30–10:15",
+          "titolo": "Orientamento Marina Militare Italiana - #IlgrandeEquipaggio"
+        },
+        {
+          "ora": "11:30–12:15",
+          "titolo": "Orientamento Marina Militare Italiana - #IlgrandeEquipaggio"
+        },
+        {
+          "ora": "14:30–15:15",
+          "titolo": "Orientamento Marina Militare Italiana - #IlgrandeEquipaggio"
+        },
+        {
+          "ora": "16:15–17:00",
+          "titolo": "Orientamento Marina Militare Italiana - #IlgrandeEquipaggio"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–10:00",  "titolo": "Presentazione Corso di Laurea in Viticultura ed Enologia"},
-        {"ora": "10:00–10:30", "titolo": "\"Viticoltura di precisione: il futuro del vigneto è in HD\""},
-        {"ora": "10:45–11:30", "titolo": "\"Viaggio sensoriale nelle spezie: tra scienza e curiosità\""},
-        {"ora": "11:30–12:00", "titolo": "Presentazione offerta didattica del Dipartimento"},
-        {"ora": "12:00–13:00", "titolo": "Food Hack Challenge"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:30–10:15",
+          "titolo": "Orientamento Marina Militare Italiana - #IlgrandeEquipaggio"
+        },
+        {
+          "ora": "11:30–12:15",
+          "titolo": "Orientamento Marina Militare Italiana - #IlgrandeEquipaggio"
+        },
+        {
+          "ora": "14:30–15:15",
+          "titolo": "Orientamento Marina Militare Italiana - #IlgrandeEquipaggio"
+        },
+        {
+          "ora": "16:15–17:00",
+          "titolo": "Orientamento Marina Militare Italiana - #IlgrandeEquipaggio"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:30–10:15",
+          "titolo": "Orientamento Marina Militare Italiana - #IlgrandeEquipaggio"
+        },
+        {
+          "ora": "11:30–12:15",
+          "titolo": "Orientamento Marina Militare Italiana - #IlgrandeEquipaggio"
+        }
+      ]
+    }
+  },
+  "B_B": {
+    "aula": "Aula B",
+    "edificio": "Edificio B",
+    "piano": "Piano terra",
+    "dipartimento": "DIPARTIMENTO DI FARMACIA",
+    "emoji": "💊",
+    "giorni": {
+      "2026-10-15": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione offerta didattica · Laboratorio/tutors"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Presentazione dell’offerta didattica. · Seminario ‘Senti chi parla! Pillole in Farmacia - Le piante per la salute’"
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "Presentazione offerta didattica · Laboratorio"
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "Presentazione offerta didattica · Chiedi ai tutors: domande e risposte"
+        }
+      ],
+      "2026-10-16": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione offerta didattica. · Seminario Senti chi parla! Pillole in Farmacia - Studi biochimici per lo sviluppo di farmaci"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Presentazione dell’offerta didattica. · Chiedi ai tutors: domande e risposte"
+        },
+        {
+          "ora": "14:00–15:45",
+          "titolo": "Presentazione offerta didattica · Seminario Senti chi parla! Pillole in Farmacia - Alla scoperta della professione del farmacista: misurare, prevenire, assistere"
+        },
+        {
+          "ora": "16:00–17:45",
+          "titolo": "Presentazione offerta didattica · Laboratorio"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–10:45",
+          "titolo": "Presentazione offerta didattica. · Chiedi ai tutors: domande e risposte"
+        },
+        {
+          "ora": "11:15–13:00",
+          "titolo": "Presentazione dell’offerta didattica. · Seminario Senti chi parla! Pillole in Farmacia - La ricerca sul cancro: conoscere il nemico per progettare nuove cure"
+        }
       ]
     }
   },
   "D_D5": {
     "aula": "Aula D5",
     "edificio": "Edificio D",
-    "piano": "",
-    "dipartimento": "Dipartimento di Civiltà e Forme del Sapere",
-    "emoji": "🏺",
+    "piano": "Piano terra",
+    "dipartimento": "SCUOLA DI MEDICINA – MEDICINA",
+    "emoji": "🩺",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–10:15",  "titolo": "Seminario di Filosofia Morale + intervento di Storia della Filosofia"},
-        {"ora": "10:15–10:45", "titolo": "Presentazione corsi: Filosofia e Scienze della Formazione Primaria"},
-        {"ora": "11:30–12:15", "titolo": "Seminario di Museologia e Critica Artistica e del Restauro"},
-        {"ora": "12:15–12:45", "titolo": "Presentazione corsi: Discipline dello Spettacolo e della Comunicazione, Scienze dei Beni Culturali"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e tour delle strutture"}
+      "2026-10-15": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Prevenzione cardiovascolare per una sana longevità"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Prevenire nel mondo che cambia: la medicina tra pandemie, clima e antibiotici"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Novità diagnostiche e terapeutiche nei tumori cutanei"
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Vedere l'invisibile: dalla radiologia all'intellegenza artificiale"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–10:15",  "titolo": "Seminario di Storia dei Paesi Islamici"},
-        {"ora": "10:15–10:45", "titolo": "Presentazione corsi: Storia e Scienze per la Pace"},
-        {"ora": "11:30–12:15", "titolo": "Seminario di Assiriologia"},
-        {"ora": "12:15–12:45", "titolo": "Presentazione corsi: Scienze dei Beni Culturali (curriculum Archeologico e Egitto/Vicino Oriente Antico)"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Il taglio giusto! La formazione universitaria in chirurgia generale, dall'aula alla sala operatoria"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Uomini e microrganismi, storia di una interazione nata nella notte dei tempi."
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Dal laboratorio all'uomo: alcuni esempi attuali di ricerca in Neuroscienze"
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Vedere l'invisibile: dalla radiologia all'intellegenza artificiale"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Il mondo negli occhi: il percorso della visione nel sistema nervoso"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Quando il Microscopio Guida la Cura: Anatomia Patologica e Oncologia di Precisione"
+        }
+      ]
+    }
+  },
+  "D_D2": {
+    "aula": "Aula D2",
+    "edificio": "Edificio D",
+    "piano": "Piano terra",
+    "dipartimento": "SCUOLA DI MEDICINA – PROFESSIONI SANITARIE",
+    "emoji": "🏥",
+    "giorni": {
+      "2026-10-15": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "La simulazione nella formazione dello studente del CdL in Ostetricia\""
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Le nuove frontiere della riabilitazione nell'era digitale e dell'intelligenza artificiale"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Le nuove sfide nella prevenzione dei rischi nell'ambiente e nei luoghi di lavoro"
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "La medicina della comunicazione: aspetti foniatrici, audiologici e logopedici nelle professioni sanitarie"
+        }
+      ],
+      "2026-10-16": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Specchi, peso ed emozioni: viaggio nella riabilitazione dei DCA - Disturbi della Condotta Alimentare"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Dieta Mediterranea nell' era dei cibi ultra- processati"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Presentazione offerta formativa"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Radiologia: dove scienza e salute si incontrano."
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "La medicina della comunicazione: aspetti foniatrici, audiologici e logopedici nelle professioni sanitarie"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Medicina Fisica e Riabilitativa: la scienza del recupero nelle professioni sanitarie della riabilitazione"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Infermieristica: una professione di scienza, relazione e cura"
+        }
+      ]
+    }
+  },
+  "D_D4": {
+    "aula": "Aula D4",
+    "edificio": "Edificio D",
+    "piano": "Piano terra",
+    "dipartimento": "SCUOLA DI MEDICINA – PSICOLOGIA",
+    "emoji": "🧠",
+    "giorni": {
+      "2026-10-15": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Seminario Gli effetti della respirazione sul cervello"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Stress e insonnia"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Applicazioni della mindfulness"
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "16:45–17:45",
+          "titolo": "I diversi volti della Psicologia"
+        }
+      ],
+      "2026-10-16": [
+        {
+          "ora": "9:00–9:30",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "9:30–10:30",
+          "titolo": "Seminario: Il cervello vivo: respiro, decisioni e complessità"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Farmacologia e psicologia: due amiche di nuova data"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Applicazioni sperimentali alla psicologia"
+        },
+        {
+          "ora": "16:00–17:00",
+          "titolo": "Seminario: Psicofisiologia del decision making in contesti sociali complessi."
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "9:45–10:45",
+          "titolo": "Condivisione del percorso universitario: la voce degli studenti"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell'offerta formativa · Psicofisiologia della consapevolezza coroporea"
+        }
+      ]
+    }
+  },
+  "D_D3": {
+    "aula": "Aula D3",
+    "edificio": "Edificio D",
+    "piano": "Piano terra",
+    "dipartimento": "SCUOLA DI MEDICINA – SCIENZE MOTORIE",
+    "emoji": "🏃",
+    "giorni": {
+      "2026-10-15": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Analizzare i dati per Vincere: La Scienza della Prestazione Sportiva"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "La Prescrizione dell’Esercizio: quando lo sport diventa terapia"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Dati, Allenamento, Benessere"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Università e passione sportiva: come combinarli?"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        }
+      ],
+      "2026-10-16": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "La mente prima della gara, il Mental Coach:come allenare concentrazione e gestire l'ansia nello sport\""
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Funzione in azione: dall'anatomia al movimento"
+        },
+        {
+          "ora": "14:00–14:45",
+          "titolo": "Allenare la forza: oltre i pesi, dentro la metodologia"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "16:00–16:45",
+          "titolo": "Insegnare il Movimento: le Scienze Motorie a scuola tra educazione e ricerca"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–9:45",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Scienza in Azione: il ruolo della nutrizione nello sportivo"
+        },
+        {
+          "ora": "11:15–12:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Tra Scienza e Inganno: il confine sottile del doping"
+        }
+      ]
+    }
+  },
+  "E_MAGNA": {
+    "aula": "Aula Magna",
+    "edificio": "Edificio E",
+    "piano": "Primo piano",
+    "dipartimento": "SCUOLA DI INGEGNERIA – AULA MAGNA",
+    "emoji": "⚙️",
+    "giorni": {
+      "2026-10-15": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Seminario: Human, smart, invisible: le tre anime dell'ingegneria digitale"
+        },
+        {
+          "ora": "11:15–12:15",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Seminario Intelligenza artificiale e design: nuove sfide, nuove opportunità"
+        },
+        {
+          "ora": "14:00–15:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Seminario: Ingegneria Biomedica: dalla cellula alla clinica, progettiamo la salute di domani"
+        },
+        {
+          "ora": "16:00–17:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Seminario Come si cambia un'industria? Ingegneria chimica e transizione verde"
+        }
+      ],
+      "2026-10-16": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Seminario Robotica e Automazione: progettare le tecnologie per le sfide del futuro"
+        },
+        {
+          "ora": "11:15–12:15",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Seminario Dal data center all’intelligenza artificiale: le sfide dell'ingegneria informatica"
+        },
+        {
+          "ora": "14:00–15:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Seminario: Affrontiamo il futuro… EnergEticaMente!"
+        },
+        {
+          "ora": "16:00–17:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Seminario: Misure per comprendere: esempi dal mondo dell’energia"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Seminario Pensare da ingegnere nella progettazione di un'automobile"
+        },
+        {
+          "ora": "11:15–12:15",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Seminario: Veicoli elettrici: una scelta green?"
+        }
       ]
     }
   },
   "E_PS1": {
     "aula": "Aula PS1",
     "edificio": "Edificio E",
-    "piano": "",
-    "dipartimento": "Scuola di Ingegneria",
+    "piano": "Piano terra",
+    "dipartimento": "SCUOLA DI INGEGNERIA – AULA PS1",
     "emoji": "⚙️",
     "giorni": {
-      "2026-06-11": [
-        {"ora": "9:30–11:00",  "titolo": "Presentazione offerta didattica dei Dipartimenti della Scuola di Ingegneria + seminario tematico"},
-        {"ora": "11:30–13:00", "titolo": "Presentazione offerta didattica dei Dipartimenti della Scuola di Ingegneria + seminario tematico"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e tour (visita ai laboratori della Scuola di Ingegneria)"}
+      "2026-10-15": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Chiedi ai tutor!"
+        },
+        {
+          "ora": "11:15–12:15",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Chiedi ai tutor!"
+        },
+        {
+          "ora": "14:00–15:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Chiedi ai tutor!"
+        },
+        {
+          "ora": "16:00–17:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Chiedi ai tutor!"
+        }
       ],
-      "2026-06-12": [
-        {"ora": "9:30–11:00",  "titolo": "Presentazione offerta didattica dei Dipartimenti della Scuola di Ingegneria + seminario tematico"},
-        {"ora": "11:30–13:00", "titolo": "Presentazione offerta didattica dei Dipartimenti della Scuola di Ingegneria + seminario tematico"},
-        {"ora": "14:00–18:00", "titolo": "Spazio domande e Fibonacci Escape Room"}
+      "2026-10-16": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Chiedi ai tutor!"
+        },
+        {
+          "ora": "11:15–12:15",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Chiedi ai tutor!"
+        },
+        {
+          "ora": "14:00–15:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "15:00–15:45",
+          "titolo": "Chiedi ai tutor!"
+        },
+        {
+          "ora": "16:00–17:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "17:00–17:45",
+          "titolo": "Chiedi ai tutor!"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–10:00",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "10:00–10:45",
+          "titolo": "Chiedi ai tutor!"
+        },
+        {
+          "ora": "11:15–12:15",
+          "titolo": "Presentazione dell’offerta formativa"
+        },
+        {
+          "ora": "12:15–13:00",
+          "titolo": "Chiedi ai tutor!"
+        }
+      ]
+    }
+  },
+  "B_N": {
+    "aula": "Aula N",
+    "edificio": "Edificio B",
+    "piano": "Piano terra",
+    "dipartimento": "SCUOLA NORMALE SUPERIORE E SCUOLA SUPERIORE SANT’ANNA",
+    "emoji": "🎓",
+    "giorni": {
+      "2026-10-15": [
+        {
+          "ora": "11:30",
+          "titolo": "Orientarsi tra Scuola Normale Superiore e Scuola Superiore Sant’Anna"
+        },
+        {
+          "ora": "14:00",
+          "titolo": "Orientarsi tra Scuola Normale Superiore e Scuola Superiore Sant’Anna"
+        }
+      ],
+      "2026-10-16": [
+        {
+          "ora": "11:30",
+          "titolo": "Orientarsi tra Scuola Normale Superiore e Scuola Superiore Sant’Anna"
+        },
+        {
+          "ora": "14:00",
+          "titolo": "Orientarsi tra Scuola Normale Superiore e Scuola Superiore Sant’Anna"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "11:30",
+          "titolo": "Orientarsi tra Scuola Normale Superiore e Scuola Superiore Sant’Anna"
+        }
+      ]
+    }
+  },
+  "E_PS4": {
+    "aula": "Aula PS4",
+    "edificio": "Edificio E",
+    "piano": "Primo piano",
+    "dipartimento": "Seminari per docenti",
+    "emoji": "👩‍🏫",
+    "giorni": {
+      "2026-10-15": [
+        {
+          "ora": "10:00–11:00",
+          "titolo": "L'Orientamento tra bisogni e motivazione"
+        }
+      ],
+      "2026-10-16": [
+        {
+          "ora": "10:00–11:00",
+          "titolo": "L'Orientamento tra bisogni e motivazione"
+        }
+      ]
+    }
+  },
+  "B1_P1": {
+    "aula": "Aula P1",
+    "edificio": "Edificio B",
+    "piano": "Primo piano",
+    "dipartimento": "Seminari e colloqui di orientamento alla scelta",
+    "emoji": "🧭",
+    "giorni": {
+      "2026-10-15": [
+        {
+          "ora": "10:00–11:00",
+          "titolo": "Scegliere bene: una skill da allenare"
+        },
+        {
+          "ora": "11:00–12:00",
+          "titolo": "Scegliere bene: una skill da allenare"
+        },
+        {
+          "ora": "14:30–17:30",
+          "titolo": "Colloqui individuali sulla scelta consapevole"
+        },
+        {
+          "ora": "12:00–13:00",
+          "titolo": "Presentazione Circle U"
+        }
+      ],
+      "2026-10-16": [
+        {
+          "ora": "10:00–11:00",
+          "titolo": "Scegliere bene: una skill da allenare"
+        },
+        {
+          "ora": "11:00–12:00",
+          "titolo": "Scegliere bene: una skill da allenare"
+        },
+        {
+          "ora": "14:30–17:30",
+          "titolo": "Colloqui individuali sulla scelta consapevole"
+        },
+        {
+          "ora": "11:00–12:00",
+          "titolo": "Incontro con studenti e studentesse allo stand dell'Ufficio internazionale"
+        },
+        {
+          "ora": "12:00–13:00",
+          "titolo": "Presentazione Circle U"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "10:00–11:00",
+          "titolo": "Scegliere bene: una skill da allenare"
+        },
+        {
+          "ora": "11:00–12:00",
+          "titolo": "Scegliere bene: una skill da allenare"
+        },
+        {
+          "ora": "11:00–12:00",
+          "titolo": "Incontro con studenti e studentesse allo stand dell'Ufficio internazionale"
+        },
+        {
+          "ora": "12:00–13:00",
+          "titolo": "Presentazione Circle U"
+        }
+      ]
+    }
+  },
+  "B1_L1": {
+    "aula": "Aula L1",
+    "edificio": "Edificio B",
+    "piano": "Primo piano",
+    "dipartimento": "IMT SCUOLA ALTI STUDI DI LUCCA",
+    "emoji": "🔬",
+    "giorni": {
+      "2026-10-15": [
+        {
+          "ora": "9:00–13:00",
+          "titolo": "IMT Tutors: incontri brevi, informali e personalizzati con i tutor IMT"
+        },
+        {
+          "ora": "14:00–18:00",
+          "titolo": "IMT Tutors: incontri brevi, informali e personalizzati con i tutor IMT"
+        },
+        {
+          "ora": "11:00–13:00",
+          "titolo": "Scopri chi puoi diventare: uno spazio aperto per domande e curiosità sul tuo futuro"
+        },
+        {
+          "ora": "14:00–16:00",
+          "titolo": "Scopri chi puoi diventare: uno spazio aperto per domande e curiosità sul tuo futuro"
+        }
+      ],
+      "2026-10-16": [
+        {
+          "ora": "9:00–13:00",
+          "titolo": "IMT Tutors: incontri brevi, informali e personalizzati con i tutor IMT"
+        },
+        {
+          "ora": "14:00–18:00",
+          "titolo": "IMT Tutors: incontri brevi, informali e personalizzati con i tutor IMT"
+        },
+        {
+          "ora": "9:00–11:00",
+          "titolo": "Scopri chi puoi diventare: uno spazio aperto per domande e curiosità sul tuo futuro"
+        },
+        {
+          "ora": "16:00–18:00",
+          "titolo": "Scopri chi puoi diventare: uno spazio aperto per domande e curiosità sul tuo futuro"
+        }
+      ],
+      "2026-10-17": [
+        {
+          "ora": "9:00–13:00",
+          "titolo": "IMT Tutors: incontri brevi, informali e personalizzati con i tutor IMT"
+        },
+        {
+          "ora": "11:00–13:00",
+          "titolo": "Scopri chi puoi diventare: uno spazio aperto per domande e curiosità sul tuo futuro"
+        }
       ]
     }
   }
