@@ -632,6 +632,21 @@ function goBack(fromId, toId){
   // Cleanup
   setTimeout(()=>{ instantClass(f, null); }, 370);
 }
+
+// Pulsante "indietro" di Telegram (e gesto indietro di Android): torna alla schermata di
+// prima come il ‹ in alto. Senza, il gesto indietro chiudeva tutta la mini app.
+const SCHERMATA_PRIMA = {'screen-detail':'screen-home', 'screen-courses':'screen-detail', 'screen-course':'screen-courses'};
+function schermataAttiva(){ const s = document.querySelector('.screen.active'); return s ? s.id : null; }
+if (tg && tg.BackButton) {
+  tg.BackButton.onClick(() => {
+    const a = schermataAttiva();
+    if (SCHERMATA_PRIMA[a]) goBack(a, SCHERMATA_PRIMA[a]);
+  });
+  const aggiornaIndietro = () => SCHERMATA_PRIMA[schermataAttiva()] ? tg.BackButton.show() : tg.BackButton.hide();
+  const osserva = new MutationObserver(aggiornaIndietro);
+  document.querySelectorAll('.screen').forEach(s => osserva.observe(s, {attributes: true, attributeFilter: ['class']}));
+  aggiornaIndietro();
+}
 </script>
 <script>
   /* statistiche anonime: conta solo l'apertura della pagina, nessun dato personale */

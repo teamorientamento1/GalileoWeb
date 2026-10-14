@@ -1655,7 +1655,15 @@ function openSheet() {
   document.getElementById('mapOverlay').classList.add('show');
   clearInterval(_mapTimer);
   _mapTimer = setInterval(mapTick, 30000);
+  if (tg && tg.BackButton) tg.BackButton.show();
 }
+
+// Pulsante "indietro" di Telegram (e gesto indietro di Android) con la mappa aperta:
+// dalla piantina aperta dalla mappa del Polo si torna alla mappa del Polo, altrimenti
+// si chiude la mappa. Senza, il gesto indietro chiudeva tutta la mini app.
+if (tg && tg.BackButton) tg.BackButton.onClick(() => {
+  if (_mapView === 'detail' && !_mapOrigin) showOverview(); else closeMap();
+});
 
 // Entry 1: pulsante "Consulta la cartina" → panoramica
 function openMapOverview() {
@@ -1681,6 +1689,7 @@ function closeMap() {
   _mapTimer = null;
   _mapCtx = _mapOrigin = _eventoScelto = null;
   document.getElementById('mapOverlay').classList.remove('show');
+  if (tg && tg.BackButton) tg.BackButton.hide();
 }
 
 // "🗺️ Dove si tiene" nei messaggi del bot apre programma.html?evento=<event_id>:
