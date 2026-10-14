@@ -313,6 +313,9 @@
     }
     .mri-code  { font-size: 16px; font-weight: 800; color: var(--text); }
     .mri-dept  { color: var(--hint); margin-top: 1px; }
+    .mri-evento { background: #fff7ed; border-left: 4px solid #f97316; border-radius: 8px;
+                  padding: 8px 10px; margin-bottom: 8px; font-size: 12px; line-height: 1.4; color: var(--text); }
+    .mri-evento-tit { font-weight: 700; margin: 2px 0; }
     .mri-status {
       margin-top: 8px; display: inline-flex; align-items: center; gap: 6px;
       font-weight: 700; font-size: 12px; padding: 4px 10px; border-radius: 99px;
@@ -1430,6 +1433,13 @@ function renderInfoPanel(bld, selectedRoom) {
 
   // Blocco aula selezionata
   if (roomData) {
+    const sc = _eventoScelto, scL = sc && parseLuogo(sc.d.luogo);
+    if (sc && scL.bld === bld && scL.room === selectedRoom) {   // arrivati da "🗺️ Dove si tiene" del bot
+      const g = sc.g.giorno.charAt(0) + sc.g.giorno.slice(1).toLowerCase();
+      html += `<div class="mri-evento">📌 <b>Il tuo evento</b> · ${esc(g)}, ${sc.ev.orario_inizio}${sc.ev.orario_fine ? '–' + sc.ev.orario_fine : ''}
+        <div class="mri-evento-tit">${esc(sc.ev.titolo_blocco)}</div>
+        <div>📍 ${esc(sc.d.luogo)}</div></div>`;
+    }
     html += `<div class="mri-code">${roomData.label}</div>`;
     html += `<div class="mri-dept">${roomData.dept}</div>`;
 
@@ -1669,8 +1679,20 @@ function openMap(aulaLabel) {
 function closeMap() {
   clearInterval(_mapTimer);
   _mapTimer = null;
-  _mapCtx = _mapOrigin = null;
+  _mapCtx = _mapOrigin = _eventoScelto = null;
   document.getElementById('mapOverlay').classList.remove('show');
+}
+
+// "🗺️ Dove si tiene" nei messaggi del bot apre programma.html?evento=<event_id>:
+// giorno dell'evento e mappa gia' aperta sulla sua aula, con l'evento nel pannello.
+let _eventoScelto = null;
+function apriEvento(id) {
+  PROGRAMMA.programma.forEach((g, i) => g.dipartimenti.forEach(d => d.eventi.forEach(ev => {
+    if (ev.event_id === id) _eventoScelto = { g, i, d, ev };
+  })));
+  if (!_eventoScelto) return;
+  switchDay(_eventoScelto.i);
+  openMap(_eventoScelto.d.luogo);
 }
 
 // Anteprima della cartina nel pulsante in testata
@@ -1790,6 +1812,8 @@ function renderAll() {
 document.addEventListener('DOMContentLoaded', () => {
   if (tg) { tg.ready(); tg.expand(); }
   renderAll();
+  const evento = Number(new URLSearchParams(location.search).get('evento'));
+  if (evento) apriEvento(evento);
 });
 </script>
 <script>
