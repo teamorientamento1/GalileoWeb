@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1125" width="2000" height="1125" font-family="Segoe UI, -apple-system, Roboto, Helvetica, Arial, sans-serif">
+<defs><filter id="o" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity=".13"/></filter></defs>
+<rect width="2000" height="1125" fill="#f8fafc"/>
+<rect x="77" y="142" width="491" height="931" rx="30" fill="#ffffff" stroke="#94a3b8" stroke-width="6" filter="url(#o)"/>
+<text x="322" y="116" font-size="46" font-weight="800" fill="#334155" text-anchor="middle">PIANO TERRA</text>
+<rect x="902" y="142" width="1021" height="931" rx="30" fill="#ffffff" stroke="#94a3b8" stroke-width="6" filter="url(#o)"/>
+<text x="1413" y="116" font-size="46" font-weight="800" fill="#334155" text-anchor="middle">PRIMO PIANO</text>
+<rect x="1430" y="175" width="460" height="865" rx="14" fill="#e9eef4" stroke="#64748b" stroke-width="5"/>
+<text x="1660" y="599" font-size="72" font-weight="800" fill="#334155" text-anchor="middle">Aula Magna</text>
+<text x="1660" y="655" font-size="42" font-weight="600" fill="#334155" text-anchor="middle">Ingegneria</text>
+<rect x="935" y="240" width="425" height="185" rx="14" fill="#fff1cc" stroke="#f59e0b" stroke-width="5"/>
+<text x="1148" y="319" font-size="55" font-weight="800" fill="#92400e" text-anchor="middle">PS4</text>
+<text x="1148" y="375" font-size="42" font-weight="600" fill="#334155" text-anchor="middle">Seminari docenti</text>
+<rect x="110" y="175" width="425" height="545" rx="14" fill="#e9eef4" stroke="#64748b" stroke-width="5"/>
+<text x="322" y="442" font-size="84" font-weight="800" fill="#334155" text-anchor="middle">PS1</text>
+<text x="322" y="499" font-size="42" font-weight="600" fill="#334155" text-anchor="middle">Ingegneria</text>
+</svg>
