@@ -374,7 +374,7 @@
 <div class="legend">
   <span class="legend-item"><span class="legend-dot" style="background:#3a5bcc"></span>Pomeriggio</span>
   <span class="legend-item"><span class="legend-dot" style="background:#c47c00"></span>Pausa</span>
-  <span class="legend-item">🔔 Ricordamelo: il bot ti avvisa 15 minuti prima</span>
+  <span class="legend-item">🔔 Ricordamelo: il bot ti avvisa 15 minuti prima · ✅ toccalo di nuovo per toglierlo</span>
 </div>
 
 <div id="days-container"></div>
@@ -1712,25 +1712,39 @@ function badge(ev) {
   return '';
 }
 
-// 🔔 Ricordami: il bot (/start ricorda_<event_id>) segna l'evento e avvisa 15 minuti prima.
-// Il ✅ e' solo un ricordo di questo telefono; l'elenco vero e' in "Le mie prenotazioni" del bot.
+// 🔔 Ricordami: il bot (/start ricorda_<event_id>) segna l'evento e avvisa 15 minuti prima;
+// ✅ toccato di nuovo lo toglie (/start dimentica_<event_id>).
+// Quali sono segnati lo dice il bot nell'indirizzo (?segnati=1001.1002, dai pulsanti 🗺️ del bot):
+// cosi' un 🔕 dato in "Le mie prenotazioni" toglie il ✅ anche qui. Senza ?segnati (pagina
+// aperta da fuori dal bot) resta il ricordo di questo telefono.
 const BOT_EVENTO = 'GalileoUnipi_bot';
-function ricordati() {
-  try { return JSON.parse(localStorage.getItem('ricordati') || '[]'); } catch (e) { return []; }
+const SEGNATI = (() => {
+  const q = new URLSearchParams(location.search);
+  let s;
+  if (q.has('segnati')) {
+    s = q.get('segnati').split('.').filter(Boolean).map(Number);
+  } else {
+    try { s = JSON.parse(localStorage.getItem('ricordati') || '[]'); } catch (e) { s = []; }
+  }
+  return new Set(s);
+})();
+function salvaSegnati() {
+  try { localStorage.setItem('ricordati', JSON.stringify([...SEGNATI])); } catch (e) {}
 }
+salvaSegnati();
 function ricordami(id, btn) {
-  try {
-    const s = ricordati();
-    if (!s.includes(id)) { s.push(id); localStorage.setItem('ricordati', JSON.stringify(s)); }
-  } catch (e) {}
-  btn.classList.add('fatto'); btn.textContent = '✅';
-  const url = `https://t.me/${BOT_EVENTO}?start=ricorda_${id}`;
+  const togli = SEGNATI.has(id);
+  if (togli) SEGNATI.delete(id); else SEGNATI.add(id);
+  salvaSegnati();
+  btn.classList.toggle('fatto', !togli);
+  btn.textContent = togli ? '🔔' : '✅';
+  const url = `https://t.me/${BOT_EVENTO}?start=${togli ? 'dimentica' : 'ricorda'}_${id}`;
   if (tg && tg.openTelegramLink) tg.openTelegramLink(url); else window.open(url, '_blank');
 }
 
 function renderEvent(ev, data) {
   const futuro = data > todayKey() || (data === todayKey() && hhmm(ev.orario_inizio) > nowMin());
-  const segnato = ricordati().includes(ev.event_id);
+  const segnato = SEGNATI.has(ev.event_id);
   const bell = futuro && !/pausa/i.test(ev.titolo_blocco)
     ? `<button class="remind-btn${segnato ? ' fatto' : ''}" title="Ricordamelo" aria-label="Ricordamelo"
          onclick="ricordami(${ev.event_id}, this)">${segnato ? '✅' : '🔔'}</button>` : '';
