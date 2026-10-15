@@ -338,6 +338,7 @@ function haptic(t){ if(tg) tg.HapticFeedback.impactOccurred(t||'light'); }
 /* ── OPEN AREA ── */
 function openArea(area, card){
   haptic('medium');
+  conta('area-' + area.nome.split(',')[0]);
   curArea = area;
 
   // Prepara la schermata detail (in background)
@@ -464,6 +465,7 @@ function parseAccesso(desc){
 /* ── OPEN LEVEL ── */
 function openLevel(tipo){
   haptic('light');
+  conta('livello-' + tipo);
   curLevel = tipo;
   const area  = curArea;
   const corsi = area.corsi.filter(c=>c.tipo===tipo)
@@ -508,6 +510,8 @@ function openLevel(tipo){
 /* ── OPEN COURSE ── */
 function openCourse(corso){
   haptic('light');
+  conta('corso-aperto');
+  conta('corso-' + corso.nome);
   const area = curArea;
   document.getElementById('course-topbar-title').textContent = TIPO_LABEL[corso.tipo];
 
@@ -544,6 +548,7 @@ function openCourse(corso){
 
   // 📤 Condividi
   document.getElementById('btn-share').addEventListener('click', async function(){
+    conta('condividi');
     const shareData = { title: corso.nome, text: corso.descrizione||'', url: corso.url||'' };
     if(navigator.share){
       try { await navigator.share(shareData); } catch(e){}
@@ -558,6 +563,7 @@ function openCourse(corso){
 
   // 📋 Copia link
   document.getElementById('btn-cpy').addEventListener('click', function(){
+    conta('copia-link');
     const url = corso.url || location.href;
     const done = () => {
       this.innerHTML = '<span class="ico">✅</span>Copiato!';
@@ -575,6 +581,7 @@ function openCourse(corso){
   // 🌐 Vai al sito
   if(corso.url){
     document.getElementById('btn-site').addEventListener('click', function(){
+      conta('sito-unipi');
       if(window.Telegram?.WebApp?.showConfirm)
         Telegram.WebApp.showConfirm('Aprire il sito di UniPi?', ok => { if(ok) Telegram.WebApp.openLink(corso.url); });
       else window.open(corso.url,'_blank');
@@ -592,6 +599,7 @@ function openCourse(corso){
 })();
 
 function toggleContrast(){
+  conta('alto-contrasto');
   const on = document.body.classList.toggle('hi-con');
   localStorage.setItem('hi-con', on?'1':'0');
   const b = document.getElementById('btn-hc'); if(b) b.classList.toggle('on', on);
@@ -601,6 +609,7 @@ function toggleContrast(){
 const _FSZ = ['md','lg','xl'];
 const _FSZ_LABEL = {md:'Aa', lg:'A+', xl:'A++'};
 function toggleFontSize(){
+  conta('testo-piu-grande');
   const cur = _FSZ.find(s=>document.body.classList.contains('fsz-'+s)) || 'md';
   const next = _FSZ[(_FSZ.indexOf(cur)+1) % _FSZ.length];
   _FSZ.forEach(s=>document.body.classList.remove('fsz-'+s));
@@ -655,6 +664,30 @@ if (tg && tg.BackButton) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ page: 'corsi' })
   }).catch(function(){});
+
+  /* 15/10/2026: anche i clic, per le statistiche del pannello admin del bot. Si manda solo
+     quante volte e' stata fatta ogni azione (es. "corso-aperto": 3), a gruppi, al /clic
+     del Worker: niente dati Telegram, niente cookie. */
+  var CLIC_URL = 'https://attestati-unipi.teamorientamento1.workers.dev/clic';
+  var _clic = {};
+  function conta(azione) {
+    azione = String(azione).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40);
+    if (azione) _clic[azione] = (_clic[azione] || 0) + 1;
+  }
+  function mandaClic() {
+    var azioni = _clic;
+    _clic = {};
+    if (!Object.keys(azioni).length) return;
+    try {
+      fetch(CLIC_URL, { method: 'POST', keepalive: true, mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({ page: 'corsi', azioni: azioni }) }).catch(function(){});
+    } catch (e) {}
+  }
+  setInterval(mandaClic, 60000);
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') mandaClic(); });
+  window.addEventListener('pagehide', mandaClic);
 </script>
 </body>
 </html>
