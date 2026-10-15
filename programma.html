@@ -1533,6 +1533,7 @@ function paintDetail() {
 
 function showOverview() {
   _mapView = 'overview';
+  _mapOrigin = null;        // dalla mappa del Polo l'origine non e' piu' la card: indietro torna qui (15/10/2026)
   _mapInteractive = true;   // dalla panoramica del Polo le aule sono cliccabili
   document.getElementById('mapDetail').style.display   = 'none';
   document.getElementById('mapOverview').style.display = 'flex';
@@ -1863,14 +1864,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (azione) _clic[azione] = (_clic[azione] || 0) + 1;
   }
   function mandaClic() {
-    var azioni = _clic;
+    var azioni = _clic, nomi = Object.keys(azioni);
     _clic = {};
-    if (!Object.keys(azioni).length) return;
-    try {
-      fetch(CLIC_URL, { method: 'POST', keepalive: true, mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({ page: 'programma', azioni: azioni }) }).catch(function(){});
-    } catch (e) {}
+    for (var i = 0; i < nomi.length; i += 20) {   // il Worker ne tiene 20 per gruppo
+      var gruppo = {};
+      nomi.slice(i, i + 20).forEach(function (k) { gruppo[k] = azioni[k]; });
+      try {
+        fetch(CLIC_URL, { method: 'POST', keepalive: true, mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({ page: 'programma', azioni: gruppo }) }).catch(function(){});
+      } catch (e) {}
+    }
   }
   setInterval(mandaClic, 60000);
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') mandaClic(); });

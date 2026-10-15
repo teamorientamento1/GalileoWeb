@@ -511,7 +511,7 @@ function openLevel(tipo){
 function openCourse(corso){
   haptic('light');
   conta('corso-aperto');
-  conta('corso-' + corso.nome);
+  conta('corso-' + (corso.tipo || '?')[0] + '-' + corso.nome);   // t/m/c: triennale e magistrale con lo stesso nome restano distinte
   const area = curArea;
   document.getElementById('course-topbar-title').textContent = TIPO_LABEL[corso.tipo];
 
@@ -626,8 +626,9 @@ function goTo(fromId, toId){
   f.className = 'screen exit-left';
   // to: entra da destra
   t.className = 'screen active';
-  // Dopo la transizione: from sparisce istantaneamente a destra
-  setTimeout(()=>{ instantClass(f, null); }, 370);
+  // Dopo la transizione: from sparisce istantaneamente a destra. Non se nel frattempo e'
+  // tornata la schermata attiva (indietro entro 370 ms): restava la pagina vuota (15/10/2026).
+  setTimeout(()=>{ if (!f.classList.contains('active')) instantClass(f, null); }, 370);
 }
 
 function goBack(fromId, toId){
@@ -638,8 +639,8 @@ function goBack(fromId, toId){
   f.className = 'screen going-right';
   // to: torna al centro (era a -28% come exit-left)
   t.className = 'screen active';
-  // Cleanup
-  setTimeout(()=>{ instantClass(f, null); }, 370);
+  // Cleanup (come in goTo: non se la schermata e' di nuovo quella attiva)
+  setTimeout(()=>{ if (!f.classList.contains('active')) instantClass(f, null); }, 370);
 }
 
 // Pulsante "indietro" di Telegram (e gesto indietro di Android): torna alla schermata di
@@ -676,14 +677,17 @@ if (tg && tg.BackButton) {
     if (azione) _clic[azione] = (_clic[azione] || 0) + 1;
   }
   function mandaClic() {
-    var azioni = _clic;
+    var azioni = _clic, nomi = Object.keys(azioni);
     _clic = {};
-    if (!Object.keys(azioni).length) return;
-    try {
-      fetch(CLIC_URL, { method: 'POST', keepalive: true, mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify({ page: 'corsi', azioni: azioni }) }).catch(function(){});
-    } catch (e) {}
+    for (var i = 0; i < nomi.length; i += 20) {   // il Worker ne tiene 20 per gruppo
+      var gruppo = {};
+      nomi.slice(i, i + 20).forEach(function (k) { gruppo[k] = azioni[k]; });
+      try {
+        fetch(CLIC_URL, { method: 'POST', keepalive: true, mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({ page: 'corsi', azioni: gruppo }) }).catch(function(){});
+      } catch (e) {}
+    }
   }
   setInterval(mandaClic, 60000);
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden') mandaClic(); });
